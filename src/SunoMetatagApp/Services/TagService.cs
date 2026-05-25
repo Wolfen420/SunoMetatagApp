@@ -66,6 +66,26 @@ public static class TagService
             .OrderBy(c => c, StringComparer.Ordinal)
             .ToList();
 
+    public static IEnumerable<TagDefinition> Filter(
+        IEnumerable<TagDefinition> tags,
+        string? search,
+        string? category)
+    {
+        bool categoryMatches(TagDefinition t) =>
+            string.IsNullOrEmpty(category) ||
+            category.Equals("All", StringComparison.Ordinal) ||
+            t.Category.Equals(category, StringComparison.Ordinal);
+
+        bool searchMatches(TagDefinition t)
+        {
+            if (string.IsNullOrEmpty(search)) return true;
+            return t.Label.Contains(search, StringComparison.OrdinalIgnoreCase)
+                || t.Bracket.Contains(search, StringComparison.OrdinalIgnoreCase);
+        }
+
+        return tags.Where(t => categoryMatches(t) && searchMatches(t));
+    }
+
     private sealed class TagDto
     {
         [JsonPropertyName("category")]    public string? Category { get; set; }
