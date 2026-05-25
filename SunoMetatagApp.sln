@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FAA94C19-E6E6-454F-BCFE-0C27479EFBA9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunoMetatagApp", "src\SunoMetatagApp\SunoMetatagApp.csproj", "{7CCFA1C3-7657-4BC7-B1DB-6650B10B3BC7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{4A7D8AB3-C454-4139-A73C-A1798060691D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunoMetatagApp.Tests", "tests\SunoMetatagApp.Tests\SunoMetatagApp.Tests.csproj", "{94490792-8293-411A-B812-C8C6C997F33F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7CCFA1C3-7657-4BC7-B1DB-6650B10B3BC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CCFA1C3-7657-4BC7-B1DB-6650B10B3BC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CCFA1C3-7657-4BC7-B1DB-6650B10B3BC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CCFA1C3-7657-4BC7-B1DB-6650B10B3BC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94490792-8293-411A-B812-C8C6C997F33F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94490792-8293-411A-B812-C8C6C997F33F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94490792-8293-411A-B812-C8C6C997F33F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94490792-8293-411A-B812-C8C6C997F33F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7CCFA1C3-7657-4BC7-B1DB-6650B10B3BC7} = {FAA94C19-E6E6-454F-BCFE-0C27479EFBA9}
+		{94490792-8293-411A-B812-C8C6C997F33F} = {4A7D8AB3-C454-4139-A73C-A1798060691D}
+	EndGlobalSection
+EndGlobal
