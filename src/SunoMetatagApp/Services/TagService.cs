@@ -60,6 +60,12 @@ public static class TagService
         return result;
     }
 
+    public static IReadOnlyList<string> DistinctCategories(IEnumerable<TagDefinition> tags) =>
+        tags.Select(t => t.Category)
+            .Distinct(StringComparer.Ordinal)
+            .OrderBy(c => c, StringComparer.Ordinal)
+            .ToList();
+
     private sealed class TagDto
     {
         [JsonPropertyName("category")]    public string? Category { get; set; }

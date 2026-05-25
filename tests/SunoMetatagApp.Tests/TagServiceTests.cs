@@ -57,4 +57,18 @@ public class TagServiceTests
         var ex = Assert.Throws<TagLoadException>(() => TagService.LoadAll("Z:\\definitely\\missing.json"));
         Assert.Contains("not found", ex.Message, System.StringComparison.OrdinalIgnoreCase);
     }
+
+    [Fact]
+    public void DistinctCategories_ReturnsSortedDistinct()
+    {
+        var tags = new[]
+        {
+            new TagDefinition("Vocal",     "A", "[A]"),
+            new TagDefinition("Structure", "B", "[B]"),
+            new TagDefinition("Vocal",     "C", "[C]"),
+            new TagDefinition("Effect",    "D", "[D]"),
+        };
+        var categories = TagService.DistinctCategories(tags);
+        Assert.Equal(new[] { "Effect", "Structure", "Vocal" }, categories);
+    }
 }
