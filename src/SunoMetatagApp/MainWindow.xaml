@@ -60,7 +60,10 @@
                 <ItemsControl x:Name="SectionsHost" ItemsSource="{Binding Sections}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type m:Section}">
-                            <!-- r2: focused-section affordance via DataTrigger on FocusedSection -->
+                            <!-- r2: focused-section affordance via native IsKeyboardFocusWithin.
+                                 Cleaner than VM-property comparison: WPF natively tracks
+                                 keyboard focus through descendants. Becomes True when this
+                                 Border's lyric TextBox (or any descendant) has keyboard focus. -->
                             <Border CornerRadius="4" Margin="0,0,0,8" Padding="6"
                                     Background="White">
                                 <Border.Style>
@@ -68,10 +71,10 @@
                                         <Setter Property="BorderBrush" Value="#CCC" />
                                         <Setter Property="BorderThickness" Value="1" />
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.FocusedSection}" Value="{Binding}">
+                                            <Trigger Property="IsKeyboardFocusWithin" Value="True">
                                                 <Setter Property="BorderBrush" Value="SteelBlue" />
                                                 <Setter Property="BorderThickness" Value="2" />
-                                            </DataTrigger>
+                                            </Trigger>
                                         </Style.Triggers>
                                     </Style>
                                 </Border.Style>
