@@ -1,6 +1,7 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 using SunoMetatagApp.Models;
@@ -10,6 +11,8 @@ namespace SunoMetatagApp;
 
 public partial class MainWindow : Window
 {
+    private TextBox? _currentFocusedTextBox;
+
     public MainWindow()
     {
         InitializeComponent();
@@ -20,9 +23,15 @@ public partial class MainWindow : Window
     private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
         if (e.OldValue is MainViewModel oldVm)
+        {
             oldVm.CopyRequested -= OnCopyRequested;
+            oldVm.CaretRestoreRequested -= OnCaretRestoreRequested;
+        }
         if (e.NewValue is MainViewModel newVm)
+        {
             newVm.CopyRequested += OnCopyRequested;
+            newVm.CaretRestoreRequested += OnCaretRestoreRequested;
+        }
     }
 
     private void OnCopyRequested(object? sender, EventArgs e)
@@ -33,8 +42,6 @@ public partial class MainWindow : Window
         }
     }
 
-    // Initial focus walker — defer to DispatcherPriority.Loaded so item containers exist,
-    // then walk the visual tree from SectionsHost to the first section's lyric TextBox.
     private void OnWindowLoaded(object sender, RoutedEventArgs e)
     {
         Dispatcher.BeginInvoke(
@@ -72,17 +79,86 @@ public partial class MainWindow : Window
         return null;
     }
 
+    // Focus tracking: lyric TextBox gained keyboard focus.
+    private void LyricTextBox_GotFocus(object sender, KeyboardFocusChangedEventArgs e)
+    {
+        if (sender is not TextBox tb || tb.DataContext is not Section section) return;
+        if (DataContext is not MainViewModel vm) return;
+
+        vm.FocusedSection = section;
+        vm.FocusedCaretPosition = tb.SelectionStart;
+        vm.FocusedSelectionLength = tb.SelectionLength;
+        _currentFocusedTextBox = tb;
+    }
+
+    // r2 (resolves HIGH-1): defer-clear FocusedSection when focus leaves to anywhere
+    // outside the lyric-textbox set. Deferred via Dispatcher.BeginInvoke so a
+    // Focusable=False button click (which can briefly fire LostFocus for non-keyboard
+    // focus types) does not trip the clear. The lambda re-checks before clearing:
+    // if GotKeyboardFocus already moved FocusedSection to another lyric textbox,
+    // or focus is now on any other lyric textbox, leave the new state alone.
+    private void LyricTextBox_LostFocus(object sender, KeyboardFocusChangedEventArgs e)
+    {
+        if (sender is not TextBox tb || tb.DataContext is not Section section) return;
+        if (DataContext is not MainViewModel vm) return;
+
+        var sectionAtLossTime = section;
+        var tbAtLossTime = tb;
+        Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(() =>
+        {
+            if (vm.FocusedSection != sectionAtLossTime) return;
+
+            if (Keyboard.FocusedElement is TextBox focusedTb &&
+                focusedTb.DataContext is Section)
+            {
+                return;
+            }
+
+            vm.FocusedSection = null;
+            vm.FocusedCaretPosition = 0;
+            vm.FocusedSelectionLength = 0;
+            if (ReferenceEquals(_currentFocusedTextBox, tbAtLossTime))
+                _currentFocusedTextBox = null;
+        }));
+    }
+
+    // Keep caret + selection tracked while focus stays on this textbox.
+    private void LyricTextBox_SelectionChanged(object sender, RoutedEventArgs e)
+    {
+        if (sender is not TextBox tb || tb.DataContext is not Section section) return;
+        if (DataContext is not MainViewModel vm) return;
+        if (vm.FocusedSection != section) return;
+
+        vm.FocusedCaretPosition = tb.SelectionStart;
+        vm.FocusedSelectionLength = tb.SelectionLength;
+    }
+
+    // After InsertTag mutates Section.Lyrics, the bound TextBox.Text update propagates
+    // via the dispatcher; defer the caret-restore so it lands after Text has updated.
+    private void OnCaretRestoreRequested(object? sender, int newCaretPosition)
+    {
+        var tb = _currentFocusedTextBox;
+        if (tb is null) return;
+        Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(() =>
+        {
+            tb.Focus();
+            var clamped = Math.Clamp(newCaretPosition, 0, tb.Text?.Length ?? 0);
+            tb.SelectionStart = clamped;
+            tb.SelectionLength = 0;
+        }));
+    }
+
     private void DeleteSectionButton_Click(object sender, RoutedEventArgs e)
     {
         if (sender is not Button btn) return;
         if (btn.CommandParameter is not Section section) return;
         if (DataContext is not MainViewModel vm) return;
 
-        bool hasContent = section.Tags.Count > 0 || !string.IsNullOrEmpty(section.Lyrics);
+        bool hasContent = !string.IsNullOrEmpty(section.Lyrics);
         if (hasContent)
         {
             var result = MessageBox.Show(
-                "Delete this section? Its tags and lyrics will be lost.",
+                "Delete this section? Its lyrics will be lost.",
                 "Confirm delete",
                 MessageBoxButton.OKCancel,
                 MessageBoxImage.Warning);

@@ -15,8 +15,6 @@
     <Window.Resources>
         <local:NullToCollapsedConverter x:Key="NullToCollapsedConverter" />
         <local:StringIsNotEmptyConverter x:Key="StringIsNotEmptyConverter" />
-        <local:ArmedToGlyphConverter x:Key="ArmedToGlyphConverter" />
-        <local:CountGreaterThanOneToBoolConverter x:Key="CountGreaterThanOneToBoolConverter" />
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -62,93 +60,59 @@
                 <ItemsControl x:Name="SectionsHost" ItemsSource="{Binding Sections}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type m:Section}">
-                            <Border BorderBrush="#CCC" BorderThickness="1"
-                                    CornerRadius="4" Margin="0,0,0,8" Padding="6"
+                            <!-- r2: focused-section affordance via DataTrigger on FocusedSection -->
+                            <Border CornerRadius="4" Margin="0,0,0,8" Padding="6"
                                     Background="White">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="BorderBrush" Value="#CCC" />
+                                        <Setter Property="BorderThickness" Value="1" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.FocusedSection}" Value="{Binding}">
+                                                <Setter Property="BorderBrush" Value="SteelBlue" />
+                                                <Setter Property="BorderThickness" Value="2" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
 
-                                    <!-- Toolbar row -->
-                                    <DockPanel Grid.Row="0" Margin="0,0,0,4">
-                                        <Button DockPanel.Dock="Right"
-                                                Content="×"
-                                                Padding="8,0"
-                                                FontWeight="Bold"
-                                                ToolTip="Delete this section"
-                                                Click="DeleteSectionButton_Click"
-                                                CommandParameter="{Binding}"
-                                                IsEnabled="{Binding DataContext.Sections.Count, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource CountGreaterThanOneToBoolConverter}}" />
-                                        <Button DockPanel.Dock="Right"
-                                                Content="▼" Padding="6,0" Margin="0,0,3,0"
-                                                FontSize="11"
-                                                ToolTip="Move section down"
-                                                Command="{Binding DataContext.MoveSectionDownCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                                                CommandParameter="{Binding}" />
-                                        <Button DockPanel.Dock="Right"
-                                                Content="▲" Padding="6,0" Margin="0,0,3,0"
+                                    <!-- Toolbar row: ▲ ▼ × only (no arm toggle) -->
+                                    <StackPanel Grid.Row="0" Orientation="Horizontal"
+                                                HorizontalAlignment="Right" Margin="0,0,0,4">
+                                        <Button Content="▲" Padding="6,0" Margin="0,0,3,0"
                                                 FontSize="11"
                                                 ToolTip="Move section up"
                                                 Command="{Binding DataContext.MoveSectionUpCommand, RelativeSource={RelativeSource AncestorType=Window}}"
                                                 CommandParameter="{Binding}" />
-                                        <ToggleButton IsChecked="{Binding IsArmed}"
-                                                      Content="{Binding IsArmed, Converter={StaticResource ArmedToGlyphConverter}}"
-                                                      Padding="8,2"
-                                                      FontSize="13"
-                                                      ToolTip="Armed sections receive tag clicks" />
-                                        <TextBlock Text="Section" Margin="8,0,0,0"
-                                                   VerticalAlignment="Center" Foreground="#888" />
-                                    </DockPanel>
+                                        <Button Content="▼" Padding="6,0" Margin="0,0,3,0"
+                                                FontSize="11"
+                                                ToolTip="Move section down"
+                                                Command="{Binding DataContext.MoveSectionDownCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                CommandParameter="{Binding}" />
+                                        <Button Content="×" Padding="8,0"
+                                                FontWeight="Bold"
+                                                ToolTip="Delete this section"
+                                                Click="DeleteSectionButton_Click"
+                                                CommandParameter="{Binding}" />
+                                    </StackPanel>
 
-                                    <!-- Chip row -->
-                                    <Border Grid.Row="1" BorderBrush="#EEE" BorderThickness="1"
-                                            Background="#F8F8F8" Padding="3" MinHeight="36"
-                                            Margin="0,0,0,4">
-                                        <ItemsControl ItemsSource="{Binding Tags}">
-                                            <ItemsControl.ItemsPanel>
-                                                <ItemsPanelTemplate><WrapPanel Orientation="Horizontal" /></ItemsPanelTemplate>
-                                            </ItemsControl.ItemsPanel>
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate DataType="{x:Type m:TagDefinition}">
-                                                    <Border Background="#E8E8FF" BorderBrush="#BBB" BorderThickness="1"
-                                                            CornerRadius="3" Margin="2" Padding="3,1">
-                                                        <StackPanel Orientation="Horizontal">
-                                                            <TextBlock Text="{Binding Bracket}" Margin="2,0"
-                                                                       VerticalAlignment="Center" />
-                                                            <Button Content="◀" Padding="3,0" Margin="3,0,0,0"
-                                                                    FontSize="9" MinWidth="18"
-                                                                    Command="{Binding DataContext.MoveTagLeftCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                                                    CommandParameter="{Binding}"
-                                                                    ToolTip="Move left" />
-                                                            <Button Content="▶" Padding="3,0" Margin="1,0,0,0"
-                                                                    FontSize="9" MinWidth="18"
-                                                                    Command="{Binding DataContext.MoveTagRightCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                                                    CommandParameter="{Binding}"
-                                                                    ToolTip="Move right" />
-                                                            <Button Content="✕" Padding="4,0" Margin="2,0,2,0"
-                                                                    FontWeight="Bold" MinWidth="18"
-                                                                    Command="{Binding DataContext.RemoveTagCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                                                    CommandParameter="{Binding}"
-                                                                    ToolTip="Remove" />
-                                                        </StackPanel>
-                                                    </Border>
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
-                                    </Border>
-
-                                    <!-- Lyric textbox -->
-                                    <TextBox Grid.Row="2"
+                                    <!-- Lyric textbox (focus events drive VM caret tracking) -->
+                                    <TextBox Grid.Row="1"
                                              Text="{Binding Lyrics, UpdateSourceTrigger=PropertyChanged}"
                                              AcceptsReturn="True"
                                              TextWrapping="Wrap"
-                                             MinLines="6" MaxLines="12"
+                                             MinLines="6" MaxLines="14"
                                              VerticalScrollBarVisibility="Auto"
                                              FontFamily="Consolas" FontSize="13"
-                                             Padding="6" />
+                                             Padding="6"
+                                             GotKeyboardFocus="LyricTextBox_GotFocus"
+                                             LostKeyboardFocus="LyricTextBox_LostFocus"
+                                             SelectionChanged="LyricTextBox_SelectionChanged" />
                                 </Grid>
                             </Border>
                         </DataTemplate>
@@ -164,8 +128,6 @@
         <!-- Right: tag picker -->
         <Grid Grid.Column="4" Margin="6">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -188,26 +150,8 @@
                 </DockPanel>
             </Border>
 
-            <!-- Arm hint -->
-            <Border Grid.Row="1"
-                    Background="#FFF8E0" BorderBrush="#C90" BorderThickness="1"
-                    Padding="4" Margin="0,0,0,6">
-                <TextBlock Text="No section armed — toggle ◉ on a section to receive tag clicks."
-                           Foreground="#660" TextWrapping="Wrap" />
-                <Border.Style>
-                    <Style TargetType="Border">
-                        <Setter Property="Visibility" Value="Collapsed" />
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding ShowArmHint}" Value="True">
-                                <Setter Property="Visibility" Value="Visible" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Border.Style>
-            </Border>
-
             <!-- Search box -->
-            <Grid Grid.Row="2">
+            <Grid Grid.Row="1">
                 <TextBox x:Name="SearchBox"
                          Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
                          Margin="0,0,0,4" Padding="4"
@@ -231,35 +175,35 @@
             </Grid>
 
             <!-- Category dropdown -->
-            <ComboBox Grid.Row="3"
+            <ComboBox Grid.Row="2"
                       ItemsSource="{Binding Categories}"
                       SelectedItem="{Binding SelectedCategory}"
                       Margin="0,0,0,6" Padding="4"
                       ToolTip="Filter by category" />
 
-            <!-- Broadcast scope badge -->
-            <TextBlock Grid.Row="4"
-                       Text="{Binding ArmedSectionCount, StringFormat='Will apply to {0} section(s)'}"
-                       Foreground="#666" FontSize="11"
-                       Margin="2,0,0,4">
-                <TextBlock.Style>
-                    <Style TargetType="TextBlock">
-                        <Setter Property="Visibility" Value="Visible" />
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding ArmedSectionCount}" Value="0">
-                                <Setter Property="Visibility" Value="Collapsed" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBlock.Style>
-            </TextBlock>
-
             <!-- Scrollable button grid + empty-state -->
-            <Grid Grid.Row="5">
-                <ScrollViewer VerticalScrollBarVisibility="Auto"
+            <Grid Grid.Row="3">
+                <ScrollViewer x:Name="TagPickerScroll"
+                              VerticalScrollBarVisibility="Auto"
                               HorizontalScrollBarVisibility="Disabled"
                               KeyboardNavigation.TabNavigation="Once"
                               KeyboardNavigation.DirectionalNavigation="Contained">
+                    <ScrollViewer.Resources>
+                        <!-- r2 HIGH-2: implicit Focusable=False on every Button in the picker.
+                             Load-bearing for caret tracking; applied scope-wide so future
+                             additions inherit it. Also dims to 0.55 + tooltip swap when
+                             FocusedSection is null (no lyric textbox focused). -->
+                        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                            <Setter Property="Focusable" Value="False" />
+                            <Setter Property="Opacity" Value="1.0" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.FocusedSection}" Value="{x:Null}">
+                                    <Setter Property="Opacity" Value="0.55" />
+                                    <Setter Property="ToolTip" Value="Click in a lyric textbox first, then click a tag." />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ScrollViewer.Resources>
                     <ItemsControl ItemsSource="{Binding FilteredTags}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate><WrapPanel Orientation="Horizontal" /></ItemsPanelTemplate>

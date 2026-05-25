@@ -20,14 +20,16 @@ public partial class MainViewModel : ObservableObject
 
     [ObservableProperty] private string _searchText = string.Empty;
     [ObservableProperty] private string _selectedCategory = "All";
-    [ObservableProperty] private string _lyricText = string.Empty;
     [ObservableProperty] private IReadOnlyList<TagViewModel> _filteredTags = Array.Empty<TagViewModel>();
     [ObservableProperty] private string _previewText = string.Empty;
     [ObservableProperty] private string? _loadError;
-    [ObservableProperty] private bool _showArmHint;
-    [ObservableProperty] private int _armedSectionCount;
+
+    [ObservableProperty] private Section? _focusedSection;
+    [ObservableProperty] private int _focusedCaretPosition;
+    [ObservableProperty] private int _focusedSelectionLength;
 
     public event EventHandler? CopyRequested;
+    public event EventHandler<int>? CaretRestoreRequested;
 
     public MainViewModel(IReadOnlyList<TagDefinition> tags)
     {
@@ -47,6 +49,7 @@ public partial class MainViewModel : ObservableObject
         FilteredTags = Array.Empty<TagViewModel>();
         LoadError = loadError;
         Sections.CollectionChanged += OnSectionsChanged;
+        AddSection();
     }
 
     [RelayCommand]
@@ -60,7 +63,7 @@ public partial class MainViewModel : ObservableObject
         Sections.Remove(section);
     }
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(CanMoveSectionUp))]
     private void MoveSectionUp(Section? section)
     {
         if (section is null) return;
@@ -68,7 +71,13 @@ public partial class MainViewModel : ObservableObject
         if (i > 0) Sections.Move(i, i - 1);
     }
 
-    [RelayCommand]
+    private bool CanMoveSectionUp(Section? section)
+    {
+        if (section is null) return false;
+        return Sections.IndexOf(section) > 0;
+    }
+
+    [RelayCommand(CanExecute = nameof(CanMoveSectionDown))]
     private void MoveSectionDown(Section? section)
     {
         if (section is null) return;
@@ -76,19 +85,26 @@ public partial class MainViewModel : ObservableObject
         if (i >= 0 && i < Sections.Count - 1) Sections.Move(i, i + 1);
     }
 
+    private bool CanMoveSectionDown(Section? section)
+    {
+        if (section is null) return false;
+        var i = Sections.IndexOf(section);
+        return i >= 0 && i < Sections.Count - 1;
+    }
+
     [RelayCommand]
     private void InsertTag(TagViewModel? tag)
     {
-        if (tag is null) return;
-        var armed = Sections.Where(s => s.IsArmed).ToList();
-        if (armed.Count == 0)
-        {
-            ShowArmHint = true;
-            return;
-        }
-        ShowArmHint = false;
-        foreach (var s in armed)
-            s.Tags.Add(tag.Definition);
+        if (tag is null || FocusedSection is null) return;
+        var section = FocusedSection;
+        var lyrics = section.Lyrics ?? string.Empty;
+        var caret = Math.Clamp(FocusedCaretPosition, 0, lyrics.Length);
+        var selLen = Math.Clamp(FocusedSelectionLength, 0, Math.Max(0, lyrics.Length - caret));
+        var bracket = tag.Bracket;
+        section.Lyrics = lyrics[..caret] + bracket + lyrics[(caret + selLen)..];
+        FocusedCaretPosition = caret + bracket.Length;
+        FocusedSelectionLength = 0;
+        CaretRestoreRequested?.Invoke(this, FocusedCaretPosition);
     }
 
     [RelayCommand]
@@ -104,19 +120,18 @@ public partial class MainViewModel : ObservableObject
         if (e.OldItems != null)
             foreach (Section s in e.OldItems) UnsubscribeFromSection(s);
         RecomputePreview();
-        RecomputeArmedCount();
+        MoveSectionUpCommand.NotifyCanExecuteChanged();
+        MoveSectionDownCommand.NotifyCanExecuteChanged();
     }
 
     private void SubscribeToSection(Section s)
     {
         s.PropertyChanged += OnSectionPropertyChanged;
-        s.Tags.CollectionChanged += OnSectionTagsChanged;
     }
 
     private void UnsubscribeFromSection(Section s)
     {
         s.PropertyChanged -= OnSectionPropertyChanged;
-        s.Tags.CollectionChanged -= OnSectionTagsChanged;
     }
 
     private void OnSectionPropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -125,21 +140,10 @@ public partial class MainViewModel : ObservableObject
         {
             RecomputePreview();
         }
-        else if (e.PropertyName == nameof(Section.IsArmed))
-        {
-            RecomputeArmedCount();
-            if (sender is Section s && s.IsArmed) ShowArmHint = false;
-        }
     }
-
-    private void OnSectionTagsChanged(object? sender, NotifyCollectionChangedEventArgs e)
-        => RecomputePreview();
 
     private void RecomputePreview()
         => PreviewText = PreviewBuilder.Build(Sections.ToList(), Environment.NewLine);
-
-    private void RecomputeArmedCount()
-        => ArmedSectionCount = Sections.Count(s => s.IsArmed);
 
     private static IReadOnlyList<string> BuildCategories(IEnumerable<TagDefinition> tags)
     {
