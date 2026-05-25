@@ -1,9 +1,7 @@
-﻿<Application x:Class="SunoMetatagApp.App"
+<Application x:Class="SunoMetatagApp.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:SunoMetatagApp"
-             StartupUri="MainWindow.xaml">
+             xmlns:local="clr-namespace:SunoMetatagApp">
     <Application.Resources>
-         
     </Application.Resources>
 </Application>
