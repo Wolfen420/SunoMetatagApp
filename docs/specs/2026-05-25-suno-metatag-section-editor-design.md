@@ -1,7 +1,9 @@
 # Suno Metatag Section Editor — Design
 
+> **DEPRECATED 2026-05-25** — v1 of this design shipped and was approved closed (`APPROVED (PASS-WITH-NOTES)`). v1.1 supersedes the section-editor model entirely: chip rows, arm toggle, and broadcast badge are removed in favor of inline `[Tag]` insertion at the caret in the focused lyric textbox. Active design: [`2026-05-25-suno-metatag-v1.1-inline-tag-insertion.md`](2026-05-25-suno-metatag-v1.1-inline-tag-insertion.md). This file is preserved as historical record for the shipped v1.
+
 **Date:** 2026-05-25
-**Status:** Approved with r2 revisions — UX details pinned 2026-05-25 in response to r3-cycle FRONTEND/UX advisory.
+**Status:** SHIPPED (v1) — superseded by v1.1 inline-tag-insertion design.
 **Owner:** Planner (Claude)
 **Target repo:** `j:\SunoMetatagApp\` (sibling to `j:\SunoSongSetup\`)
 **Revision history:**

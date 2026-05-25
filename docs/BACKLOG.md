@@ -92,3 +92,21 @@ Roughly prioritized — top first.
 **Status:** open · **Priority:** trivial
 **Source:** r3 FRONTEND/UX advisory (LOW)
 **Acceptance:** The read-only preview TextBox uses `Cursor="Arrow"` until the user starts selecting, then transitions to I-beam during selection only.
+
+## B-024 — Syntax-highlight `[Tag]` tokens in lyric textbox
+**Status:** open · **Priority:** low
+**Source:** v1.1 r2 FRONTEND/UX advisory (LOW)
+**Acceptance:** Inline `[Tag]` bracket tokens in the lyric textbox render with a distinct color (e.g., SteelBlue) so they visually separate from user lyrics. Requires `RichTextBox` or AvalonEdit; plain `TextBox` doesn't support inline coloring. Trigger to ship: user reports difficulty visually scanning lyrics with many inline tags.
+
+## B-023 — Hybrid inline tag insertion (mid-lyric tag placement)
+**Status:** open · **Priority:** high
+**Source:** Post-v1 smoke-pass user feedback (2026-05-25): "If we want to place in middle or after text block we have no way to do it."
+**Acceptance:** Chip row above the lyric textbox stays as the v1 model for section-level tags. Clicking a tag in the picker routes by focus:
+- Focus on a section's lyric textbox → insert `[Tag]` token at the caret in `Lyrics` (single-section only, not broadcast — even if multiple sections armed).
+- Focus on chip row / section toolbar / no clear focus → append to `Tags` chip collection on every armed section (current v1 broadcast behavior, unchanged).
+Inline `[Tag]` tokens in `Lyrics` pass through verbatim in the preview projection. v1's bracket-line emission above lyrics is unchanged.
+Scope notes for v1.1 planning:
+- New `Section.LastCaretPosition` (or equivalent) tracked per section to remember caret across focus changes.
+- `MainViewModel.InsertTagCommand` updated to branch on focus-target type.
+- New unit tests: caret-positioned insertion, end-of-text fallback when caret unset, no-broadcast invariant for inline path, chip-row broadcast unchanged.
+- 2 new smoke cases: insert mid-lyric, insert at end-of-textbox.

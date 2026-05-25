@@ -1,5 +1,7 @@
 # Suno Metatag Section Editor — Implementation Plan
 
+> **DEPRECATED 2026-05-25** — v1 plan was executed and shipped (15 commits on main, 58/58 unit tests passing, 11/11 smoke pass on published exe). Closed `APPROVED (PASS-WITH-NOTES)` on the result-cycle review. Active plan for next slice: [`2026-05-25-suno-metatag-v1.1.md`](2026-05-25-suno-metatag-v1.1.md). This file is preserved as historical record.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Build a single-window WPF desktop utility that lets the user assemble a Suno prompt as a stack of structured sections (each = chip-row of tags + lyric textbox), with a live preview pane on the left and a searchable/categorized tag picker on the right.
