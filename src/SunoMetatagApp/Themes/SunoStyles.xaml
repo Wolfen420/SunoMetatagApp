@@ -240,18 +240,128 @@
         <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
     </Style>
 
-    <!-- §4.6 SunoComboBox: category dropdown -->
+    <!-- §4.6 SunoComboBoxItem: dropdown item style (required for SunoComboBox).
+         Must be declared BEFORE SunoComboBox since SunoComboBox references it
+         via StaticResource. -->
+    <Style x:Key="SunoComboBoxItem" TargetType="{x:Type ComboBoxItem}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{StaticResource SunoTextPrimaryBrush}" />
+        <Setter Property="Padding" Value="10,6" />
+        <Setter Property="FontFamily" Value="{StaticResource SunoFontPrimary}" />
+        <Setter Property="FontSize" Value="{StaticResource SunoFontSizeBody}" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                    <Border x:Name="Bd"
+                            Background="{TemplateBinding Background}"
+                            Padding="{TemplateBinding Padding}"
+                            SnapsToDevicePixels="True">
+                        <ContentPresenter HorizontalAlignment="Left"
+                                          VerticalAlignment="Center"
+                                          TextElement.Foreground="{TemplateBinding Foreground}"
+                                          TextElement.FontFamily="{TemplateBinding FontFamily}"
+                                          TextElement.FontSize="{TemplateBinding FontSize}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsHighlighted" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource SunoAccentPrimarySoftBrush}" />
+                            <Setter Property="Foreground" Value="{StaticResource SunoTextPrimaryBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource SunoSurfaceCardElevatedBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- §4.6 SunoComboBox: category dropdown (full template override required to
+         theme the popup; the default Aero5 popup chrome rendered as white in
+         Win11 and the dropdown text was invisible. v1.2 scope expansion vs spec
+         §7 — fix landed in-cycle per user T8 feedback). -->
     <Style x:Key="SunoComboBox" TargetType="{x:Type ComboBox}">
         <Setter Property="Background" Value="{StaticResource SunoSurfaceBackgroundBrush}" />
         <Setter Property="Foreground" Value="{StaticResource SunoTextPrimaryBrush}" />
         <Setter Property="BorderBrush" Value="{StaticResource SunoBorderSubtleBrush}" />
         <Setter Property="BorderThickness" Value="{StaticResource SunoBorderThicknessThin}" />
-        <Setter Property="Padding" Value="{StaticResource SunoPaddingControl}" />
+        <Setter Property="Padding" Value="8,4" />
         <Setter Property="FontFamily" Value="{StaticResource SunoFontPrimary}" />
         <Setter Property="FontSize" Value="{StaticResource SunoFontSizeBody}" />
-        <!-- Note: full ComboBox template override is out of scope for v1.2.
-             Default Aero5 popup chrome may render lighter than the app theme.
-             Acceptable v1.2 visual gap; see spec §7 out-of-scope notes. -->
+        <Setter Property="ItemContainerStyle" Value="{StaticResource SunoComboBoxItem}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBox}">
+                    <Grid>
+                        <ToggleButton x:Name="ToggleButton"
+                                      Focusable="False"
+                                      ClickMode="Press"
+                                      IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+                            <ToggleButton.Template>
+                                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                    <Border x:Name="Bd"
+                                            Background="{Binding Background, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}"
+                                            BorderBrush="{Binding BorderBrush, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}"
+                                            BorderThickness="{Binding BorderThickness, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}"
+                                            CornerRadius="{StaticResource SunoRadiusS}"
+                                            SnapsToDevicePixels="True">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <Path Grid.Column="1"
+                                                  Data="M 0 0 L 4 4 L 8 0 Z"
+                                                  Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}"
+                                                  Margin="6,0,10,0"
+                                                  VerticalAlignment="Center"
+                                                  SnapsToDevicePixels="True" />
+                                        </Grid>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsChecked" Value="True">
+                                            <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource SunoAccentPrimaryBrush}" />
+                                            <Setter TargetName="Bd" Property="BorderThickness" Value="{StaticResource SunoBorderThicknessFocused}" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </ToggleButton.Template>
+                        </ToggleButton>
+                        <ContentPresenter x:Name="ContentSite"
+                                          IsHitTestVisible="False"
+                                          Content="{TemplateBinding SelectionBoxItem}"
+                                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                          ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                          Margin="{TemplateBinding Padding}"
+                                          HorizontalAlignment="Left"
+                                          VerticalAlignment="Center"
+                                          TextElement.Foreground="{TemplateBinding Foreground}"
+                                          TextElement.FontFamily="{TemplateBinding FontFamily}"
+                                          TextElement.FontSize="{TemplateBinding FontSize}" />
+                        <Popup x:Name="PART_Popup"
+                               IsOpen="{TemplateBinding IsDropDownOpen}"
+                               Placement="Bottom"
+                               AllowsTransparency="True"
+                               PopupAnimation="None"
+                               Focusable="False">
+                            <Border Background="{StaticResource SunoSurfaceCardBrush}"
+                                    BorderBrush="{StaticResource SunoBorderSubtleBrush}"
+                                    BorderThickness="{StaticResource SunoBorderThicknessThin}"
+                                    CornerRadius="{StaticResource SunoRadiusS}"
+                                    MinWidth="{TemplateBinding ActualWidth}"
+                                    MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                    Margin="0,2,0,0"
+                                    SnapsToDevicePixels="True">
+                                <ScrollViewer Background="Transparent">
+                                    <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained" />
+                                </ScrollViewer>
+                            </Border>
+                        </Popup>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <!-- §4.1 SunoSectionCard: section card Border -->
