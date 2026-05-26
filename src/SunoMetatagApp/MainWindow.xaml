@@ -16,7 +16,7 @@
         <local:NullToCollapsedConverter x:Key="NullToCollapsedConverter" />
         <local:StringIsNotEmptyConverter x:Key="StringIsNotEmptyConverter" />
     </Window.Resources>
-    <Grid>
+    <Grid Margin="{StaticResource SunoSpacingS}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*" MinWidth="240" />
             <ColumnDefinition Width="6" />
@@ -26,33 +26,41 @@
         </Grid.ColumnDefinitions>
 
         <!-- Left: preview pane -->
-        <DockPanel Grid.Column="0" Margin="6">
+        <DockPanel Grid.Column="0" Margin="{StaticResource SunoSpacingXS}">
             <Button DockPanel.Dock="Top"
+                    Style="{StaticResource SunoPrimaryButton}"
                     Content="Copy all"
-                    Padding="8,4" Margin="0,0,0,6"
+                    Margin="0,0,0,8"
                     HorizontalAlignment="Stretch"
                     Command="{Binding CopyPreviewCommand}"
                     ToolTip="Copy the assembled prompt to the clipboard" />
 
-            <TextBox Text="{Binding PreviewText, Mode=OneWay}"
-                     IsReadOnly="True"
-                     AcceptsReturn="True"
-                     TextWrapping="Wrap"
-                     VerticalScrollBarVisibility="Auto"
-                     FontFamily="Consolas" FontSize="12"
-                     Padding="6"
-                     Background="#FAFAFA" />
+            <Border Style="{StaticResource SunoPreviewCard}">
+                <TextBox Text="{Binding PreviewText, Mode=OneWay}"
+                         IsReadOnly="True"
+                         AcceptsReturn="True"
+                         TextWrapping="Wrap"
+                         VerticalScrollBarVisibility="Auto"
+                         BorderThickness="0"
+                         Background="Transparent"
+                         Foreground="{StaticResource SunoTextPrimaryBrush}"
+                         FontFamily="{StaticResource SunoFontMono}"
+                         FontSize="{StaticResource SunoFontSizeBody}"
+                         CaretBrush="{StaticResource SunoAccentPrimaryBrush}"
+                         SelectionBrush="{StaticResource SunoAccentPrimarySoftBrush}"
+                         Padding="0" />
+            </Border>
         </DockPanel>
 
         <GridSplitter Grid.Column="1" Width="6" Cursor="SizeWE"
-                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                      Background="#DDD" />
+                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
 
         <!-- Middle: section stack -->
-        <DockPanel Grid.Column="2" Margin="6">
+        <DockPanel Grid.Column="2" Margin="{StaticResource SunoSpacingXS}">
             <Button DockPanel.Dock="Bottom"
+                    Style="{StaticResource SunoPrimaryButton}"
                     Content="+ Add section"
-                    Margin="0,8,0,0" Padding="8,4"
+                    Margin="0,8,0,0"
                     HorizontalAlignment="Stretch"
                     Command="{Binding AddSectionCommand}" />
 
@@ -60,44 +68,32 @@
                 <ItemsControl x:Name="SectionsHost" ItemsSource="{Binding Sections}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type m:Section}">
-                            <!-- r2: focused-section affordance via native IsKeyboardFocusWithin.
-                                 Cleaner than VM-property comparison: WPF natively tracks
-                                 keyboard focus through descendants. Becomes True when this
-                                 Border's lyric TextBox (or any descendant) has keyboard focus. -->
-                            <Border CornerRadius="4" Margin="0,0,0,8" Padding="6"
-                                    Background="White">
-                                <Border.Style>
-                                    <Style TargetType="Border">
-                                        <Setter Property="BorderBrush" Value="#CCC" />
-                                        <Setter Property="BorderThickness" Value="1" />
-                                        <Style.Triggers>
-                                            <Trigger Property="IsKeyboardFocusWithin" Value="True">
-                                                <Setter Property="BorderBrush" Value="SteelBlue" />
-                                                <Setter Property="BorderThickness" Value="2" />
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Border.Style>
+                            <!-- SunoSectionCard provides chrome + focused-state Trigger
+                                 via IsKeyboardFocusWithin. v1.1 carry-over mechanism. -->
+                            <Border Style="{StaticResource SunoSectionCard}">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
 
-                                    <!-- Toolbar row: ▲ ▼ × only (no arm toggle) -->
+                                    <!-- Toolbar row: ▲ ▼ × -->
                                     <StackPanel Grid.Row="0" Orientation="Horizontal"
                                                 HorizontalAlignment="Right" Margin="0,0,0,4">
-                                        <Button Content="▲" Padding="6,0" Margin="0,0,3,0"
-                                                FontSize="11"
+                                        <Button Style="{StaticResource SunoIconButton}"
+                                                Content="▲"
+                                                Margin="0,0,3,0"
                                                 ToolTip="Move section up"
                                                 Command="{Binding DataContext.MoveSectionUpCommand, RelativeSource={RelativeSource AncestorType=Window}}"
                                                 CommandParameter="{Binding}" />
-                                        <Button Content="▼" Padding="6,0" Margin="0,0,3,0"
-                                                FontSize="11"
+                                        <Button Style="{StaticResource SunoIconButton}"
+                                                Content="▼"
+                                                Margin="0,0,3,0"
                                                 ToolTip="Move section down"
                                                 Command="{Binding DataContext.MoveSectionDownCommand, RelativeSource={RelativeSource AncestorType=Window}}"
                                                 CommandParameter="{Binding}" />
-                                        <Button Content="×" Padding="8,0"
+                                        <Button Style="{StaticResource SunoIconButton}"
+                                                Content="×"
                                                 FontWeight="Bold"
                                                 ToolTip="Delete this section"
                                                 Click="DeleteSectionButton_Click"
@@ -106,13 +102,8 @@
 
                                     <!-- Lyric textbox (focus events drive VM caret tracking) -->
                                     <TextBox Grid.Row="1"
+                                             Style="{StaticResource SunoLyricTextBox}"
                                              Text="{Binding Lyrics, UpdateSourceTrigger=PropertyChanged}"
-                                             AcceptsReturn="True"
-                                             TextWrapping="Wrap"
-                                             MinLines="6" MaxLines="14"
-                                             VerticalScrollBarVisibility="Auto"
-                                             FontFamily="Consolas" FontSize="13"
-                                             Padding="6"
                                              GotKeyboardFocus="LyricTextBox_GotFocus"
                                              LostKeyboardFocus="LyricTextBox_LostFocus"
                                              SelectionChanged="LyricTextBox_SelectionChanged" />
@@ -125,11 +116,10 @@
         </DockPanel>
 
         <GridSplitter Grid.Column="3" Width="6" Cursor="SizeWE"
-                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                      Background="#DDD" />
+                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
 
         <!-- Right: tag picker -->
-        <Grid Grid.Column="4" Margin="6">
+        <Grid Grid.Column="4" Margin="{StaticResource SunoSpacingXS}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -139,16 +129,18 @@
 
             <!-- Error banner -->
             <Border Grid.Row="0"
-                    Background="#FFE5E5" BorderBrush="#C00" BorderThickness="1"
-                    Padding="6" Margin="0,0,0,6"
+                    Style="{StaticResource SunoErrorBanner}"
+                    Margin="0,0,0,8"
                     Visibility="{Binding LoadError, Converter={StaticResource NullToCollapsedConverter}}">
                 <DockPanel>
                     <Button DockPanel.Dock="Right"
-                            Content="Copy" Padding="6,2"
+                            Style="{StaticResource SunoButton}"
+                            Content="Copy"
                             Click="CopyErrorButton_Click"
                             ToolTip="Copy error message to clipboard" />
                     <TextBlock Text="{Binding LoadError}"
-                               Foreground="#900" TextWrapping="Wrap"
+                               Foreground="{StaticResource SunoErrorTextBrush}"
+                               TextWrapping="Wrap"
                                VerticalAlignment="Center" />
                 </DockPanel>
             </Border>
@@ -156,16 +148,18 @@
             <!-- Search box -->
             <Grid Grid.Row="1">
                 <TextBox x:Name="SearchBox"
+                         Style="{StaticResource SunoTextBox}"
                          Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
-                         Margin="0,0,0,4" Padding="4"
+                         Margin="0,0,0,4"
                          ToolTip="Search tags (case-insensitive)" />
                 <TextBlock IsHitTestVisible="False"
                            Text="Search tags…"
-                           Margin="6,0,0,0"
+                           Margin="10,0,0,0"
                            VerticalAlignment="Center"
-                           Foreground="#999">
+                           Foreground="{StaticResource SunoTextSecondaryBrush}">
                     <TextBlock.Style>
-                        <Style TargetType="TextBlock">
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                            <Setter Property="Foreground" Value="{StaticResource SunoTextSecondaryBrush}" />
                             <Setter Property="Visibility" Value="Collapsed" />
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding Text, ElementName=SearchBox}" Value="">
@@ -179,9 +173,10 @@
 
             <!-- Category dropdown -->
             <ComboBox Grid.Row="2"
+                      Style="{StaticResource SunoComboBox}"
                       ItemsSource="{Binding Categories}"
                       SelectedItem="{Binding SelectedCategory}"
-                      Margin="0,0,0,6" Padding="4"
+                      Margin="0,0,0,8"
                       ToolTip="Filter by category" />
 
             <!-- Scrollable button grid + empty-state -->
@@ -192,16 +187,27 @@
                               KeyboardNavigation.TabNavigation="Once"
                               KeyboardNavigation.DirectionalNavigation="Contained">
                     <ScrollViewer.Resources>
-                        <!-- r2 HIGH-2: implicit Focusable=False on every Button in the picker.
-                             Load-bearing for caret tracking; applied scope-wide so future
-                             additions inherit it. Also dims to 0.55 + tooltip swap when
-                             FocusedSection is null (no lyric textbox focused). -->
-                        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                        <!--
+                            v1.1 carry-over (now r2-tuned per spec §4.4):
+                            Picker-scoped Style with BasedOn the NAMED SunoTagPill key.
+                            If SunoTagPill key is missing/renamed, this BasedOn fails
+                            silently → picker loses Focusable=False → focus-flip-stale-
+                            insert risk (wiki risks/focus-flip-stale-insert.md) returns.
+
+                            Triggers preserved:
+                            - Focusable=False on all picker buttons
+                            - DataTrigger on FocusedSection==null → dim affordance:
+                              Opacity = SunoOpacityDim (0.7, tuned from v1.1 0.55)
+                              Foreground swap to SunoTextDisabledBrush (specialist MEDIUM-2 option c)
+                              ToolTip swap to discoverability hint
+                        -->
+                        <Style TargetType="Button" BasedOn="{StaticResource SunoTagPill}">
                             <Setter Property="Focusable" Value="False" />
                             <Setter Property="Opacity" Value="1.0" />
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.FocusedSection}" Value="{x:Null}">
-                                    <Setter Property="Opacity" Value="0.55" />
+                                    <Setter Property="Opacity" Value="{StaticResource SunoOpacityDim}" />
+                                    <Setter Property="Foreground" Value="{StaticResource SunoTextDisabledBrush}" />
                                     <Setter Property="ToolTip" Value="Click in a lyric textbox first, then click a tag." />
                                 </DataTrigger>
                             </Style.Triggers>
@@ -216,7 +222,6 @@
                                 <Button Content="{Binding Bracket}"
                                         ToolTip="{Binding Description}"
                                         ToolTipService.IsEnabled="{Binding Description, Converter={StaticResource StringIsNotEmptyConverter}}"
-                                        Margin="2" Padding="6,2"
                                         Command="{Binding DataContext.InsertTagCommand, RelativeSource={RelativeSource AncestorType=Window}}"
                                         CommandParameter="{Binding}" />
                             </DataTemplate>
@@ -225,9 +230,12 @@
                 </ScrollViewer>
                 <TextBlock Text="No tags match"
                            HorizontalAlignment="Center" VerticalAlignment="Top"
-                           Margin="0,12,0,0" Foreground="#666" IsHitTestVisible="False">
+                           Margin="0,12,0,0"
+                           Foreground="{StaticResource SunoTextSecondaryBrush}"
+                           IsHitTestVisible="False">
                     <TextBlock.Style>
-                        <Style TargetType="TextBlock">
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                            <Setter Property="Foreground" Value="{StaticResource SunoTextSecondaryBrush}" />
                             <Setter Property="Visibility" Value="Collapsed" />
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding FilteredTags.Count}" Value="0">
