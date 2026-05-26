@@ -148,6 +148,23 @@ public partial class MainWindow : Window
         }));
     }
 
+    // v1.3 (B-SUNO-004): modifier-aware picker click router.
+    // Reads Keyboard.Modifiers at Click event time (after mouse-up) and routes
+    // to InsertTagStackedCommand (Shift held) or InsertTagCommand (plain).
+    // Picker button is Focusable=False, so this does not move textbox focus or
+    // disturb v1.1's defer-clear contract (see wiki/risks/focus-flip-stale-insert).
+    private void TagPickerButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is not Button btn) return;
+        if (btn.DataContext is not ViewModels.TagViewModel tag) return;
+        if (DataContext is not MainViewModel vm) return;
+
+        if (Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
+            vm.InsertTagStackedCommand.Execute(tag);
+        else
+            vm.InsertTagCommand.Execute(tag);
+    }
+
     private void DeleteSectionButton_Click(object sender, RoutedEventArgs e)
     {
         if (sender is not Button btn) return;
