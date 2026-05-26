@@ -17,6 +17,10 @@
     <Color x:Key="SunoAccentPrimaryTextColor">#FFA78BFA</Color>
     <Color x:Key="SunoAccentPrimarySoftColor">#3A8B5CF6</Color>
     <Color x:Key="SunoAccentSecondaryColor">#FFEC4899</Color>
+    <!-- Pinkish-purple (fuchsia) for tag pills — per user direction 2026-05-26. -->
+    <Color x:Key="SunoAccentPillColor">#FFD946EF</Color>
+    <Color x:Key="SunoAccentPillHoverColor">#FFE879F9</Color>
+    <Color x:Key="SunoAccentPillPressedColor">#FFC026D3</Color>
     <Color x:Key="SunoTextPrimaryColor">#FFE5E5EB</Color>
     <Color x:Key="SunoTextSecondaryColor">#FF9A9AA8</Color>
     <Color x:Key="SunoTextDisabledColor">#FF5A5A66</Color>
@@ -33,6 +37,9 @@
     <SolidColorBrush x:Key="SunoAccentPrimaryTextBrush" Color="{StaticResource SunoAccentPrimaryTextColor}" />
     <SolidColorBrush x:Key="SunoAccentPrimarySoftBrush" Color="{StaticResource SunoAccentPrimarySoftColor}" />
     <SolidColorBrush x:Key="SunoAccentSecondaryBrush" Color="{StaticResource SunoAccentSecondaryColor}" />
+    <SolidColorBrush x:Key="SunoAccentPillBrush" Color="{StaticResource SunoAccentPillColor}" />
+    <SolidColorBrush x:Key="SunoAccentPillHoverBrush" Color="{StaticResource SunoAccentPillHoverColor}" />
+    <SolidColorBrush x:Key="SunoAccentPillPressedBrush" Color="{StaticResource SunoAccentPillPressedColor}" />
     <SolidColorBrush x:Key="SunoTextPrimaryBrush" Color="{StaticResource SunoTextPrimaryColor}" />
     <SolidColorBrush x:Key="SunoTextSecondaryBrush" Color="{StaticResource SunoTextSecondaryColor}" />
     <SolidColorBrush x:Key="SunoTextDisabledBrush" Color="{StaticResource SunoTextDisabledColor}" />

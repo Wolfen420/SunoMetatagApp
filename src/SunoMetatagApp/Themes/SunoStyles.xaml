@@ -150,9 +150,12 @@
         risk (see wiki risks/focus-flip-stale-insert.md) re-emerges.
     -->
     <Style x:Key="SunoTagPill" TargetType="{x:Type Button}" BasedOn="{StaticResource SunoButton}">
-        <Setter Property="Background" Value="{StaticResource SunoSurfaceCardElevatedBrush}" />
+        <!-- Pinkish-purple (fuchsia) default fill per user direction 2026-05-26.
+             Was dark + accent-tint hover; now accent-filled by default with
+             lighter hover and deeper pressed states. -->
+        <Setter Property="Background" Value="{StaticResource SunoAccentPillBrush}" />
         <Setter Property="Foreground" Value="{StaticResource SunoTextPrimaryBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource SunoBorderSubtleBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource SunoAccentPillBrush}" />
         <Setter Property="Padding" Value="8,4" />
         <Setter Property="FontSize" Value="{StaticResource SunoFontSizeSmall}" />
         <Setter Property="Margin" Value="2" />
@@ -177,14 +180,12 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource SunoAccentPrimarySoftBrush}" />
-                <Setter Property="Foreground" Value="{StaticResource SunoAccentPrimaryTextBrush}" />
-                <Setter Property="BorderBrush" Value="{StaticResource SunoAccentPrimaryBrush}" />
+                <Setter Property="Background" Value="{StaticResource SunoAccentPillHoverBrush}" />
+                <Setter Property="BorderBrush" Value="{StaticResource SunoAccentPillHoverBrush}" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="{StaticResource SunoAccentPrimaryBrush}" />
-                <Setter Property="Foreground" Value="{StaticResource SunoTextPrimaryBrush}" />
-                <Setter Property="BorderBrush" Value="{StaticResource SunoAccentPrimaryBrush}" />
+                <Setter Property="Background" Value="{StaticResource SunoAccentPillPressedBrush}" />
+                <Setter Property="BorderBrush" Value="{StaticResource SunoAccentPillPressedBrush}" />
             </Trigger>
         </Style.Triggers>
     </Style>

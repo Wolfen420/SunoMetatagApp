@@ -8,6 +8,11 @@
         Width="1300" Height="750"
         MinWidth="900" MinHeight="500"
         WindowStartupLocation="CenterScreen"
+        Background="{StaticResource SunoSurfaceBackgroundBrush}"
+        Foreground="{StaticResource SunoTextPrimaryBrush}"
+        FontFamily="{StaticResource SunoFontPrimary}"
+        FontSize="{StaticResource SunoFontSizeBody}"
+        TextOptions.TextFormattingMode="Display"
         d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -64,7 +69,8 @@
                     HorizontalAlignment="Stretch"
                     Command="{Binding AddSectionCommand}" />
 
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                          Background="Transparent">
                 <ItemsControl x:Name="SectionsHost" ItemsSource="{Binding Sections}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type m:Section}">
@@ -184,6 +190,7 @@
                 <ScrollViewer x:Name="TagPickerScroll"
                               VerticalScrollBarVisibility="Auto"
                               HorizontalScrollBarVisibility="Disabled"
+                              Background="Transparent"
                               KeyboardNavigation.TabNavigation="Once"
                               KeyboardNavigation.DirectionalNavigation="Contained">
                     <ScrollViewer.Resources>
