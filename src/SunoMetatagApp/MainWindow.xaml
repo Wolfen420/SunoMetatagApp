@@ -211,6 +211,13 @@
                         <Style TargetType="Button" BasedOn="{StaticResource SunoTagPill}">
                             <Setter Property="Focusable" Value="False" />
                             <Setter Property="Opacity" Value="1.0" />
+                            <!-- v1.3 (B-SUNO-004): Style-level tooltip surfaces the Shift+click affordance
+                                 when no per-tag Description is bound. Per-button local ToolTip="{Binding Description}"
+                                 (below) wins for tags with descriptions; DataTrigger override (below) wins when no focus. -->
+                            <Setter Property="ToolTip" Value="Click to insert. Shift+click to stack into the nearest bracket on the current line." />
+                            <!-- v1.3 (B-SUNO-004): UI Automation hint reaches screen readers regardless of
+                                 ToolTipService.IsEnabled precedence (specialist r1 LOW 6). -->
+                            <Setter Property="AutomationProperties.HelpText" Value="Click to insert. Shift+click to stack into the nearest bracket on the current line." />
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.FocusedSection}" Value="{x:Null}">
                                     <Setter Property="Opacity" Value="{StaticResource SunoOpacityDim}" />
@@ -226,11 +233,16 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
+                                <!-- v1.3 (B-SUNO-004): picker click routed via TagPickerButton_Click in code-behind
+                                     so the handler can read Keyboard.Modifiers and pick InsertTagCommand vs
+                                     InsertTagStackedCommand. ToolTip binding still wins for tags with a Description;
+                                     the Style-level Setter (above) supplies a Shift+click hint for the description-less
+                                     majority — provided ToolTipService.IsEnabled doesn't suppress the fallback
+                                     (T7 LOW 8 verification gate). -->
                                 <Button Content="{Binding Bracket}"
                                         ToolTip="{Binding Description}"
                                         ToolTipService.IsEnabled="{Binding Description, Converter={StaticResource StringIsNotEmptyConverter}}"
-                                        Command="{Binding DataContext.InsertTagCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                                        CommandParameter="{Binding}" />
+                                        Click="TagPickerButton_Click" />
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
