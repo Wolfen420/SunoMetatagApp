@@ -5,7 +5,7 @@
 **tags.json baseline:** 124 entries across 6 categories (Structure / Vocal / Instrument / Mood / Effect / Production)
 **Decision model:** ADD / MERGE / SKIP (per spec §2)
 **MERGE semantics:** no-tags.json mutation; documentation acknowledgement only (alias support deferred to B-008)
-**Final counts (planner-proposed):** ADD 74 / MERGE 15 / SKIP 21 → tags.json grows 124 → 198
+**Final counts (as-landed at T1 commit `301c672`):** ADD 75 / MERGE 16 / SKIP 21 → tags.json grows 124 → 199 (corrected from initial draft totals of 74/15/21/198 after T2 grep-recount of the as-landed file; D.1 subtotal had a +1 off-by-one)
 
 ## How to read this table
 
@@ -180,7 +180,7 @@
 | `[Creaking Doors]` | (overlaps `[Door Shutting]`) | **ADD** | SFX | `[Creaking Doors]` | Distinct sound (creaking vs shutting). ADD as separate. |
 | `[Creaking Wood]` | none | **ADD** | SFX | `[Creaking Wood]` | New SFX (general wood-creaking ambient sound). |
 
-**Subtotal D.1:** ADD ~48 / MERGE ~6 / SKIP 0.
+**Subtotal D.1:** ADD 49 / MERGE 7 / SKIP 0 (corrected from initial draft of 48/6/0 after grep-recount of landed file).
 
 ### D.2 — Production effects (target: existing Effect category, mostly MERGE)
 
@@ -208,11 +208,11 @@
 | B.5 Atmosphere/Mood | 7 | 2 | 0 | 9 |
 | B.6 Dynamic/Progression | 5 | 2 | 2 | 9 |
 | C Perfect Studio Vocals | 0 | 1 | 0 | 1 |
-| D.1 Pure SFX | 48 | 6 | 0 | 54 |
+| D.1 Pure SFX | 49 | 7 | 0 | 56 |
 | D.2 Production effects | 2 | 3 | 1 | 6 |
-| **TOTAL** | **74** | **15** | **21** | **110** |
+| **TOTAL** | **75** | **16** | **21** | **112** |
 
-**Effect on tags.json:** 124 baseline → **+74 ADD entries** → **198 entries** post-v1.4 (slightly less than spec §5 estimate of ~209; planner refined down via MERGE consolidation in Section D).
+**Effect on tags.json (as-landed at T1 commit `301c672`):** 124 baseline → **+75 ADD entries** → **199 entries** post-v1.4 (the initial draft totals row of 74/15/21/198 was off by 1 in D.1 ADD/MERGE columns; this was caught at T2 grep-recount and corrected here for source-of-truth alignment).
 
 **New SFX category:** 48 entries.
 

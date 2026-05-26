@@ -6,7 +6,7 @@
 **Backlog item:** B-SUNO-005
 **Date:** 2026-05-27
 **Baseline commit:** `ec9e19f` (v1.3 closeout tip on `master`)
-**Estimated scope:** 2 commits (T1 tags.json content + T2 6 new unit tests); zero source-code changes; 1 new wiki page; 74 new tag entries; tags.json grows 124 → 198.
+**Estimated scope:** 2 commits (T1 tags.json content + T2 6 new unit tests); zero source-code changes; 1 new wiki page; 75 new tag entries (as-landed; initial planner estimate was 74); tags.json grows 124 → 199.
 
 ## Pre-execution baseline
 

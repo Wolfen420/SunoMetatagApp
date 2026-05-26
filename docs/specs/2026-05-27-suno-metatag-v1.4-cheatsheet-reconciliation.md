@@ -103,13 +103,13 @@ Planner-default rationale: when both standalone parts already exist in tags.json
 
 The full per-entry decision table lives in [`docs/reference/B-SUNO-005-decision-table.md`](../reference/B-SUNO-005-decision-table.md) — landed as a separate file because of size (~110 rows). Summary counts:
 
-| Decision | Count | Notes |
+| Decision | Count (as-landed) | Notes |
 |---|---|---|
-| ADD | 74 | Mostly Section D.1 SFX (48) + Section B.5 Atmosphere (7) + Section B.6 Dynamic (5) + Section B.2-B.4 misc (12) + Section D.2 production effects (2) |
-| MERGE | 15 | No-tags.json mutation; documentation only |
+| ADD | 75 | Section D.1 SFX (49) + Section B.5 Atmosphere (7) + Section B.6 Dynamic (5) + Section B.2-B.4 misc (12) + Section D.2 production effects (2) |
+| MERGE | 16 | No-tags.json mutation; documentation only |
 | SKIP | 21 | Intentional exclusion + redundant-with-v1.3-stacked + already-exists in tags.json |
 
-**Result:** tags.json grows from **124 → 198 entries**. Categories: 6 existing + 1 new (SFX) = **7 categories**.
+**Result:** tags.json grows from **124 → 199 entries**. Categories: 6 existing + 1 new (SFX) = **7 categories**. (Initial draft totals of 74/15/21/198 corrected at T2 grep-recount; D.1 had a +1 off-by-one in ADD/MERGE.)
 
 The decision table is Lead-ratifiable at plan-phase review; rows are concrete enough to apply mechanically at T1 execution.
 
