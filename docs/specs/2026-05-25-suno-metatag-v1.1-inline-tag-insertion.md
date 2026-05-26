@@ -343,7 +343,9 @@ Two constructors (same pattern as v1):
 
 ## 10. View (XAML)
 
-### Section template (r2 — focused-border affordance)
+### Section template (r2 — focused-border affordance) — CORRECTED post-closeout
+
+**The original r2 §10 XAML below as `<DataTrigger Value="{Binding}">` was illegal WPF** and crashed the app at window-show time with `XamlParseException: A 'Binding' cannot be set on the 'Value' property of type 'DataTrigger'`. Production uses the §5.3-listed alternative mechanism: a regular `Trigger` on `IsKeyboardFocusWithin` (which WPF natively tracks through descendants). Same visual semantics, no VM-property comparison needed. The shipped XAML is:
 
 ```xml
 <DataTemplate DataType="{x:Type m:Section}">
@@ -354,11 +356,13 @@ Two constructors (same pattern as v1):
                 <Setter Property="BorderBrush" Value="LightGray" />
                 <Setter Property="BorderThickness" Value="1" />
                 <Style.Triggers>
-                    <!-- Focused: bound to this Section being the VM's FocusedSection -->
-                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.FocusedSection}" Value="{Binding}">
+                    <!-- Focused: native WPF cross-descendant focus tracking.
+                         True when this Border's lyric TextBox (or any descendant)
+                         has keyboard focus. Cleaner than DataTrigger comparison. -->
+                    <Trigger Property="IsKeyboardFocusWithin" Value="True">
                         <Setter Property="BorderBrush" Value="SteelBlue" />
                         <Setter Property="BorderThickness" Value="2" />
-                    </DataTrigger>
+                    </Trigger>
                 </Style.Triggers>
             </Style>
         </Border.Style>

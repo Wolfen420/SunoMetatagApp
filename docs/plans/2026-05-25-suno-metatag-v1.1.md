@@ -384,6 +384,7 @@ dotnet publish src/SunoMetatagApp -c Release -r win-x64 --self-contained -p:Publ
 
 - [ ] Verify `publish/SunoMetatagApp.exe` exists (~150 MB).
 - [ ] Verify `publish/tags.json` exists.
+- [ ] **Smoke-launch the published exe before USER REVIEW.** Run `publish\SunoMetatagApp.exe` and confirm the window appears with default UI rendered. If launch fails with `XamlParseException` or similar, the published exe surfaces parse-time XAML defects that unit tests cannot catch (XAML is parsed at `Window.Show()`, not at compile or test time). Diagnose by running `dotnet run --project src/SunoMetatagApp --no-build` to capture the stderr trace, then fix and republish before gating to USER REVIEW. This step is *new in v1.1 post-closeout* — v1.1 r2 spec §10 had an illegal `DataTrigger Value="{Binding}"` markup that compiled clean and tested clean but crashed at launch; the only signal was running the published exe.
 - [ ] No commit (publish artifacts are gitignored per v1).
 
 ---
