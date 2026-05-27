@@ -97,7 +97,13 @@ public partial class MainWindow : Window
     // focus types) does not trip the clear. The lambda re-checks before clearing:
     // if GotKeyboardFocus already moved FocusedSection to another lyric textbox,
     // or focus is now on any other lyric textbox, leave the new state alone.
-    private void LyricTextBox_LostFocus(object sender, KeyboardFocusChangedEventArgs e)
+    //
+    // v1.10 (B-SUNO-012): third race-cancel check — if keyboard focus moved into
+    // the tag-picker pane (SearchBox, Category ComboBox, scrollable pill area,
+    // ComboBox dropdown popup), treat it as "still working with the focused
+    // section" and skip the clear. Restores tag-pill clickability without forcing
+    // the user back into the lyric textbox.
+    private void LyricTextBox_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
     {
         if (sender is not TextBox tb || tb.DataContext is not Section section) return;
         if (DataContext is not MainViewModel vm) return;
@@ -107,6 +113,12 @@ public partial class MainWindow : Window
         Dispatcher.BeginInvoke(DispatcherPriority.Loaded, new Action(() =>
         {
             if (vm.FocusedSection != sectionAtLossTime) return;
+
+            if (Keyboard.FocusedElement is DependencyObject focused
+                && IsAncestorOf(TagPickerPane, focused))
+            {
+                return;
+            }
 
             if (Keyboard.FocusedElement is TextBox focusedTb &&
                 focusedTb.DataContext is Section)
@@ -120,6 +132,25 @@ public partial class MainWindow : Window
             if (ReferenceEquals(_currentFocusedTextBox, tbAtLossTime))
                 _currentFocusedTextBox = null;
         }));
+    }
+
+    // v1.10 (B-SUNO-012): walk parent chain from `descendant` toward the visual root,
+    // returning true if `ancestor` is encountered. Walks the visual tree first
+    // (standard WPF parent chain); falls back to the logical tree at each step
+    // where VisualTreeHelper.GetParent returns null, to bridge Popup/Adorner
+    // boundaries (e.g., a ComboBoxItem inside an open ComboBox dropdown whose
+    // visual chain is rooted in a separate PopupRoot HwndSource).
+    private static bool IsAncestorOf(DependencyObject ancestor, DependencyObject? descendant)
+    {
+        var cur = descendant;
+        while (cur != null)
+        {
+            if (ReferenceEquals(cur, ancestor)) return true;
+            var next = VisualTreeHelper.GetParent(cur) ?? LogicalTreeHelper.GetParent(cur);
+            if (ReferenceEquals(next, cur)) break;
+            cur = next;
+        }
+        return false;
     }
 
     // Keep caret + selection tracked while focus stays on this textbox.

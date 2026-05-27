@@ -126,7 +126,7 @@
                                              Style="{StaticResource SunoLyricTextBox}"
                                              Text="{Binding Lyrics, UpdateSourceTrigger=PropertyChanged}"
                                              GotKeyboardFocus="LyricTextBox_GotFocus"
-                                             LostKeyboardFocus="LyricTextBox_LostFocus"
+                                             LostKeyboardFocus="LyricTextBox_LostKeyboardFocus"
                                              SelectionChanged="LyricTextBox_SelectionChanged" />
                                 </Grid>
                             </Border>
@@ -140,7 +140,7 @@
                       HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
 
         <!-- Right: tag picker -->
-        <Grid Grid.Column="4" Margin="4">
+        <Grid Grid.Column="4" Margin="4" x:Name="TagPickerPane">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
