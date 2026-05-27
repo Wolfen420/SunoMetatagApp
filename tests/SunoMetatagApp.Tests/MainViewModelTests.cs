@@ -162,4 +162,34 @@ public class MainViewModelTests
         Assert.Equal("before [Verse]", s.Lyrics);
         Assert.Equal("before ".Length + "[Verse]".Length, vm.FocusedCaretPosition);
     }
+
+    [Fact]
+    public void D1_NormalConstructor_DefaultsToStructureCategory_AndFilteredTagsReflectStructureOnly()
+    {
+        // v1.13 (B-SUNO-014): default category dropdown to Structure so the picker
+        // opens scoped to the most-common section tags. Sample has 2 Structure
+        // entries ([Verse], [Chorus]) + 1 Vocal entry ([Whispered]) — initial
+        // FilteredTags should contain only the 2 Structure entries.
+        var vm = new MainViewModel(Sample);
+
+        Assert.Equal("Structure", vm.SelectedCategory);
+        Assert.Equal(2, vm.FilteredTags.Count);
+        Assert.Contains(vm.FilteredTags, t => t.Bracket == "[Chorus]");
+        Assert.Contains(vm.FilteredTags, t => t.Bracket == "[Verse]");
+        Assert.DoesNotContain(vm.FilteredTags, t => t.Bracket == "[Whispered]");
+    }
+
+    [Fact]
+    public void D2_ErrorConstructor_StillDefaultsToAllCategory()
+    {
+        // v1.13 (B-SUNO-014): error-state constructor explicitly preserved at
+        // SelectedCategory="All" because Categories=new[] { "All" } only in that
+        // branch — assigning "Structure" would point to a non-existent ComboBox
+        // item. Regression-gate for that explicit non-change.
+        var vm = new MainViewModel("simulated tags.json load failure");
+
+        Assert.Equal("All", vm.SelectedCategory);
+        Assert.Single(vm.Categories);
+        Assert.Equal("All", vm.Categories[0]);
+    }
 }
