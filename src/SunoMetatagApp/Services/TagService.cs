@@ -85,7 +85,15 @@ public static class TagService
                 || NormalizeForSearch(t.Bracket).Contains(normalizedSearch, StringComparison.OrdinalIgnoreCase);
         }
 
-        return tags.Where(t => categoryMatches(t) && searchMatches(t));
+        // v1.11 (B-SUNO-011): alphabetical sort by raw Bracket text, case-insensitive ordinal.
+        // Applies AFTER filter; sort uses display text (Bracket), not the v1.7-normalized search form.
+        // Prefix-form entries (e.g., [Mood: Euphoric]) cluster by namespace because the [Namespace:
+        // prefix is constant within each cluster; sub-order falls out to the post-colon human word.
+        // Caveat: lexical (not numeric) — [Verse 1], [Verse 2], [Verse] order because space (0x20)
+        // sorts before ] (0x5D). Stable per LINQ OrderBy contract.
+        return tags
+            .Where(t => categoryMatches(t) && searchMatches(t))
+            .OrderBy(t => t.Bracket, StringComparer.OrdinalIgnoreCase);
     }
 
     private static string NormalizeForSearch(string s) =>
