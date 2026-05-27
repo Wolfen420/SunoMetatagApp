@@ -79,12 +79,18 @@ public static class TagService
         bool searchMatches(TagDefinition t)
         {
             if (string.IsNullOrEmpty(search)) return true;
-            return t.Label.Contains(search, StringComparison.OrdinalIgnoreCase)
-                || t.Bracket.Contains(search, StringComparison.OrdinalIgnoreCase);
+            var normalizedSearch = NormalizeForSearch(search);
+            if (normalizedSearch.Length == 0) return true;
+            return NormalizeForSearch(t.Label).Contains(normalizedSearch, StringComparison.OrdinalIgnoreCase)
+                || NormalizeForSearch(t.Bracket).Contains(normalizedSearch, StringComparison.OrdinalIgnoreCase);
         }
 
         return tags.Where(t => categoryMatches(t) && searchMatches(t));
     }
+
+    private static string NormalizeForSearch(string s) =>
+        s.Replace("-", "", StringComparison.Ordinal)
+         .Replace(" ", "", StringComparison.Ordinal);
 
     private sealed class TagDto
     {
