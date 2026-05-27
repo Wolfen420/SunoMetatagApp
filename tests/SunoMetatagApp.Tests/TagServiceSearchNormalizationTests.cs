@@ -55,6 +55,18 @@ public class TagServiceSearchNormalizationTests
         Assert.Contains(hits, t => t.Bracket == "[Pop-Rock]");
     }
 
+    // N3b -- spec §6.1 N3 cross-category coexistence: 'lofi' query surfaces
+    // BOTH [Lo-Fi] Genre AND [Effect: Lo-fi] Effect (v1.6 §3.3 ADD-new-cat
+    // policy exhibit). Category filter then disambiguates (see N5/N4).
+    [Fact]
+    public void N3b_Filter_NormalizedCrossCategory_SurfacesBothEntries()
+    {
+        var tags = LoadProductionTagsJson();
+        var hits = TagService.Filter(tags, "lofi", "All").ToList();
+        Assert.Contains(hits, t => t.Bracket == "[Lo-Fi]");
+        Assert.Contains(hits, t => t.Bracket == "[Effect: Lo-fi]");
+    }
+
     // N4 -- representative normalization pairs across hyphen-strip, space-strip,
     // and mixed-case variants. Each row: a search that did NOT match pre-v1.7
     // now surfaces the expected bracket.
