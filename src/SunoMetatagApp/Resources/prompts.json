@@ -3,7 +3,7 @@
     "genre": "Pop",
     "subGenre": "Upbeat Dance Pop",
     "title": "Modern Pop Anthem (Female Vocals)",
-    "body": "Infectious pop anthem, female powerhouse vocals with layered harmonies,\npulsing 808 bass, synth-wave layers, euphoric build-ups,\nradio-ready polish, modern production, vocal chops,\nstadium-ready energy, BPM: 128, Key: C Major",
+    "body": "Infectious pop anthem, female powerhouse vocals with layered harmonies,\npulsing 808 bass, synth-wave layers, euphoric build-ups, \nradio-ready polish, modern production, vocal chops, \nstadium-ready energy, BPM: 128, Key: C Major",
     "useCase": "TikTok viral hits, summer anthems, party songs",
     "sunoVersion": "V5",
     "energy": 9,
@@ -12,14 +12,203 @@
   },
   {
     "genre": "Pop",
+    "subGenre": "Upbeat Dance Pop",
+    "title": "Festival Pop Banger",
+    "body": "Massive drop-ready pop, EDM-influenced production, \nsoaring vocal hooks, hands-in-the-air moments, \nfestival main stage energy, crisp high-end, \nsub-bass that punches, BPM: 130, Key: A Minor",
+    "useCase": "Festival sets, crowd sing-alongs",
+    "sunoVersion": "V5",
+    "energy": 10,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/pop.md#festival-pop-banger"
+  },
+  {
+    "genre": "Pop",
+    "subGenre": "Upbeat Dance Pop",
+    "title": "K-Pop Inspired Dance Track",
+    "body": "High-energy K-pop production, rap verses + melodic chorus,\nlayered synths, trap-influenced beats, intricate vocal runs,\npolished perfection, dynamic structure, addictive hooks,\nBPM: 140, Key: F Minor",
+    "useCase": "Dance covers, energetic performance tracks",
+    "sunoVersion": "V5",
+    "energy": 10,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/pop.md#k-pop-inspired-dance-track"
+  },
+  {
+    "genre": "Pop",
+    "subGenre": "Upbeat Dance Pop",
+    "title": "Retro 80s Dance Pop",
+    "body": "80s synth-pop revival, gated reverb on snare, \nanalog synth leads, retro drum machines, \nnostalgic vibes, catchy chorus, uplifting mood,\nmodern production polish, BPM: 118, Key: E♭ Major",
+    "useCase": "Nostalgic vibes, retro-inspired content",
+    "sunoVersion": "V4.5 or V5",
+    "energy": 8,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/pop.md#retro-80s-dance-pop"
+  },
+  {
+    "genre": "Pop",
+    "subGenre": "Upbeat Dance Pop",
+    "title": "Latin Pop Fusion",
+    "body": "Reggaeton-influenced pop, Spanish guitar accents,\ntropical percussion, bilingual lyrics vibe, \ncatchy dembow rhythm, pop vocals with Latin flair,\nsummer heat energy, BPM: 95, Key: A Minor",
+    "useCase": "Latin crossover, summer hits",
+    "sunoVersion": "V5",
+    "energy": 8,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/pop.md#latin-pop-fusion"
+  },
+  {
+    "genre": "Pop",
     "subGenre": "Emotional Ballads",
     "title": "Piano-Driven Power Ballad",
-    "body": "Piano-driven emotional ballad, raw vulnerable vocals,\nbuilds from intimate verse to soaring chorus,\nsubtle string arrangements, modern radio production,\nreverb on vocals, stripped-down bridge,\npowerful final chorus, BPM: 72, Key: G Major",
+    "body": "Piano-driven emotional ballad, raw vulnerable vocals,\nbuilds from intimate verse to soaring chorus,\nsubtle string arrangements, modern radio production,\nreverb on vocals, stripped-down bridge, \npowerful final chorus, BPM: 72, Key: G Major",
     "useCase": "Heartbreak songs, emotional storytelling",
     "sunoVersion": "V4.5 or V5",
     "energy": 5,
     "notableFeature": "Perfect for emotional moments",
     "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/pop.md#piano-driven-power-ballad"
+  },
+  {
+    "genre": "Pop",
+    "subGenre": "Emotional Ballads",
+    "title": "Orchestral Pop Ballad",
+    "body": "Cinematic pop ballad, full orchestral arrangement,\nsweeping strings, powerful vocals, emotional build,\nHollywood production, dramatic key change,\nepic final chorus, BPM: 68, Key: D Major",
+    "useCase": "Movie soundtracks, dramatic moments",
+    "sunoVersion": "V5",
+    "energy": 6,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/pop.md#orchestral-pop-ballad"
+  },
+  {
+    "genre": "Pop",
+    "subGenre": "Emotional Ballads",
+    "title": "Acoustic Intimate Ballad",
+    "body": "Stripped-down acoustic ballad, fingerpicked guitar,\nintimate whispered vocals, minimal production,\nauthentic emotion, subtle string swells,\nbedroom recording vibe, BPM: 60, Key: C Major",
+    "useCase": "Personal storytelling, vulnerable moments",
+    "sunoVersion": "V4.5",
+    "energy": 3,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/pop.md#acoustic-intimate-ballad"
+  },
+  {
+    "genre": "Pop",
+    "subGenre": "Emotional Ballads",
+    "title": "Gospel-Influenced Soul Ballad",
+    "body": "Soul-stirring gospel-pop, powerful vocal runs,\nchurch organ, handclaps, choir backing vocals,\nemotional crescendo, uplifting message,\nmodern R&B production, BPM: 75, Key: B♭ Major",
+    "useCase": "Inspirational songs, uplifting anthems",
+    "sunoVersion": "V5",
+    "energy": 7,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/pop.md#gospel-influenced-soul-ballad"
+  },
+  {
+    "genre": "Pop",
+    "subGenre": "Indie Pop",
+    "title": "Bedroom Pop Dreamy",
+    "body": "Lo-fi bedroom pop aesthetic, dreamy vocals with subtle reverb,\njangly indie guitars, vintage synth pads,\ntape saturation warmth, DIY production charm,\nimperfect and intimate, nostalgic atmosphere,\nBPM: 105, Key: E♭ Major",
+    "useCase": "Chill playlists, intimate storytelling",
+    "sunoVersion": "V5",
+    "energy": 3,
+    "notableFeature": "Perfect for Spotify's \"Bedroom Pop\" playlists",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/pop.md#bedroom-pop-dreamy"
+  },
+  {
+    "genre": "Pop",
+    "subGenre": "Indie Pop",
+    "title": "Uplifting Indie Pop",
+    "body": "Feel-good indie pop, joyful melodies, \nhandclaps and group vocals, organic instrumentation,\npositive energy, summery vibes, authentic production,\ncatchy without being overproduced, BPM: 120, Key: C Major",
+    "useCase": "Road trip playlists, feel-good content",
+    "sunoVersion": "V5",
+    "energy": 7,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/pop.md#uplifting-indie-pop"
+  },
+  {
+    "genre": "Pop",
+    "subGenre": "Indie Pop",
+    "title": "Melancholic Indie Pop",
+    "body": "Bittersweet indie pop, wistful vocals, minor key melancholy,\nreverb-drenched guitars, subtle synth textures,\nintrospective mood, authentic emotional depth,\nlo-fi production touches, BPM: 90, Key: A Minor",
+    "useCase": "Rainy day playlists, introspective moments",
+    "sunoVersion": "V4.5",
+    "energy": 4,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/pop.md#melancholic-indie-pop"
+  },
+  {
+    "genre": "Pop",
+    "subGenre": "Synth-Pop",
+    "title": "Dark Synth-Pop",
+    "body": "Dark moody synth-pop, pulsing bass synth,\natmospheric pads, haunting vocals, \nminor key tension, cold digital production,\nThe Weeknd meets Depeche Mode, BPM: 115, Key: D Minor",
+    "useCase": "Moody playlists, night driving",
+    "sunoVersion": "V5",
+    "energy": 6,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/pop.md#dark-synth-pop"
+  },
+  {
+    "genre": "Pop",
+    "subGenre": "Synth-Pop",
+    "title": "Bright Synth-Pop",
+    "body": "Uplifting synth-pop, bright major key melodies,\nsparkling arpeggiated synths, optimistic vocals,\n80s nostalgia with modern production,\nfeel-good energy, radio-friendly, BPM: 124, Key: F Major",
+    "useCase": "Upbeat content, positive vibes",
+    "sunoVersion": "V5",
+    "energy": 8,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/pop.md#bright-synth-pop"
+  },
+  {
+    "genre": "Pop",
+    "subGenre": "Synth-Pop",
+    "title": "Chillwave Synth-Pop",
+    "body": "Chillwave aesthetics, hazy dream-pop synths,\nwashed-out vocals with heavy reverb,\nnostalgic summer vibes, relaxed tempo,\nlo-fi production touches, BPM: 100, Key: G Major",
+    "useCase": "Chill playlists, background music",
+    "sunoVersion": "V4.5",
+    "energy": 4,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/pop.md#chillwave-synth-pop"
+  },
+  {
+    "genre": "Pop",
+    "subGenre": "Teen Pop",
+    "title": "Bubblegum Pop",
+    "body": "Ultra-catchy teen pop, bubblegum melodies,\nbright shiny production, youthful energy vocals,\nsimple but effective hooks, colorful sound palette,\nmaximum radio-friendliness, BPM: 125, Key: C Major",
+    "useCase": "Teen audiences, commercial licensing",
+    "sunoVersion": "V5",
+    "energy": 8,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/pop.md#bubblegum-pop"
+  },
+  {
+    "genre": "Pop",
+    "subGenre": "Teen Pop",
+    "title": "Pop-Punk Teen Anthem",
+    "body": "Pop-punk energy, distorted power chords + catchy pop hooks,\nrebellious teen vocals, driving drums,\nmall-punk nostalgia, emotional but upbeat,\n2000s throwback vibes, BPM: 150, Key: E Major",
+    "useCase": "Teen angst, punk-pop fusion",
+    "sunoVersion": "V5",
+    "energy": 9,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/pop.md#pop-punk-teen-anthem"
+  },
+  {
+    "genre": "Pop",
+    "subGenre": "Adult Contemporary",
+    "title": "Radio-Friendly AC Pop",
+    "body": "Adult contemporary polish, mature sophisticated vocals,\nbalanced instrumentation, radio-perfect mix,\nbroad appeal production, relatable lyrics vibe,\nneither too young nor too old, BPM: 110, Key: G Major",
+    "useCase": "Radio play, mainstream appeal",
+    "sunoVersion": "V5",
+    "energy": 6,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/pop.md#radio-friendly-ac-pop"
+  },
+  {
+    "genre": "Pop",
+    "subGenre": "Adult Contemporary",
+    "title": "Coffee Shop Pop",
+    "body": "Mellow coffee shop pop, acoustic elements + subtle electronics,\nwarm intimate vocals, sophisticated chord progressions,\nmature songwriting feel, easy listening,\nStarbucks playlist ready, BPM: 95, Key: A Major",
+    "useCase": "Background music, cafes",
+    "sunoVersion": "V4.5",
+    "energy": 4,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/pop.md#coffee-shop-pop"
+  },
+  {
+    "genre": "Pop",
+    "subGenre": "Experimental Pop",
+    "title": "Art Pop Avant-Garde",
+    "body": "Experimental art pop, unconventional structure,\nglitchy electronic elements, ethereal vocals,\nunexpected production choices, artistic vision,\nnot radio-friendly but critically acclaimed,\nBPM: Variable, Key: Atonal elements",
+    "useCase": "Art installations, experimental projects",
+    "sunoVersion": "V5",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/pop.md#art-pop-avant-garde"
+  },
+  {
+    "genre": "Pop",
+    "subGenre": "Experimental Pop",
+    "title": "Hyperpop Chaotic Energy",
+    "body": "Hyperpop maximalism, aggressive pitched vocals,\nglitchy production, bass-boosted chaos,\n100 gecs energy, overwhelming layers,\nintentionally abrasive, Gen Z internet culture,\nBPM: 170, Key: Chromatic chaos",
+    "useCase": "TikTok trends, meme culture",
+    "sunoVersion": "V5",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/pop.md#hyperpop-chaotic-energy"
   },
   {
     "genre": "Rock",
@@ -34,6 +223,47 @@
   },
   {
     "genre": "Rock",
+    "subGenre": "Stadium Rock Anthems",
+    "title": "Power Ballad Rock",
+    "body": "Emotional power ballad, starts intimate with clean electric guitar,\nbuilds to explosive distorted chorus, raw powerful vocals,\norchestral strings in bridge, epic guitar solo at 2:30,\nlighter-waving atmosphere, BPM: 76, Key: G Major",
+    "useCase": "Emotional storytelling, wedding songs, epic cinema",
+    "sunoVersion": "Both",
+    "energy": 8,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/rock.md#power-ballad-rock"
+  },
+  {
+    "genre": "Rock",
+    "subGenre": "Stadium Rock Anthems",
+    "title": "Victory Rock Anthem",
+    "body": "Triumphant rock, driving 4/4 beat, palm-muted power chords,\nanthemic \"whoa-oh\" backing vocals, inspirational chord progressions,\ndouble-tracked guitars, stadium reverb, uplifting energy,\nBPM: 145, Key: C Major",
+    "useCase": "Sports highlights, motivational videos, success stories",
+    "sunoVersion": "V5",
+    "energy": 9,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/rock.md#victory-rock-anthem"
+  },
+  {
+    "genre": "Rock",
+    "subGenre": "Grunge/Alternative",
+    "title": "90s Grunge Sound",
+    "body": "Raw grunge vocals, sludgy distorted guitar, heavy drop-D tuning,\ndynamic quiet-LOUD-quiet structure, angsty energy, loose drumming,\nvintage analog distortion, feedback between sections,\nBPM: 118, Key: D Drop-D",
+    "useCase": "Angsty storytelling, emotional release, raw energy",
+    "sunoVersion": "V4.5 or V5",
+    "energy": 8,
+    "notableFeature": "Authentic 90s Seattle sound",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/rock.md#90s-grunge-sound"
+  },
+  {
+    "genre": "Rock",
+    "subGenre": "Grunge/Alternative",
+    "title": "Alternative Rock Edge",
+    "body": "Crunchy alt-rock, jangly clean verses with distorted choruses,\nmelodic yet aggressive vocals, off-kilter rhythms, effects-laden guitars,\ntextured layers, modern alternative production,\nBPM: 135, Key: A Minor",
+    "useCase": "Modern alternative, indie-rock crossover",
+    "sunoVersion": "V5",
+    "energy": 7,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/rock.md#alternative-rock-edge"
+  },
+  {
+    "genre": "Rock",
     "subGenre": "Grunge/Alternative",
     "title": "Grunge Ballad",
     "body": "Melancholic grunge ballad, whispered verses building to screaming chorus,\nclean-tone arpeggios verses, walls of distortion on chorus,\nraw emotional delivery, tape saturation warmth,\nBPM: 82, Key: E Minor",
@@ -41,6 +271,130 @@
     "sunoVersion": "Both",
     "energy": 6,
     "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/rock.md#grunge-ballad"
+  },
+  {
+    "genre": "Rock",
+    "subGenre": "Classic Rock",
+    "title": "70s Classic Rock",
+    "body": "Vintage 70s rock, bluesy guitar riffs, Hammond organ layers,\ngroovy bass lines, powerful raspy vocals, analog tape warmth,\nvintage tube amp distortion, extended guitar solo,\nBPM: 128, Key: A Major",
+    "useCase": "Retro vibes, classic rock tributes, road trip anthems",
+    "sunoVersion": "V4.5 or V5",
+    "energy": 8,
+    "notableFeature": "Authentic analog warmth",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/rock.md#70s-classic-rock"
+  },
+  {
+    "genre": "Rock",
+    "subGenre": "Classic Rock",
+    "title": "Southern Rock Groove",
+    "body": "Southern rock swagger, dual lead guitars, slide guitar licks,\ndriving boogie rhythm, bluesy raspy vocals, vintage amp crunch,\nHammond B3 organ, extended jam section, Allman Brothers vibe,\nBPM: 122, Key: E Major",
+    "useCase": "Road trip music, summer anthems, Southern storytelling",
+    "sunoVersion": "V5",
+    "energy": 8,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/rock.md#southern-rock-groove"
+  },
+  {
+    "genre": "Rock",
+    "subGenre": "Classic Rock",
+    "title": "80s Arena Rock",
+    "body": "80s power rock, massive reverb on drums, soaring hair metal vocals,\nshredding guitar solos, synth layers, stadium production,\npower ballad structure, epic key change finale,\nBPM: 136, Key: D Major → E Major",
+    "useCase": "80s tributes, workout music, nostalgia content",
+    "sunoVersion": "V5",
+    "energy": 9,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/rock.md#80s-arena-rock"
+  },
+  {
+    "genre": "Rock",
+    "subGenre": "Metal/Heavy Rock",
+    "title": "Heavy Metal Power",
+    "body": "Heavy metal aggression, rapid double-kick drums, palm-muted power chords,\nshredding guitar solos, operatic or growling vocals,\nchugging low-end riffs, blast beats, technical precision,\nBPM: 180, Key: E Minor",
+    "useCase": "Intense energy, gaming soundtracks, aggressive content",
+    "sunoVersion": "V5",
+    "energy": 10,
+    "notableFeature": "Technical guitar work showcased",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/rock.md#heavy-metal-power"
+  },
+  {
+    "genre": "Rock",
+    "subGenre": "Metal/Heavy Rock",
+    "title": "Doom Metal Darkness",
+    "body": "Doom metal, slow crushing riffs, down-tuned guitars (Drop-C),\nmonolithic bass tone, thunderous drums, dark atmospheric vocals,\nfeedback drones, sludgy distortion, oppressive heaviness,\nBPM: 65, Key: C Drop-C",
+    "useCase": "Dark atmospheric content, horror themes",
+    "sunoVersion": "V5",
+    "energy": 4,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/rock.md#doom-metal-darkness"
+  },
+  {
+    "genre": "Rock",
+    "subGenre": "Metal/Heavy Rock",
+    "title": "Thrash Metal Speed",
+    "body": "Thrash metal fury, blistering tempos, aggressive riffing,\nrapid-fire double bass, shredded vocals, chaotic energy,\npalm-muted galloping rhythms, shredding solos,\nBPM: 200, Key: E Minor",
+    "useCase": "Extreme energy, action scenes, adrenaline rush",
+    "sunoVersion": "V5",
+    "energy": 10,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/rock.md#thrash-metal-speed"
+  },
+  {
+    "genre": "Rock",
+    "subGenre": "Punk Rock",
+    "title": "Classic Punk Attitude",
+    "body": "Fast punk rock, three-chord power, raw shouted vocals,\nbreakneck tempo, simple but effective, garage recording aesthetic,\nrebellious energy, anti-establishment vibe,\nBPM: 180, Key: A Major",
+    "useCase": "Rebellious anthems, protest songs, DIY ethos",
+    "sunoVersion": "V4.5 or V5",
+    "energy": 9,
+    "notableFeature": "Raw unpolished authenticity",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/rock.md#classic-punk-attitude"
+  },
+  {
+    "genre": "Rock",
+    "subGenre": "Punk Rock",
+    "title": "Pop-Punk Energy",
+    "body": "Pop-punk, catchy power-chord progressions, upbeat tempos,\nanthemic gang vocals on chorus, polished punk production,\nmelodic vocal hooks, radio-friendly punk sound,\nBPM: 165, Key: D Major",
+    "useCase": "Teen anthems, summer vibes, upbeat energy",
+    "sunoVersion": "V5",
+    "energy": 9,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/rock.md#pop-punk-energy"
+  },
+  {
+    "genre": "Rock",
+    "subGenre": "Punk Rock",
+    "title": "Post-Punk Darkness",
+    "body": "Post-punk atmosphere, angular guitar riffs, driving bass lines,\ndetached monotone vocals, reverb-drenched production,\ndark atmospheric mood, minimalist drums,\nBPM: 128, Key: D Minor",
+    "useCase": "Dark introspective content, art-house vibes",
+    "sunoVersion": "V5",
+    "energy": 5,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/rock.md#post-punk-darkness"
+  },
+  {
+    "genre": "Rock",
+    "subGenre": "Indie Rock",
+    "title": "Indie Rock Jangle",
+    "body": "Jangly indie rock, clean Rickenbacker-style guitar tone,\nmelodic bass lines, crisp drums, warm intimate vocals,\nlo-fi charm with modern clarity, authentic bedroom-pop energy,\nBPM: 138, Key: G Major",
+    "useCase": "Authentic storytelling, chill indie vibes",
+    "sunoVersion": "V5",
+    "energy": 6,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/rock.md#indie-rock-jangle"
+  },
+  {
+    "genre": "Rock",
+    "subGenre": "Indie Rock",
+    "title": "Garage Rock Revival",
+    "body": "Garage rock rawness, fuzzy vintage amps, simple chord progressions,\nenergetic sloppy drums, distorted shouted vocals,\nDIY recording aesthetic, White Stripes energy,\nBPM: 155, Key: E Major",
+    "useCase": "Raw energy, retro vibes, DIY spirit",
+    "sunoVersion": "V4.5 or V5",
+    "energy": 8,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/rock.md#garage-rock-revival"
+  },
+  {
+    "genre": "Rock",
+    "subGenre": "Indie Rock",
+    "title": "Math Rock Complexity",
+    "body": "Math rock intricacy, odd time signatures (7/8, 5/4),\ntapping guitar techniques, angular riffs, intricate drumming,\nclean-tone complexity, instrumental focus,\nBPM: Variable, Key: F# Minor",
+    "useCase": "Technical showcases, instrumental experimentation",
+    "sunoVersion": "V5",
+    "energy": 7,
+    "notableFeature": "Complex rhythms and time signature changes",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/rock.md#math-rock-complexity"
   },
   {
     "genre": "EDM",
@@ -52,6 +406,161 @@
     "energy": 10,
     "notableFeature": "Bone-shaking bass drop designed for massive sound systems",
     "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/edm.md#big-room-house-anthem"
+  },
+  {
+    "genre": "EDM",
+    "subGenre": "Festival Bangers",
+    "title": "Mainstage EDM Drop",
+    "body": "Mainstage EDM, vocal chops buildup, white noise riser crescendo,\nsynth pluck melody, heavy kickdrum, festival-ready production,\nanthemic hook, laser sound effects, radio-EDM polish,\nBPM: 130, Key: G Major",
+    "useCase": "Radio EDM, commercial success, mainstream appeal",
+    "sunoVersion": "V5",
+    "energy": 9,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/edm.md#mainstage-edm-drop"
+  },
+  {
+    "genre": "EDM",
+    "subGenre": "Festival Bangers",
+    "title": "Festival Trap Hybrid",
+    "body": "Festival trap-EDM fusion, hybrid trap drums, dubstep-influenced bass,\ncinematic build-ups, aggressive horn stabs, festival anthem energy,\nmassive bass drops, crowd hyping sections,\nBPM: 140 (half-time feel), Key: D Minor",
+    "useCase": "Festival main stage, energetic drops, hype moments",
+    "sunoVersion": "V5",
+    "energy": 10,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/edm.md#festival-trap-hybrid"
+  },
+  {
+    "genre": "EDM",
+    "subGenre": "Progressive House",
+    "title": "Melodic Progressive Journey",
+    "body": "Progressive house, evolving arpeggiated synths, emotional chord progressions,\ndriving bassline, crisp hi-hats, atmospheric pads building gradually,\neuphoric breakdown at 2:00, uplifting energy, radio-friendly,\nBPM: 126, Key: A Minor",
+    "useCase": "Radio dance, emotional journeys, peak-time club",
+    "sunoVersion": "V5",
+    "energy": 8,
+    "notableFeature": "Emotional melodic journey structure",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/edm.md#melodic-progressive-journey"
+  },
+  {
+    "genre": "EDM",
+    "subGenre": "Progressive House",
+    "title": "Deep Progressive Groove",
+    "body": "Deep progressive house, hypnotic bassline groove, subtle chord stabs,\norganic percussion layers, warm analog synths, minimal vocal chops,\nsophisticated club sound, underground vibe,\nBPM: 122, Key: F Minor",
+    "useCase": "Underground clubs, sophisticated dance floors",
+    "sunoVersion": "V5",
+    "energy": 7,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/edm.md#deep-progressive-groove"
+  },
+  {
+    "genre": "EDM",
+    "subGenre": "Progressive House",
+    "title": "Progressive Trance",
+    "body": "Progressive trance, uplifting arpeggios, emotional breakdown,\nsoaring lead synth, driving kick and bass, euphoric energy,\norchestral elements in breakdown, epic build and release,\nBPM: 138, Key: E Major",
+    "useCase": "Trance festivals, emotional peak moments",
+    "sunoVersion": "V5",
+    "energy": 9,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/edm.md#progressive-trance"
+  },
+  {
+    "genre": "EDM",
+    "subGenre": "Dubstep/Bass Music",
+    "title": "Heavy Dubstep Drop",
+    "body": "Heavy dubstep, aggressive wobble bass, half-time drums (70 BPM feel),\ndistorted mid-range frequencies, metallic sound design,\nchaotic drop sections, sub-bass earthquake, dark atmosphere,\nBPM: 140 (half-time), Key: G Minor",
+    "useCase": "Bass music festivals, headbanging energy, aggressive sound",
+    "sunoVersion": "V5",
+    "energy": 10,
+    "notableFeature": "Signature dubstep wobble bass",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/edm.md#heavy-dubstep-drop"
+  },
+  {
+    "genre": "EDM",
+    "subGenre": "Dubstep/Bass Music",
+    "title": "Melodic Dubstep",
+    "body": "Melodic dubstep, emotional chord progressions, female vocal feature,\nbeautiful breakdown, powerful but musical drop, super saw chords,\nemotional + aggressive balance, color bass techniques,\nBPM: 140 (half-time), Key: D Major",
+    "useCase": "Emotional bass music, radio-friendly dubstep",
+    "sunoVersion": "V5",
+    "energy": 8,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/edm.md#melodic-dubstep"
+  },
+  {
+    "genre": "EDM",
+    "subGenre": "Dubstep/Bass Music",
+    "title": "Drum and Bass Energy",
+    "body": "Drum and bass, rapid breakbeat (160-180 BPM), rolling bassline,\namen break influences, jungle vibes, liquid DnB melodic elements,\natmospheric pads, high-energy tempo,\nBPM: 174, Key: A Minor",
+    "useCase": "High-energy sets, rave energy, liquid DnB",
+    "sunoVersion": "V5",
+    "energy": 10,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/edm.md#drum-and-bass-energy"
+  },
+  {
+    "genre": "EDM",
+    "subGenre": "Trance",
+    "title": "Uplifting Trance Anthem",
+    "body": "Uplifting trance, soaring lead synth melody, euphoric breakdown,\ndriving 4/4 kick, rolling bassline, orchestral elements,\nemotional piano in breakdown, epic buildup and release,\nBPM: 138, Key: F# Minor → F# Major",
+    "useCase": "Trance festivals, emotional peak moments, anthems",
+    "sunoVersion": "V5",
+    "energy": 9,
+    "notableFeature": "Key change from minor to major for euphoria",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/edm.md#uplifting-trance-anthem"
+  },
+  {
+    "genre": "EDM",
+    "subGenre": "Trance",
+    "title": "Psy-Trance Journey",
+    "body": "Psychedelic trance, hypnotic bassline, triplet hi-hats,\nevolving acid synth leads, minimal breaks, continuous driving energy,\ntribal percussion layers, festival sunrise vibe,\nBPM: 145, Key: E Minor",
+    "useCase": "Psytrance festivals, sunrise sets, hypnotic journeys",
+    "sunoVersion": "V5",
+    "energy": 9,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/edm.md#psy-trance-journey"
+  },
+  {
+    "genre": "EDM",
+    "subGenre": "Trance",
+    "title": "Progressive Trance (Anjuna Style)",
+    "body": "Progressive trance (Anjunabeats style), lush pad layers,\nemotional chord progressions, crisp production, vocal trance elements,\nsophisticated arrangement, radio-friendly breakdown,\nBPM: 132, Key: C# Minor",
+    "useCase": "Radio dance, emotional trance, modern progressive",
+    "sunoVersion": "V5",
+    "energy": 8,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/edm.md#progressive-trance-anjuna-style"
+  },
+  {
+    "genre": "EDM",
+    "subGenre": "Techno",
+    "title": "Peak-Time Techno",
+    "body": "Peak-time techno, driving 4/4 kick, industrial sound design,\nhypnotic acid bassline, minimal melodic elements, relentless energy,\nwarehouse rave atmosphere, Berlin techno vibe,\nBPM: 132, Key: G Minor",
+    "useCase": "Underground clubs, warehouse parties, Berlin techno",
+    "sunoVersion": "V5",
+    "energy": 9,
+    "notableFeature": "Hypnotic repetitive energy for 3+ hour sets",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/edm.md#peak-time-techno"
+  },
+  {
+    "genre": "EDM",
+    "subGenre": "Techno",
+    "title": "Melodic Techno",
+    "body": "Melodic techno, driving kick with emotional chord progressions,\natmospheric pads, cinematic elements, sophisticated production,\nunderground meets emotional, modern Cercle vibe,\nBPM: 124, Key: A Minor",
+    "useCase": "Sophisticated club nights, emotional techno",
+    "sunoVersion": "V5",
+    "energy": 7,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/edm.md#melodic-techno"
+  },
+  {
+    "genre": "EDM",
+    "subGenre": "Techno",
+    "title": "Industrial Techno",
+    "body": "Industrial techno, distorted percussion, metallic sound design,\naggressive atmosphere, minimal melodic content, raw warehouse energy,\nrelentless pounding rhythm, dark underground vibe,\nBPM: 140, Key: D Minor",
+    "useCase": "Hard techno sets, industrial raves, aggressive energy",
+    "sunoVersion": "V5",
+    "energy": 10,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/edm.md#industrial-techno"
+  },
+  {
+    "genre": "EDM",
+    "subGenre": "Future Bass",
+    "title": "Emotional Future Bass",
+    "body": "Future bass, emotional chord progressions, vocal chops prominent,\nsupersaws on drop, sidechain compression, colorful sound design,\nbright uplifting energy, modern pop-EDM crossover,\nBPM: 150, Key: E Major",
+    "useCase": "Emotional EDM, radio dance, streaming playlists",
+    "sunoVersion": "V5",
+    "energy": 8,
+    "notableFeature": "Vocal chops + emotional supersaws",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/edm.md#emotional-future-bass"
   },
   {
     "genre": "EDM",
@@ -76,6 +585,27 @@
   },
   {
     "genre": "Hip-Hop",
+    "subGenre": "Trap Bangers",
+    "title": "Melodic Trap Vibes",
+    "body": "Melodic trap, auto-tuned singing-rap hybrid, emotional chord progressions,\nlush synth pads, 808 bass hits, sparse trap drums, reverb-soaked vocals,\nintrospective yet catchy, modern melancholic energy,\nBPM: 135, Key: E Minor",
+    "useCase": "Emotional storytelling, radio hits, streaming playlists",
+    "sunoVersion": "V5",
+    "energy": 6,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/hip-hop.md#melodic-trap-vibes"
+  },
+  {
+    "genre": "Hip-Hop",
+    "subGenre": "Trap Bangers",
+    "title": "Aggressive Trap Energy",
+    "body": "Aggressive trap, distorted 808s, rapid-fire hi-hats, menacing synth lead,\nhard-hitting snare, growling bass, intense ad-libs, dark minor key,\nstadium-shaking low-end, BPM: 145, Key: G Minor",
+    "useCase": "Workout playlists, aggressive energy, gaming soundtracks",
+    "sunoVersion": "V5",
+    "energy": 10,
+    "notableFeature": "Bone-rattling 808 bass",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/hip-hop.md#aggressive-trap-energy"
+  },
+  {
+    "genre": "Hip-Hop",
     "subGenre": "Boom Bap Classics",
     "title": "90s Boom Bap",
     "body": "Classic boom bap, dusty vinyl samples, hard-hitting kick and snare,\njazzy piano loops, vinyl crackle texture, authentic 90s drum breaks,\nminimal bass line, golden era hip-hop vibe, BPM: 92, Key: D Minor",
@@ -84,6 +614,162 @@
     "energy": 5,
     "notableFeature": "Authentic vinyl sample aesthetic",
     "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/hip-hop.md#90s-boom-bap"
+  },
+  {
+    "genre": "Hip-Hop",
+    "subGenre": "Boom Bap Classics",
+    "title": "Jazz Rap Fusion",
+    "body": "Jazz rap, live instrumentation feel, upright bass, Rhodes piano,\nbrush drums mixed with hip-hop beats, smooth soulful samples,\nsophisticated production, conscious rap vibes,\nBPM: 88, Key: F Major",
+    "useCase": "Sophisticated storytelling, coffee shop vibes, chill rap",
+    "sunoVersion": "V5",
+    "energy": 4,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/hip-hop.md#jazz-rap-fusion"
+  },
+  {
+    "genre": "Hip-Hop",
+    "subGenre": "Boom Bap Classics",
+    "title": "East Coast Hardcore",
+    "body": "East Coast boom bap, aggressive drums, gritty street samples,\nhard snare hits, deep kick, minimal melodic elements,\nraw New York energy, scratching elements,\nBPM: 95, Key: A Minor",
+    "useCase": "Street anthems, lyrical battles, hardcore rap",
+    "sunoVersion": "V4.5 or V5",
+    "energy": 8,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/hip-hop.md#east-coast-hardcore"
+  },
+  {
+    "genre": "Hip-Hop",
+    "subGenre": "Melodic Rap",
+    "title": "Emo Rap Atmosphere",
+    "body": "Emo rap, guitar-driven trap beat, auto-tuned emotional vocals,\n808 bass with melodic lead, reverb-heavy production,\nvulnerable lyrics mood, sad-boy aesthetic, modern melancholy,\nBPM: 130, Key: B Minor",
+    "useCase": "Emotional storytelling, heartbreak anthems, streaming hits",
+    "sunoVersion": "V5",
+    "energy": 4,
+    "notableFeature": "Guitar + trap fusion",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/hip-hop.md#emo-rap-atmosphere"
+  },
+  {
+    "genre": "Hip-Hop",
+    "subGenre": "Melodic Rap",
+    "title": "Sing-Rap Crossover",
+    "body": "Melodic rap-singing hybrid, catchy melodic hooks, R&B chord progressions,\nsmooth vocal delivery, minimal trap drums, lush atmospheric pads,\nradio-friendly pop-rap production, BPM: 128, Key: G Major",
+    "useCase": "Radio hits, pop crossover appeal, mainstream success",
+    "sunoVersion": "V5",
+    "energy": 6,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/hip-hop.md#sing-rap-crossover"
+  },
+  {
+    "genre": "Hip-Hop",
+    "subGenre": "Melodic Rap",
+    "title": "Cloudy SoundCloud Rap",
+    "body": "SoundCloud rap aesthetic, lo-fi trap production, distorted 808s,\nheavily processed vocals, ambient pads, experimental sound design,\ngenre-bending elements, underground internet vibe,\nBPM: 140, Key: F# Minor",
+    "useCase": "Underground rap, experimental sounds, internet culture",
+    "sunoVersion": "V5",
+    "energy": 5,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/hip-hop.md#cloudy-soundcloud-rap"
+  },
+  {
+    "genre": "Hip-Hop",
+    "subGenre": "Drill Music",
+    "title": "UK Drill Intensity",
+    "body": "UK drill, sliding 808 bass patterns, dark ominous synths,\nskittering hi-hats, menacing atmosphere, aggressive delivery,\ncold London street energy, minimal melodic elements,\nBPM: 140, Key: D Minor",
+    "useCase": "Intense energy, street anthems, aggressive rap",
+    "sunoVersion": "V5",
+    "energy": 9,
+    "notableFeature": "Signature UK drill sliding 808s",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/hip-hop.md#uk-drill-intensity"
+  },
+  {
+    "genre": "Hip-Hop",
+    "subGenre": "Drill Music",
+    "title": "Chicago Drill Rawness",
+    "body": "Chicago drill, hard-hitting drums, dark piano loops,\naggressive 808 slides, menacing synth stabs, raw street energy,\nminimalist production, intense delivery,\nBPM: 138, Key: C Minor",
+    "useCase": "Street rap, intense storytelling, raw energy",
+    "sunoVersion": "V5",
+    "energy": 9,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/hip-hop.md#chicago-drill-rawness"
+  },
+  {
+    "genre": "Hip-Hop",
+    "subGenre": "Conscious Rap",
+    "title": "Lyrical Storytelling",
+    "body": "Conscious rap, jazzy instrumental, soulful samples,\nclear vocal mix for lyrical focus, boom bap drums,\nthoughtful chord progressions, spoken word elements,\nBPM: 90, Key: E Minor",
+    "useCase": "Storytelling, social commentary, lyrical showcases",
+    "sunoVersion": "V4.5 or V5",
+    "energy": 5,
+    "notableFeature": "Production serves the lyrics",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/hip-hop.md#lyrical-storytelling"
+  },
+  {
+    "genre": "Hip-Hop",
+    "subGenre": "Conscious Rap",
+    "title": "Spoken Word Hip-Hop",
+    "body": "Spoken word rap, minimal beat, acoustic instrumentation,\npoetry slam energy, clear vocals upfront, live band feel,\norganic drums, intimate production, BPM: 85, Key: A Minor",
+    "useCase": "Poetry, deep storytelling, intimate performances",
+    "sunoVersion": "V5",
+    "energy": 4,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/hip-hop.md#spoken-word-hip-hop"
+  },
+  {
+    "genre": "Hip-Hop",
+    "subGenre": "Old School Hip-Hop",
+    "title": "Golden Era 80s",
+    "body": "Golden era hip-hop, drum machine beats (808/909), funky bass lines,\ndisco/funk samples, scratching techniques, party vibe energy,\nvintage production, BPM: 105, Key: G Major",
+    "useCase": "Nostalgic throwbacks, party anthems, retro vibes",
+    "sunoVersion": "V4.5 or V5",
+    "energy": 7,
+    "notableFeature": "Authentic 808 drum machine sound",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/hip-hop.md#golden-era-80s"
+  },
+  {
+    "genre": "Hip-Hop",
+    "subGenre": "Old School Hip-Hop",
+    "title": "Funky Hip-Hop Groove",
+    "body": "Funk-influenced hip-hop, slapped bass lines, tight horn stabs,\nsyncopated drums, party energy, danceable groove,\nvintage analog warmth, BPM: 110, Key: F Major",
+    "useCase": "Dance parties, feel-good vibes, funky energy",
+    "sunoVersion": "V5",
+    "energy": 8,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/hip-hop.md#funky-hip-hop-groove"
+  },
+  {
+    "genre": "Hip-Hop",
+    "subGenre": "Old School Hip-Hop",
+    "title": "West Coast G-Funk",
+    "body": "G-funk vibes, synthesizer leads with talk-box, deep 808 bass,\nslow-rolling tempo, funky melodic whistles, laid-back delivery,\nWest Coast swagger, BPM: 92, Key: C Major",
+    "useCase": "Cruising music, West Coast tributes, chill rap",
+    "sunoVersion": "V5",
+    "energy": 6,
+    "notableFeature": "Signature G-funk synth lead",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/hip-hop.md#west-coast-g-funk"
+  },
+  {
+    "genre": "Indie",
+    "subGenre": "Bedroom Pop",
+    "title": "Intimate Bedroom Pop",
+    "body": "Bedroom pop, lo-fi aesthetic, warm intimate vocals,\nminimal production, tape saturation, DIY charm,\nhomemade recording vibe, vulnerable delivery,\nBPM: 95, Key: G Major",
+    "useCase": "Intimate storytelling, authentic vibes, personal content",
+    "sunoVersion": "V5",
+    "energy": 4,
+    "notableFeature": "Authentic DIY bedroom recording aesthetic",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/indie.md#intimate-bedroom-pop"
+  },
+  {
+    "genre": "Indie",
+    "subGenre": "Bedroom Pop",
+    "title": "Upbeat Bedroom Pop",
+    "body": "Upbeat bedroom pop, jangly guitars, catchy vocal melodies,\nlo-fi drums, warm analog synths, nostalgic 80s influence,\nbedroom production charm with pop hooks,\nBPM: 120, Key: C Major",
+    "useCase": "Feel-good indie, TikTok viral potential, summer vibes",
+    "sunoVersion": "V5",
+    "energy": 7,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/indie.md#upbeat-bedroom-pop"
+  },
+  {
+    "genre": "Indie",
+    "subGenre": "Bedroom Pop",
+    "title": "Melancholic Bedroom Indie",
+    "body": "Melancholic bedroom indie, reverb-soaked vocals,\nminimal acoustic guitar, tape hiss, vulnerable lyrics mood,\nlate-night introspective vibe, raw emotional honesty,\nBPM: 75, Key: E Minor",
+    "useCase": "Sad indie, introspective content, emotional release",
+    "sunoVersion": "V5",
+    "energy": 3,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/indie.md#melancholic-bedroom-indie"
   },
   {
     "genre": "Indie",
@@ -98,13 +784,189 @@
   },
   {
     "genre": "Indie",
-    "subGenre": "Bedroom Pop",
-    "title": "Melancholic Bedroom Indie",
-    "body": "Melancholic bedroom indie, reverb-soaked vocals,\nminimal acoustic guitar, tape hiss, vulnerable lyrics mood,\nlate-night introspective vibe, raw emotional honesty,\nBPM: 75, Key: E Minor",
-    "useCase": "Sad indie, introspective content, emotional release",
+    "subGenre": "Indie Rock",
+    "title": "Garage Indie Revival",
+    "body": "Garage indie rock, fuzzy lo-fi guitars, raw energy,\nsimple chord progressions, DIY recording aesthetic,\nWhite Stripes/Strokes energy, unpolished authenticity,\nBPM: 155, Key: E Major",
+    "useCase": "Raw indie energy, garage rock vibes, DIY spirit",
+    "sunoVersion": "V4.5 or V5",
+    "energy": 8,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/indie.md#garage-indie-revival"
+  },
+  {
+    "genre": "Indie",
+    "subGenre": "Indie Rock",
+    "title": "Post-Punk Revival",
+    "body": "Post-punk indie, angular guitar riffs, driving bass,\ndetached vocal delivery, atmospheric reverb,\nJoy Division/Interpol influence, dark mood,\nBPM: 128, Key: A Minor",
+    "useCase": "Dark indie, post-punk revival, art rock",
     "sunoVersion": "V5",
+    "energy": 6,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/indie.md#post-punk-revival"
+  },
+  {
+    "genre": "Indie",
+    "subGenre": "Shoegaze",
+    "title": "Classic Shoegaze Wall",
+    "body": "Shoegaze, walls of distorted guitars, buried vocals,\ntremolo and reverb pedals, ethereal atmosphere,\nMy Bloody Valentine influence, sonic immersion,\nBPM: 110, Key: C Minor",
+    "useCase": "Atmospheric indie, guitar wall of sound, dreamy vibes",
+    "sunoVersion": "V5",
+    "energy": 5,
+    "notableFeature": "Signature guitar wall-of-sound texture",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/indie.md#classic-shoegaze-wall"
+  },
+  {
+    "genre": "Indie",
+    "subGenre": "Shoegaze",
+    "title": "Modern Shoegaze",
+    "body": "Modern shoegaze, layered guitars with clarity,\nreverb-soaked but defined, melodic vocals present,\ncontemporary production with shoegaze aesthetics,\nBPM: 120, Key: D Minor",
+    "useCase": "Modern shoegaze, atmospheric indie rock",
+    "sunoVersion": "V5",
+    "energy": 6,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/indie.md#modern-shoegaze"
+  },
+  {
+    "genre": "Indie",
+    "subGenre": "Shoegaze",
+    "title": "Blackgaze Darkness",
+    "body": "Blackgaze (shoegaze + black metal), tremolo guitars,\nblast beats mixed with shoegaze atmosphere,\nharsh yet beautiful, Deafheaven influence,\nBPM: 160, Key: E Minor",
+    "useCase": "Heavy atmospheric indie, extreme shoegaze",
+    "sunoVersion": "V5",
+    "energy": 9,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/indie.md#blackgaze-darkness"
+  },
+  {
+    "genre": "Indie",
+    "subGenre": "Dream Pop",
+    "title": "Ethereal Dream Pop",
+    "body": "Dream pop, lush reverb-drenched guitars, airy vocals,\nshimmering textures, slow tempo, romantic atmosphere,\nCocteau Twins/Beach House vibe, ethereal beauty,\nBPM: 85, Key: G Major",
+    "useCase": "Dreamy atmospheres, romantic vibes, ethereal content",
+    "sunoVersion": "V5",
+    "energy": 4,
+    "notableFeature": "Lush reverb creates ethereal atmosphere",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/indie.md#ethereal-dream-pop"
+  },
+  {
+    "genre": "Indie",
+    "subGenre": "Dream Pop",
+    "title": "Synth Dream Pop",
+    "body": "Synth-based dream pop, vintage analog synths,\nsoft drum machines, breathy vocals, nostalgic 80s,\nwarm tape saturation, romantic melancholy,\nBPM: 100, Key: F Major",
+    "useCase": "Nostalgic dreamy vibes, synth-pop crossover",
+    "sunoVersion": "V5",
+    "energy": 5,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/indie.md#synth-dream-pop"
+  },
+  {
+    "genre": "Indie",
+    "subGenre": "Dream Pop",
+    "title": "Upbeat Dream Pop",
+    "body": "Upbeat dream pop, jangly guitars meet synths,\nbright shimmering production, catchy melodies,\noptimistic energy, indie-pop crossover appeal,\nBPM: 128, Key: C Major",
+    "useCase": "Feel-good indie, summer anthems, upbeat dreamy",
+    "sunoVersion": "V5",
+    "energy": 7,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/indie.md#upbeat-dream-pop"
+  },
+  {
+    "genre": "Indie",
+    "subGenre": "Folk/Acoustic Indie",
+    "title": "Indie Folk Storytelling",
+    "body": "Indie folk, fingerpicked acoustic guitar, intimate vocals,\nsubtle string arrangements, organic instrumentation,\npersonal storytelling, Bon Iver/Fleet Foxes influence,\nBPM: 92, Key: D Major",
+    "useCase": "Intimate storytelling, coffeehouse vibes, organic sound",
+    "sunoVersion": "V5",
+    "energy": 4,
+    "notableFeature": "Intimate acoustic storytelling",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/indie.md#indie-folk-storytelling"
+  },
+  {
+    "genre": "Indie",
+    "subGenre": "Folk/Acoustic Indie",
+    "title": "Folk-Pop Crossover",
+    "body": "Folk-pop indie, bright acoustic guitars, banjo accents,\nstomp-and-clap percussion, anthemic choruses,\nMumford & Sons/Lumineers energy, sing-along vibes,\nBPM: 135, Key: G Major",
+    "useCase": "Festival anthems, feel-good folk, mainstream indie",
+    "sunoVersion": "V5",
+    "energy": 8,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/indie.md#folk-pop-crossover"
+  },
+  {
+    "genre": "Indie",
+    "subGenre": "Folk/Acoustic Indie",
+    "title": "Melancholic Folk",
+    "body": "Melancholic indie folk, sad fingerpicked guitar,\nvulnerable breathy vocals, minimal arrangements,\nrainy day atmosphere, emotional vulnerability,\nBPM: 70, Key: A Minor",
+    "useCase": "Sad acoustic, emotional release, rainy day playlist",
+    "sunoVersion": "Both",
     "energy": 3,
-    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/indie.md#melancholic-bedroom-indie"
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/indie.md#melancholic-folk"
+  },
+  {
+    "genre": "Indie",
+    "subGenre": "Lo-Fi Indie",
+    "title": "Lo-Fi Indie Pop",
+    "body": "Lo-fi indie pop, cassette tape warmth, vinyl crackle,\nsimple chord progressions, nostalgic production,\nDIY bedroom recording, authentic imperfections,\nBPM: 110, Key: F Major",
+    "useCase": "Nostalgic vibes, authentic indie, chill playlists",
+    "sunoVersion": "V5",
+    "energy": 5,
+    "notableFeature": "Authentic analog warmth and imperfections",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/indie.md#lo-fi-indie-pop"
+  },
+  {
+    "genre": "Indie",
+    "subGenre": "Lo-Fi Indie",
+    "title": "Slacker Rock",
+    "body": "Slacker rock indie, lazy delivery, minimal effort aesthetic,\nfuzzy lo-fi guitars, apathetic vocals, 90s indie vibe,\nPavement/Guided By Voices influence,\nBPM: 125, Key: E Major",
+    "useCase": "90s indie nostalgia, slacker aesthetic, raw sound",
+    "sunoVersion": "V4.5 or V5",
+    "energy": 5,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/indie.md#slacker-rock"
+  },
+  {
+    "genre": "Indie",
+    "subGenre": "Lo-Fi Indie",
+    "title": "Noise Pop",
+    "body": "Noise pop, distorted guitars + pop melodies,\nfeedback + catchy hooks, lo-fi production chaos,\nmelody buried in noise, Sonic Youth meets pop,\nBPM: 140, Key: D Minor",
+    "useCase": "Experimental indie, noise rock crossover",
+    "sunoVersion": "V5",
+    "energy": 8,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/indie.md#noise-pop"
+  },
+  {
+    "genre": "Jazz-Blues",
+    "subGenre": "Smooth Jazz",
+    "title": "Contemporary Smooth Jazz",
+    "body": "Smooth jazz, silky saxophone lead, Rhodes electric piano,\nsoft brushed drums, walking bass line, evening lounge vibe,\nradio-friendly production, sophisticated but accessible,\nBPM: 95, Key: Eb Major",
+    "useCase": "Background music, lounges, dinner ambiance",
+    "sunoVersion": "V5",
+    "energy": 4,
+    "notableFeature": "Perfect background sophistication",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/jazz-blues.md#contemporary-smooth-jazz"
+  },
+  {
+    "genre": "Jazz-Blues",
+    "subGenre": "Smooth Jazz",
+    "title": "Smooth Jazz Ballad",
+    "body": "Smooth jazz ballad, intimate sax or guitar lead,\nlush chord progressions, soft piano comping,\nromantic atmosphere, late-night radio vibe,\nBPM: 70, Key: F Major",
+    "useCase": "Romantic settings, late-night listening, relaxation",
+    "sunoVersion": "Both",
+    "energy": 3,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/jazz-blues.md#smooth-jazz-ballad"
+  },
+  {
+    "genre": "Jazz-Blues",
+    "subGenre": "Smooth Jazz",
+    "title": "Upbeat Smooth Jazz",
+    "body": "Upbeat smooth jazz, funky bass line, bright horn section,\nLatin percussion influences, feel-good energy,\nradio-friendly groove, sophisticated pop-jazz,\nBPM: 118, Key: C Major",
+    "useCase": "Upbeat background, feel-good vibes, cafe music",
+    "sunoVersion": "V5",
+    "energy": 7,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/jazz-blues.md#upbeat-smooth-jazz"
+  },
+  {
+    "genre": "Jazz-Blues",
+    "subGenre": "Bebop/Hard Bop",
+    "title": "Fast Bebop",
+    "body": "Bebop jazz, blazing fast tempo, complex chord changes,\nvirtuosic improvisation, walking bass at breakneck speed,\nride cymbal swing, sophisticated harmonic movement,\nBPM: 240, Key: Bb Major",
+    "useCase": "Jazz showcases, virtuosity displays, traditional jazz",
+    "sunoVersion": "V5",
+    "energy": 9,
+    "notableFeature": "Technical virtuosity and speed",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/jazz-blues.md#fast-bebop"
   },
   {
     "genre": "Jazz-Blues",
@@ -118,13 +980,168 @@
   },
   {
     "genre": "Jazz-Blues",
-    "subGenre": "Smooth Jazz",
-    "title": "Smooth Jazz Ballad",
-    "body": "Smooth jazz ballad, intimate sax or guitar lead,\nlush chord progressions, soft piano comping,\nromantic atmosphere, late-night radio vibe,\nBPM: 70, Key: F Major",
-    "useCase": "Romantic settings, late-night listening, relaxation",
+    "subGenre": "Bebop/Hard Bop",
+    "title": "Modal Jazz",
+    "body": "Modal jazz, Miles Davis \"Kind of Blue\" vibe,\nsparse chord changes, modal improvisation,\ncool understated sophistication, trumpet/sax lead,\nBPM: 120, Key: D Dorian",
+    "useCase": "Sophisticated jazz, moody atmospheres, cool jazz",
+    "sunoVersion": "V5",
+    "energy": 5,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/jazz-blues.md#modal-jazz"
+  },
+  {
+    "genre": "Jazz-Blues",
+    "subGenre": "Chicago Blues",
+    "title": "Electric Chicago Blues",
+    "body": "Chicago blues, gritty electric guitar with overdrive,\nharmonica wailing, shuffled 12-bar blues progression,\nraw emotional vocals, vintage tube amp tone,\nBPM: 120 (shuffle feel), Key: A Major",
+    "useCase": "Blues bars, authentic blues, emotional storytelling",
+    "sunoVersion": "V5",
+    "energy": 7,
+    "notableFeature": "Authentic Chicago electric blues sound",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/jazz-blues.md#electric-chicago-blues"
+  },
+  {
+    "genre": "Jazz-Blues",
+    "subGenre": "Chicago Blues",
+    "title": "Slow Blues Ballad",
+    "body": "Slow blues ballad, soulful bending guitar notes,\nemotional vocal delivery, organ swells, sparse drums,\nlate-night blues club vibe, raw authentic pain,\nBPM: 60, Key: G Minor",
+    "useCase": "Emotional blues, late-night listening, raw storytelling",
     "sunoVersion": "Both",
+    "energy": 4,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/jazz-blues.md#slow-blues-ballad"
+  },
+  {
+    "genre": "Jazz-Blues",
+    "subGenre": "Chicago Blues",
+    "title": "Jump Blues",
+    "body": "Jump blues, upbeat shuffle rhythm, horn section stabs,\nboogie-woogie piano, upright bass slapping,\nLouis Jordan influence, danceable blues energy,\nBPM: 160, Key: C Major",
+    "useCase": "Dance blues, upbeat energy, vintage vibes",
+    "sunoVersion": "V5",
+    "energy": 8,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/jazz-blues.md#jump-blues"
+  },
+  {
+    "genre": "Jazz-Blues",
+    "subGenre": "Jazz Fusion",
+    "title": "Jazz-Rock Fusion",
+    "body": "Jazz fusion, complex time signatures (7/4, 5/4),\ndistorted guitar meets jazz harmony, electric bass slapping,\nsynthesizer layers, virtuosic soloing, Mahavishnu Orchestra vibe,\nBPM: Variable, Key: E Minor",
+    "useCase": "Technical showcases, progressive jazz, fusion energy",
+    "sunoVersion": "V5",
+    "energy": 9,
+    "notableFeature": "Complex rhythms and technical virtuosity",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/jazz-blues.md#jazz-rock-fusion"
+  },
+  {
+    "genre": "Jazz-Blues",
+    "subGenre": "Jazz Fusion",
+    "title": "Funk-Jazz Fusion",
+    "body": "Funk-jazz fusion, slapped bass groove, tight horns,\nRhodes electric piano, syncopated drums,\nHerbie Hancock \"Head Hunters\" vibe, danceable sophistication,\nBPM: 110, Key: F Minor",
+    "useCase": "Groovy jazz, funk crossover, sophisticated dance",
+    "sunoVersion": "V5",
+    "energy": 8,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/jazz-blues.md#funk-jazz-fusion"
+  },
+  {
+    "genre": "Jazz-Blues",
+    "subGenre": "Jazz Fusion",
+    "title": "Latin Jazz Fusion",
+    "body": "Latin jazz, Afro-Cuban rhythms, complex percussion,\nmontuno piano patterns, clave rhythm foundation,\nhorn section arrangements, salsa-jazz crossover,\nBPM: 130, Key: G Major",
+    "useCase": "Latin jazz, dance sophistication, world music fusion",
+    "sunoVersion": "V5",
+    "energy": 9,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/jazz-blues.md#latin-jazz-fusion"
+  },
+  {
+    "genre": "Jazz-Blues",
+    "subGenre": "Swing/Big Band",
+    "title": "Classic Big Band Swing",
+    "body": "Big band swing, full horn section, walking bass,\nshuffled swing rhythm, clarinet or sax lead,\nGlenn Miller/Count Basie era, vintage 1940s sound,\nBPM: 140, Key: Bb Major",
+    "useCase": "Vintage swing, dance halls, 1940s nostalgia",
+    "sunoVersion": "V5",
+    "energy": 8,
+    "notableFeature": "Authentic big band era sound",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/jazz-blues.md#classic-big-band-swing"
+  },
+  {
+    "genre": "Jazz-Blues",
+    "subGenre": "Swing/Big Band",
+    "title": "Modern Big Band",
+    "body": "Modern big band, contemporary arrangements,\ntight horn voicings, sophisticated harmony,\nGordon Goodwin style, powerful punch,\nBPM: 155, Key: C Major",
+    "useCase": "Contemporary jazz, big band festivals, modern swing",
+    "sunoVersion": "V5",
+    "energy": 9,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/jazz-blues.md#modern-big-band"
+  },
+  {
+    "genre": "Jazz-Blues",
+    "subGenre": "Swing/Big Band",
+    "title": "Gypsy Jazz",
+    "body": "Gypsy jazz (Django Reinhardt style), acoustic guitar lead,\nrapid tremolo picking, violin accompaniment,\nno drums, \"la pompe\" rhythm guitar,\nBPM: 200, Key: D Minor",
+    "useCase": "Vintage European jazz, acoustic showcases",
+    "sunoVersion": "V5",
+    "energy": 9,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/jazz-blues.md#gypsy-jazz"
+  },
+  {
+    "genre": "Jazz-Blues",
+    "subGenre": "Contemporary Jazz",
+    "title": "Neo-Soul Jazz",
+    "body": "Neo-soul jazz, hip-hop influenced drums,\nRhodes electric piano, jazz guitar, soulful sax,\nJ Dilla-influenced beat feel, Robert Glasper vibe,\nBPM: 88, Key: E Minor",
+    "useCase": "Contemporary jazz, neo-soul crossover, modern sound",
+    "sunoVersion": "V5",
+    "energy": 6,
+    "notableFeature": "Hip-hop + jazz fusion",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/jazz-blues.md#neo-soul-jazz"
+  },
+  {
+    "genre": "Jazz-Blues",
+    "subGenre": "Contemporary Jazz",
+    "title": "Ambient Jazz",
+    "body": "Ambient jazz, atmospheric soundscapes,\nsparse melodic elements, ECM Records aesthetic,\nslow contemplative tempo, Nordic jazz influence,\nBPM: 60, Key: A Minor",
+    "useCase": "Contemplative listening, art house, atmospheric jazz",
+    "sunoVersion": "V5",
+    "energy": 2,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/jazz-blues.md#ambient-jazz"
+  },
+  {
+    "genre": "Jazz-Blues",
+    "subGenre": "Contemporary Jazz",
+    "title": "Jazz-House Fusion",
+    "body": "Jazz-house, four-on-floor beat, jazz instrumentation,\ndeep house production, sophisticated club sound,\npiano house meets jazz harmony, dancefloor sophistication,\nBPM: 122, Key: G Minor",
+    "useCase": "Sophisticated club music, jazz club crossover",
+    "sunoVersion": "V5",
+    "energy": 8,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/jazz-blues.md#jazz-house-fusion"
+  },
+  {
+    "genre": "R&B-Soul",
+    "subGenre": "Modern Trap-Soul",
+    "title": "Trap-Soul Vibes",
+    "body": "Modern trap-soul, smooth R&B vocals over trap drums,\n808 bass slides, atmospheric pads, hi-hat rolls,\nintimate vocal delivery, reverb-soaked, lo-fi texture,\nBPM: 70 (half-time feel), Key: D Minor",
+    "useCase": "Modern R&B, streaming playlists, intimate vibes",
+    "sunoVersion": "V5",
+    "energy": 4,
+    "notableFeature": "Trap production meets smooth R&B vocals",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/rnb-soul.md#trap-soul-vibes"
+  },
+  {
+    "genre": "R&B-Soul",
+    "subGenre": "Modern Trap-Soul",
+    "title": "Alternative R&B Darkness",
+    "body": "Dark alternative R&B, moody atmospheric production,\n808 bass, sparse trap drums, reverb-heavy vocals,\nexperimental sound design, introspective lyrics mood,\nBPM: 75, Key: F# Minor",
+    "useCase": "Moody R&B, introspective content, alternative sound",
+    "sunoVersion": "V5",
     "energy": 3,
-    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/jazz-blues.md#smooth-jazz-ballad"
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/rnb-soul.md#alternative-rb-darkness"
+  },
+  {
+    "genre": "R&B-Soul",
+    "subGenre": "Modern Trap-Soul",
+    "title": "Upbeat Modern R&B",
+    "body": "Upbeat modern R&B, bouncy trap-influenced beat,\ncatchy vocal melodies, bright synths, rhythmic guitar,\npop-R&B crossover appeal, radio-friendly production,\nBPM: 110, Key: C Major",
+    "useCase": "Radio R&B, upbeat playlists, mainstream appeal",
+    "sunoVersion": "V5",
+    "energy": 7,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/rnb-soul.md#upbeat-modern-rb"
   },
   {
     "genre": "R&B-Soul",
@@ -139,6 +1156,57 @@
   },
   {
     "genre": "R&B-Soul",
+    "subGenre": "Classic Soul",
+    "title": "Southern Soul Ballad",
+    "body": "Southern soul ballad, emotional gospel-influenced vocals,\nHammond organ, gentle guitar, warm bass,\nchurch-inspired harmonies, raw emotional delivery,\nBPM: 68, Key: Eb Major",
+    "useCase": "Emotional ballads, gospel-soul crossover",
+    "sunoVersion": "Both",
+    "energy": 5,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/rnb-soul.md#southern-soul-ballad"
+  },
+  {
+    "genre": "R&B-Soul",
+    "subGenre": "Classic Soul",
+    "title": "70s Soul Groove",
+    "body": "70s soul groove, funky wah-wah guitar, tight horn section,\nslapped bass lines, vintage Rhodes piano, groovy drums,\nsophisticated arrangement, analog tape warmth,\nBPM: 105, Key: F Major",
+    "useCase": "Funk-soul crossover, groovy vibes, retro sound",
+    "sunoVersion": "V5",
+    "energy": 7,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/rnb-soul.md#70s-soul-groove"
+  },
+  {
+    "genre": "R&B-Soul",
+    "subGenre": "Neo-Soul",
+    "title": "90s Neo-Soul",
+    "body": "Neo-soul (D'Angelo/Erykah Badu style), live instrumentation feel,\njazz-influenced chords, hip-hop drum groove, Rhodes electric piano,\nconscious lyrics vibe, organic warmth, sophisticated production,\nBPM: 88, Key: E Minor",
+    "useCase": "Sophisticated R&B, conscious music, coffee shop vibes",
+    "sunoVersion": "V5",
+    "energy": 5,
+    "notableFeature": "Jazz + hip-hop + soul fusion",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/rnb-soul.md#90s-neo-soul"
+  },
+  {
+    "genre": "R&B-Soul",
+    "subGenre": "Neo-Soul",
+    "title": "Contemporary Neo-Soul",
+    "body": "Modern neo-soul, live drums with programmed elements,\njazzy guitar licks, warm Rhodes, soulful vocals,\nhip-hop influenced groove, organic instrumentation,\nBPM: 92, Key: A Minor",
+    "useCase": "Contemporary soul, sophisticated playlists",
+    "sunoVersion": "V5",
+    "energy": 6,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/rnb-soul.md#contemporary-neo-soul"
+  },
+  {
+    "genre": "R&B-Soul",
+    "subGenre": "Neo-Soul",
+    "title": "Neo-Soul Ballad",
+    "body": "Neo-soul ballad, intimate vocals, sparse arrangement,\nacoustic guitar fingerpicking, subtle strings,\nemotional vulnerability, raw authentic delivery,\nBPM: 72, Key: C Minor",
+    "useCase": "Emotional storytelling, intimate performances",
+    "sunoVersion": "Both",
+    "energy": 4,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/rnb-soul.md#neo-soul-ballad"
+  },
+  {
+    "genre": "R&B-Soul",
     "subGenre": "Quiet Storm",
     "title": "Smooth Quiet Storm",
     "body": "Quiet storm, silky smooth vocals, lush string arrangements,\ngentle Rhodes piano, soft brushed drums, romantic atmosphere,\nlate-night radio vibe, intimate production,\nBPM: 70, Key: Bb Major",
@@ -147,6 +1215,57 @@
     "energy": 3,
     "notableFeature": "Perfect for intimate romantic moments",
     "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/rnb-soul.md#smooth-quiet-storm"
+  },
+  {
+    "genre": "R&B-Soul",
+    "subGenre": "Quiet Storm",
+    "title": "Bedroom R&B",
+    "body": "Bedroom R&B, lo-fi production aesthetic, intimate whispered vocals,\nminimal instrumentation, reverb-soaked, vulnerable delivery,\nhomemade production charm, late-night confessional vibe,\nBPM: 65, Key: G Minor",
+    "useCase": "Intimate content, lo-fi R&B, vulnerable storytelling",
+    "sunoVersion": "V5",
+    "energy": 2,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/rnb-soul.md#bedroom-rb"
+  },
+  {
+    "genre": "R&B-Soul",
+    "subGenre": "Quiet Storm",
+    "title": "Sensual Slow Jam",
+    "body": "Sensual slow jam, seductive vocals, deep bass,\nsoft synth pads, gentle rhythm, romantic production,\nsultry atmosphere, bedroom mood lighting vibe,\nBPM: 60, Key: D Minor",
+    "useCase": "Romantic playlists, sensual vibes, slow dance",
+    "sunoVersion": "Both",
+    "energy": 3,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/rnb-soul.md#sensual-slow-jam"
+  },
+  {
+    "genre": "R&B-Soul",
+    "subGenre": "Alternative R&B",
+    "title": "Experimental Alternative R&B",
+    "body": "Experimental alt-R&B (FKA twigs/James Blake style),\nglitchy production, pitch-shifted vocals, unconventional structure,\natmospheric soundscapes, minimal beats, avant-garde approach,\nBPM: Variable, Key: A Minor",
+    "useCase": "Artistic R&B, experimental content, avant-garde",
+    "sunoVersion": "V5",
+    "energy": 4,
+    "notableFeature": "Unconventional structure and sound design",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/rnb-soul.md#experimental-alternative-rb"
+  },
+  {
+    "genre": "R&B-Soul",
+    "subGenre": "Alternative R&B",
+    "title": "Electronic R&B Fusion",
+    "body": "Electronic R&B fusion, synth-heavy production,\nauto-tuned vocals as instrument, EDM influences,\nfuturistic sound design, pop-R&B crossover,\nBPM: 128, Key: F Minor",
+    "useCase": "Modern electronic R&B, club-ready R&B",
+    "sunoVersion": "V5",
+    "energy": 7,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/rnb-soul.md#electronic-rb-fusion"
+  },
+  {
+    "genre": "R&B-Soul",
+    "subGenre": "Alternative R&B",
+    "title": "PBR&B (Alternative R&B)",
+    "body": "PBR&B, lo-fi aesthetic, indie-R&B crossover,\nbedroom production, vulnerable vocals, minimalist beats,\natmospheric soundscapes, introspective mood,\nBPM: 75, Key: E Minor",
+    "useCase": "Indie R&B, atmospheric content, vulnerable storytelling",
+    "sunoVersion": "V5",
+    "energy": 4,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/rnb-soul.md#pbrb-alternative-rb"
   },
   {
     "genre": "Country",
@@ -161,6 +1280,47 @@
   },
   {
     "genre": "Country",
+    "subGenre": "Modern Pop-Country",
+    "title": "Pop-Country Ballad",
+    "body": "Emotional country ballad, heartfelt vocals, piano + acoustic guitar,\nstrings swell on chorus, modern production with country soul,\nrelatable storytelling, radio-friendly structure,\nBPM: 75, Key: D Major",
+    "useCase": "Wedding songs, emotional storytelling, slow dance",
+    "sunoVersion": "Both",
+    "energy": 5,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/country.md#pop-country-ballad"
+  },
+  {
+    "genre": "Country",
+    "subGenre": "Modern Pop-Country",
+    "title": "Bro-Country Party",
+    "body": "Bro-country party anthem, hip-hop influenced beats, banjo + trap drums,\ntalk-singing verses, anthemic chorus, summer vibes,\ntailgate party energy, BPM: 110, Key: E Major",
+    "useCase": "Party songs, summer playlists, tailgate anthems",
+    "sunoVersion": "V5",
+    "energy": 9,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/country.md#bro-country-party"
+  },
+  {
+    "genre": "Country",
+    "subGenre": "Traditional Country",
+    "title": "Classic Nashville Sound",
+    "body": "Traditional country, steel guitar prominent, fiddle fills,\nwarm twangy vocals, walking bass line, vintage drum sound,\nauthentic Nashville production, storytelling lyrics focus,\nBPM: 100, Key: C Major",
+    "useCase": "Classic country tributes, authentic storytelling",
+    "sunoVersion": "V4.5 or V5",
+    "energy": 6,
+    "notableFeature": "Steel guitar defines the sound",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/country.md#classic-nashville-sound"
+  },
+  {
+    "genre": "Country",
+    "subGenre": "Traditional Country",
+    "title": "Honky-Tonk Spirit",
+    "body": "Honky-tonk country, barroom piano, steel guitar crying,\nupright bass, simple shuffle drums, raw authentic vocals,\nvintage tube amp warmth, drinking song energy,\nBPM: 120, Key: A Major",
+    "useCase": "Barroom anthems, drinking songs, classic vibes",
+    "sunoVersion": "V5",
+    "energy": 7,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/country.md#honky-tonk-spirit"
+  },
+  {
+    "genre": "Country",
     "subGenre": "Traditional Country",
     "title": "Country Waltz",
     "body": "Country waltz (3/4 time), pedal steel lead, acoustic guitar,\ngentle fiddle, romantic flowing melody, vintage production,\ndance hall atmosphere, BPM: 90 (3/4), Key: F Major",
@@ -169,5 +1329,78 @@
     "energy": 4,
     "notableFeature": "Classic 3/4 waltz time signature",
     "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/country.md#country-waltz"
+  },
+  {
+    "genre": "Country",
+    "subGenre": "Outlaw Country",
+    "title": "Outlaw Country Anthem",
+    "body": "Outlaw country, gruff weathered vocals, electric guitar-driven,\nrebellious attitude, vintage amp distortion, harmonica accents,\nWaylon/Willie vibe, raw authentic production,\nBPM: 110, Key: E Major",
+    "useCase": "Rebellious anthems, road trip songs, authentic grit",
+    "sunoVersion": "V4.5 or V5",
+    "energy": 8,
+    "notableFeature": "Raw, unpolished, authentic attitude",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/country.md#outlaw-country-anthem"
+  },
+  {
+    "genre": "Country",
+    "subGenre": "Outlaw Country",
+    "title": "Country Blues Fusion",
+    "body": "Country-blues hybrid, slide guitar prominent, blues harmonica,\nstorytelling vocals with grit, stripped-down production,\nrailroad rhythm, dusty road atmosphere,\nBPM: 85, Key: G Major",
+    "useCase": "Blues-country crossover, authentic storytelling",
+    "sunoVersion": "V5",
+    "energy": 5,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/country.md#country-blues-fusion"
+  },
+  {
+    "genre": "Country",
+    "subGenre": "Bluegrass",
+    "title": "Traditional Bluegrass",
+    "body": "Bluegrass string band, rapid banjo rolls, mandolin chop chords,\nfiddle lead breaks, upright bass walking, tight vocal harmonies,\nacoustic instruments only, virtuosic playing,\nBPM: 140, Key: G Major",
+    "useCase": "Acoustic showcases, traditional bluegrass festivals",
+    "sunoVersion": "V5",
+    "energy": 9,
+    "notableFeature": "Technical instrumental virtuosity",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/country.md#traditional-bluegrass"
+  },
+  {
+    "genre": "Country",
+    "subGenre": "Bluegrass",
+    "title": "Progressive Bluegrass",
+    "body": "Progressive bluegrass, traditional instruments with modern approach,\njazz-influenced chord progressions, complex arrangements,\ninnovative solos, tight ensemble playing,\nBPM: 135, Key: D Major",
+    "useCase": "Modern bluegrass, instrumental showcases",
+    "sunoVersion": "V5",
+    "energy": 8,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/country.md#progressive-bluegrass"
+  },
+  {
+    "genre": "Country",
+    "subGenre": "Bluegrass",
+    "title": "Bluegrass Gospel",
+    "body": "Bluegrass gospel, four-part harmony vocals, uplifting message,\nbanjo + mandolin + fiddle, traditional gospel structure,\nspirited energy, church revival atmosphere,\nBPM: 130, Key: C Major",
+    "useCase": "Gospel music, uplifting anthems, spiritual content",
+    "sunoVersion": "V5",
+    "energy": 8,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/country.md#bluegrass-gospel"
+  },
+  {
+    "genre": "Country",
+    "subGenre": "Country Rock",
+    "title": "Country-Rock Crossover",
+    "body": "Country rock fusion, crunchy electric guitars meet steel guitar,\nsouthern rock influence, powerful drums, anthemic vocals,\narena rock energy with country soul,\nBPM: 135, Key: E Major",
+    "useCase": "Stadium country, rock-country fusion, high energy",
+    "sunoVersion": "V5",
+    "energy": 9,
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/country.md#country-rock-crossover"
+  },
+  {
+    "genre": "Country",
+    "subGenre": "Country Rock",
+    "title": "Red Dirt Country",
+    "body": "Red Dirt country-rock, gritty Texas sound, electric guitar-driven,\nbar band energy, storytelling lyrics, roadhouse production,\nTelecaster twang meets rock attitude,\nBPM: 125, Key: A Major",
+    "useCase": "Texas country, authentic bar band sound",
+    "sunoVersion": "V5",
+    "energy": 8,
+    "notableFeature": "Gritty Texas bar band authenticity",
+    "sourceUrl": "https://github.com/naqashmunir21/awesome-suno-prompts/blob/main/prompts/country.md#red-dirt-country"
   }
 ]
