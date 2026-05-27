@@ -25,7 +25,7 @@ public partial class MainViewModel : ObservableObject
     public ObservableCollection<PromptDefinition> Prompts { get; } = new();
 
     [ObservableProperty] private string _searchText = string.Empty;
-    [ObservableProperty] private string _selectedCategory = "All";
+    [ObservableProperty] private string _selectedCategory = "Structure";
     [ObservableProperty] private IReadOnlyList<TagViewModel> _filteredTags = Array.Empty<TagViewModel>();
     [ObservableProperty] private string _previewText = string.Empty;
     [ObservableProperty] private string? _loadError;
@@ -52,7 +52,10 @@ public partial class MainViewModel : ObservableObject
         _allTags = tags;
         _allPrompts = prompts;
         Categories = BuildCategories(tags);
-        SelectedCategory = "All";
+        // v1.13 (B-SUNO-014): default to Structure category on app load so users see the most
+        // common section tags first. Error-state constructor below intentionally keeps "All"
+        // because its Categories list contains only "All".
+        SelectedCategory = "Structure";
         FilteredTags = ComputeFiltered();
         PromptGenres = BuildPromptGenres(prompts);
         RefreshPrompts();
