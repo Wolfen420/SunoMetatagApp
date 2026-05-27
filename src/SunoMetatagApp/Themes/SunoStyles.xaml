@@ -150,15 +150,17 @@
         risk (see wiki risks/focus-flip-stale-insert.md) re-emerges.
     -->
     <Style x:Key="SunoTagPill" TargetType="{x:Type Button}" BasedOn="{StaticResource SunoButton}">
-        <!-- Pinkish-purple (fuchsia) default fill per user direction 2026-05-26.
-             Was dark + accent-tint hover; now accent-filled by default with
-             lighter hover and deeper pressed states. -->
-        <Setter Property="Background" Value="{StaticResource SunoAccentPillBrush}" />
-        <!-- v1.10: pure white text for maximum contrast on the fuchsia background
-             (user feedback during v1.10 USER REVIEW). The picker-scoped dim DataTrigger
-             still overrides to SunoTextDisabledBrush when FocusedSection is null. -->
+        <!-- v1.12 (B-SUNO-010): Background/BorderBrush color-state parity with SunoPrimaryButton.
+             Base, hover, pressed, and focus colors now match the Add Section button. Foreground,
+             shape (RadiusPill 12), font size (Small 11), padding (8,4), and margin (2) are
+             intentionally divergent and retained as chip-specific functional state:
+               - Foreground: pure white (SunoTextOnPillBrush from v1.10) for maximum contrast on
+                 the purple Background; picker-scoped DataTrigger still overrides to
+                 SunoTextDisabledBrush when FocusedSection is null.
+               - Pill shape, small font, dense margin: preserves chip identity vs button identity. -->
+        <Setter Property="Background" Value="{StaticResource SunoAccentPrimaryBrush}" />
         <Setter Property="Foreground" Value="{StaticResource SunoTextOnPillBrush}" />
-        <Setter Property="BorderBrush" Value="{StaticResource SunoAccentPillBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource SunoAccentPrimaryBrush}" />
         <Setter Property="Padding" Value="8,4" />
         <Setter Property="FontSize" Value="{StaticResource SunoFontSizeSmall}" />
         <Setter Property="Margin" Value="2" />
@@ -183,12 +185,18 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource SunoAccentPillHoverBrush}" />
-                <Setter Property="BorderBrush" Value="{StaticResource SunoAccentPillHoverBrush}" />
+                <Setter Property="Background" Value="{StaticResource SunoAccentPrimaryTextBrush}" />
+                <Setter Property="BorderBrush" Value="{StaticResource SunoAccentPrimaryTextBrush}" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="{StaticResource SunoAccentPillPressedBrush}" />
-                <Setter Property="BorderBrush" Value="{StaticResource SunoAccentPillPressedBrush}" />
+                <Setter Property="Background" Value="{StaticResource SunoBorderStrongBrush}" />
+                <Setter Property="BorderBrush" Value="{StaticResource SunoBorderStrongBrush}" />
+            </Trigger>
+            <!-- v1.12: dormant inside the picker (picker-scoped Style sets Focusable=False)
+                 but active anywhere else SunoTagPill might be used. Matches SunoPrimaryButton. -->
+            <Trigger Property="IsKeyboardFocused" Value="True">
+                <Setter Property="BorderBrush" Value="{StaticResource SunoAccentPrimaryTextBrush}" />
+                <Setter Property="BorderThickness" Value="{StaticResource SunoBorderThicknessFocused}" />
             </Trigger>
         </Style.Triggers>
     </Style>
