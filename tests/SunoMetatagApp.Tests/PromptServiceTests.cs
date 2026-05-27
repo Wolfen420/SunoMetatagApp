@@ -6,10 +6,12 @@ using Xunit;
 
 namespace SunoMetatagApp.Tests;
 
-// v1.8 (B-SUNO-008a): content-coverage tests for the prompt library seed corpus.
+// v1.9 (B-SUNO-008b): content-coverage tests for the full curated prompt corpus.
 // Loads the production prompts.json from the test project's build output (copied
 // via project-reference to main project's CopyToOutput on prompts.json).
-// Spec: docs/specs/2026-05-27-suno-metatag-v1.8-prompt-library-mechanism.md S6.1.
+// Spec: docs/specs/2026-05-27-suno-metatag-v1.9-prompt-library-curation.md.
+// Per-genre minimum counts match decision-table source-distribution maxima
+// (0 SKIPs in B-SUNO-008b-decision-table.md).
 public class PromptServiceTests
 {
     private static IReadOnlyList<PromptDefinition> LoadProductionPromptsJson()
@@ -18,12 +20,13 @@ public class PromptServiceTests
         return PromptService.LoadAll(path);
     }
 
-    // P1 -- LoadAll returns 16 entries (2 per genre x 8 genres = 16 seed corpus).
+    // P1 -- LoadAll returns 136 entries (full v1.9 curated corpus; 136 ADD / 0 SKIP
+    //       per docs/reference/B-SUNO-008b-decision-table.md).
     [Fact]
-    public void P1_LoadAll_Returns16Entries()
+    public void P1_LoadAll_Returns136Entries()
     {
         var prompts = LoadProductionPromptsJson();
-        Assert.Equal(16, prompts.Count);
+        Assert.Equal(136, prompts.Count);
     }
 
     // P2 -- DistinctGenres returns the 8 source genres.
@@ -37,22 +40,35 @@ public class PromptServiceTests
         Assert.Equal(expected.OrderBy(g => g), genres.OrderBy(g => g));
     }
 
-    // P3 -- Each of the 8 genres has exactly 2 entries (2-per-genre distribution).
+    // P3 -- Each genre meets its per-genre minimum from the v1.9 decision table
+    //       (source-distribution maxima since 0 SKIPs in v1.9 curation).
+    //       Minimums: Pop 21, Rock 18, EDM 17, Hip-Hop 16, Indie 18, Jazz-Blues 18,
+    //       R&B-Soul 15, Country 13 (sum = 136).
     [Fact]
-    public void P3_EachGenreHasExactly2Entries()
+    public void P3_EachGenreMeetsPerGenreMinimum()
     {
         var prompts = LoadProductionPromptsJson();
-        var byGenre = prompts.GroupBy(p => p.Genre).ToList();
-        Assert.Equal(8, byGenre.Count);
-        foreach (var group in byGenre)
+        var expectedMin = new Dictionary<string, int>
         {
+            { "Pop", 21 },
+            { "Rock", 18 },
+            { "EDM", 17 },
+            { "Hip-Hop", 16 },
+            { "Indie", 18 },
+            { "Jazz-Blues", 18 },
+            { "R&B-Soul", 15 },
+            { "Country", 13 },
+        };
+        foreach (var (genre, min) in expectedMin)
+        {
+            var count = prompts.Count(p => p.Genre.Equals(genre, System.StringComparison.Ordinal));
             Assert.True(
-                group.Count() == 2,
-                $"Genre '{group.Key}' has {group.Count()} entries; expected 2.");
+                count >= min,
+                $"Genre '{genre}' has {count} entries; expected >= {min}.");
         }
     }
 
-    // P4 -- All 16 entries have unique Title (defense against duplicate-import bugs).
+    // P4 -- All 136 entries have unique Title (defense against duplicate-import bugs).
     [Fact]
     public void P4_AllTitlesUnique()
     {
@@ -85,7 +101,7 @@ public class PromptServiceTests
             $"Genre '{genre}' is missing a ballad/chill anchor (Energy <= 6 or null).");
     }
 
-    // P6 -- All 16 entries have non-empty Body field (required for copy-to-clipboard).
+    // P6 -- All entries have non-empty Body field (required for copy-to-clipboard).
     [Fact]
     public void P6_AllEntriesHaveNonEmptyBody()
     {
@@ -98,9 +114,9 @@ public class PromptServiceTests
         }
     }
 
-    // P7 -- Forward-compat fields (Tags, Difficulty) tolerated as null in seed
-    //       (no exception thrown by LoadAll). v1.8 seed leaves both null; v1.9
-    //       curation can populate without re-import.
+    // P7 -- Forward-compat fields (Tags, Difficulty) tolerated as null in corpus
+    //       (no exception thrown by LoadAll). v1.9 corpus leaves both null; future
+    //       cycles can populate without re-import.
     [Fact]
     public void P7_ForwardCompatFieldsTolerateNull()
     {
@@ -108,11 +124,35 @@ public class PromptServiceTests
         Assert.All(prompts, p =>
         {
             // Reading these properties on the loaded record must not throw.
-            // v1.8 seed deliberately leaves them null.
+            // v1.9 corpus deliberately leaves them null.
             _ = p.Tags;
             _ = p.Difficulty;
         });
-        // Confirm at least one entry has both null (seed contract).
+        // Confirm at least one entry has both null (corpus contract).
         Assert.Contains(prompts, p => p.Tags is null && p.Difficulty is null);
+    }
+
+    // P8 -- High-utility spot-check: five canonical entries from the v1.9 corpus
+    //       must be present by exact Title match. Defends against silent
+    //       re-import / parser regressions that would drop or rename entries.
+    //       All 5 entries verified as ADD rows in the v1.9 decision table.
+    [Fact]
+    public void P8_HighUtilityEntriesPresent()
+    {
+        var prompts = LoadProductionPromptsJson();
+        var requiredTitles = new[]
+        {
+            "Modern Pop Anthem (Female Vocals)",
+            "Epic Arena Anthem",
+            "Big Room House Anthem",
+            "Modern Trap Anthem",
+            "Classic Big Band Swing",
+        };
+        foreach (var title in requiredTitles)
+        {
+            Assert.True(
+                prompts.Any(p => p.Title.Equals(title, System.StringComparison.Ordinal)),
+                $"v1.9 corpus is missing required entry by Title: '{title}'.");
+        }
     }
 }

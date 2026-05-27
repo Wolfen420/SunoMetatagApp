@@ -63,7 +63,7 @@ Order of operations within T2:
          Assert.True(count >= min, $"Genre '{genre}' has {count} entries; expected >= {min}.");
      }
      ```
-   - P3 minimums adjust downward by any SKIP rows from the decision table (Lead will ratify the table at r1; planner default forecast is full source-distribution minimums).
+   - P3 minimums adjust downward by any SKIP rows from the decision table. Interim specialist checkpoint (post-T1, pre-T2) ratified the v1.9 decision table at `ADVISORY_OK_FOR_T2`; per-genre minimums = source-distribution maxima since 0 SKIPs landed.
 2. **Add new P8 [Fact]** asserting 5 high-utility entries are present:
    ```csharp
    [Fact]
