@@ -16,18 +16,33 @@
         d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="clr-namespace:SunoMetatagApp.Views"
         mc:Ignorable="d">
     <Window.Resources>
         <local:NullToCollapsedConverter x:Key="NullToCollapsedConverter" />
         <local:StringIsNotEmptyConverter x:Key="StringIsNotEmptyConverter" />
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Window.Resources>
-    <Grid Margin="8">
+    <DockPanel Margin="8">
+        <!-- Top toolbar: prompt browser toggle -->
+        <StackPanel DockPanel.Dock="Top"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="0,0,0,8">
+            <Button Style="{StaticResource SunoButton}"
+                    Content="Prompts"
+                    Command="{Binding TogglePromptBrowserCommand}"
+                    ToolTip="Open the curated prompt library" />
+        </StackPanel>
+
+        <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*" MinWidth="240" />
             <ColumnDefinition Width="6" />
             <ColumnDefinition Width="4*" MinWidth="360" />
             <ColumnDefinition Width="6" />
             <ColumnDefinition Width="3*" MinWidth="260" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
         <!-- Left: preview pane -->
@@ -266,5 +281,10 @@
                 </TextBlock>
             </Grid>
         </Grid>
-    </Grid>
+
+        <!-- Right-most: prompt library browser pane (default-hidden; toggled via top toolbar button) -->
+        <views:PromptBrowserPane Grid.Column="5"
+                                 Visibility="{Binding IsPromptBrowserVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        </Grid>
+    </DockPanel>
 </Window>

@@ -1,0 +1,196 @@
+<UserControl x:Class="SunoMetatagApp.Views.PromptBrowserPane"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:SunoMetatagApp.ViewModels"
+             xmlns:m="clr-namespace:SunoMetatagApp.Models"
+             xmlns:local="clr-namespace:SunoMetatagApp"
+             mc:Ignorable="d"
+             Background="{StaticResource SunoSurfaceBackgroundBrush}"
+             Foreground="{StaticResource SunoTextPrimaryBrush}"
+             FontFamily="{StaticResource SunoFontPrimary}"
+             FontSize="{StaticResource SunoFontSizeBody}"
+             Width="280"
+             d:DataContext="{d:DesignInstance Type=vm:MainViewModel}">
+    <UserControl.Resources>
+        <local:NullToCollapsedConverter x:Key="NullToCollapsedConverter" />
+        <local:StringIsNotEmptyConverter x:Key="StringIsNotEmptyConverter" />
+    </UserControl.Resources>
+
+    <Border BorderBrush="{StaticResource SunoBorderSubtleBrush}"
+            BorderThickness="1,0,0,0"
+            Padding="8">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <!-- header -->
+                <RowDefinition Height="Auto" />
+                <!-- genre filter -->
+                <RowDefinition Height="*" />
+                <!-- list -->
+                <RowDefinition Height="Auto" />
+                <!-- detail panel -->
+                <RowDefinition Height="Auto" />
+                <!-- attribution footer -->
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <DockPanel Grid.Row="0" Margin="0,0,0,8">
+                <Button DockPanel.Dock="Right"
+                        Style="{StaticResource SunoIconButton}"
+                        Content="×"
+                        FontWeight="Bold"
+                        ToolTip="Close prompt browser"
+                        Command="{Binding TogglePromptBrowserCommand}" />
+                <TextBlock Text="Prompts"
+                           FontSize="{StaticResource SunoFontSizeHeader}"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center"
+                           Foreground="{StaticResource SunoTextPrimaryBrush}" />
+            </DockPanel>
+
+            <!-- Genre filter -->
+            <ComboBox Grid.Row="1"
+                      Style="{StaticResource SunoComboBox}"
+                      ItemsSource="{Binding PromptGenres}"
+                      SelectedItem="{Binding SelectedPromptGenre}"
+                      Margin="0,0,0,8"
+                      ToolTip="Filter prompts by genre" />
+
+            <!-- Prompt list -->
+            <Border Grid.Row="2"
+                    BorderBrush="{StaticResource SunoBorderSubtleBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4"
+                    Margin="0,0,0,8">
+                <ListView ItemsSource="{Binding Prompts}"
+                          SelectedItem="{Binding SelectedPrompt}"
+                          Background="Transparent"
+                          Foreground="{StaticResource SunoTextPrimaryBrush}"
+                          BorderThickness="0"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          HorizontalContentAlignment="Stretch">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="Padding" Value="6,4" />
+                            <Setter Property="BorderThickness" Value="0,0,0,1" />
+                            <Setter Property="BorderBrush" Value="{StaticResource SunoBorderSubtleBrush}" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate DataType="{x:Type m:PromptDefinition}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" Orientation="Vertical">
+                                    <TextBlock Text="{Binding Title}"
+                                               FontWeight="SemiBold"
+                                               TextWrapping="Wrap"
+                                               Foreground="{StaticResource SunoTextPrimaryBrush}" />
+                                    <TextBlock Text="{Binding SubGenre}"
+                                               FontSize="11"
+                                               Foreground="{StaticResource SunoTextSecondaryBrush}"
+                                               TextWrapping="Wrap" />
+                                </StackPanel>
+                                <Border Grid.Column="1"
+                                        Visibility="{Binding Energy, Converter={StaticResource NullToCollapsedConverter}}"
+                                        Background="{StaticResource SunoAccentPrimarySoftBrush}"
+                                        CornerRadius="3"
+                                        Padding="4,1"
+                                        VerticalAlignment="Center">
+                                    <TextBlock FontSize="11"
+                                               Foreground="{StaticResource SunoTextPrimaryBrush}">
+                                        <Run Text="{Binding Energy, Mode=OneWay}" />
+                                        <Run Text="/10" />
+                                    </TextBlock>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Border>
+
+            <!-- Detail panel (visible only when a prompt is selected) -->
+            <Border Grid.Row="3"
+                    BorderBrush="{StaticResource SunoBorderSubtleBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4"
+                    Padding="8"
+                    Margin="0,0,0,8"
+                    Visibility="{Binding SelectedPrompt, Converter={StaticResource NullToCollapsedConverter}}">
+                <StackPanel>
+                    <TextBox Text="{Binding SelectedPrompt.Body, Mode=OneWay}"
+                             IsReadOnly="True"
+                             AcceptsReturn="True"
+                             TextWrapping="Wrap"
+                             FontFamily="{StaticResource SunoFontMono}"
+                             FontSize="12"
+                             Background="Transparent"
+                             Foreground="{StaticResource SunoTextPrimaryBrush}"
+                             BorderThickness="0"
+                             Padding="0"
+                             MaxHeight="180"
+                             VerticalScrollBarVisibility="Auto" />
+
+                    <TextBlock Margin="0,6,0,0"
+                               FontSize="11"
+                               Foreground="{StaticResource SunoTextSecondaryBrush}"
+                               TextWrapping="Wrap"
+                               Visibility="{Binding SelectedPrompt.UseCase, Converter={StaticResource NullToCollapsedConverter}}">
+                        <Run Text="Use Case:" FontWeight="SemiBold" />
+                        <Run Text="{Binding SelectedPrompt.UseCase, Mode=OneWay}" />
+                    </TextBlock>
+
+                    <TextBlock FontSize="11"
+                               Foreground="{StaticResource SunoTextSecondaryBrush}"
+                               TextWrapping="Wrap"
+                               Visibility="{Binding SelectedPrompt.SunoVersion, Converter={StaticResource NullToCollapsedConverter}}">
+                        <Run Text="Suno Version:" FontWeight="SemiBold" />
+                        <Run Text="{Binding SelectedPrompt.SunoVersion, Mode=OneWay}" />
+                    </TextBlock>
+
+                    <TextBlock FontSize="11"
+                               Foreground="{StaticResource SunoTextSecondaryBrush}"
+                               TextWrapping="Wrap"
+                               Visibility="{Binding SelectedPrompt.NotableFeature, Converter={StaticResource NullToCollapsedConverter}}">
+                        <Run Text="Notable:" FontWeight="SemiBold" />
+                        <Run Text="{Binding SelectedPrompt.NotableFeature, Mode=OneWay}" />
+                    </TextBlock>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                        <Button Style="{StaticResource SunoPrimaryButton}"
+                                Content="Copy"
+                                Command="{Binding CopyPromptBodyCommand}"
+                                CommandParameter="{Binding SelectedPrompt}"
+                                ToolTip="Copy the prompt body to the clipboard" />
+                        <TextBlock Text="{Binding PromptCopyStatus}"
+                                   Margin="8,0,0,0"
+                                   VerticalAlignment="Center"
+                                   Foreground="{StaticResource SunoAccentPrimaryBrush}"
+                                   FontWeight="SemiBold"
+                                   Visibility="{Binding PromptCopyStatus, Converter={StaticResource NullToCollapsedConverter}}" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Attribution footer -->
+            <TextBlock Grid.Row="4"
+                       FontSize="10"
+                       Foreground="{StaticResource SunoTextSecondaryBrush}"
+                       TextWrapping="Wrap">
+                <Run Text="Prompts from" />
+                <Hyperlink NavigateUri="https://github.com/naqashmunir21/awesome-suno-prompts"
+                           RequestNavigate="AttributionHyperlink_RequestNavigate"
+                           Foreground="{StaticResource SunoAccentPrimaryBrush}">
+                    awesome-suno-prompts
+                </Hyperlink>
+                <Run Text="(CC0)" />
+            </TextBlock>
+        </Grid>
+    </Border>
+</UserControl>

@@ -35,7 +35,7 @@ public partial class App : Application
         try
         {
             var tags = TagService.LoadAll(tagsPath);
-            vm = new MainViewModel(tags);
+            vm = new MainViewModel(tags, LoadedPrompts);
         }
         catch (TagLoadException ex)
         {

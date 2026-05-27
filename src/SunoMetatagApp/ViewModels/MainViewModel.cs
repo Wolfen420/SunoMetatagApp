@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SunoMetatagApp.Models;
@@ -14,9 +16,13 @@ namespace SunoMetatagApp.ViewModels;
 public partial class MainViewModel : ObservableObject
 {
     private readonly IReadOnlyList<TagDefinition> _allTags;
+    private readonly IReadOnlyList<PromptDefinition> _allPrompts;
+    private int _copyStatusToken;
 
     public ObservableCollection<Section> Sections { get; } = new();
     public IReadOnlyList<string> Categories { get; }
+    public IReadOnlyList<string> PromptGenres { get; }
+    public ObservableCollection<PromptDefinition> Prompts { get; } = new();
 
     [ObservableProperty] private string _searchText = string.Empty;
     [ObservableProperty] private string _selectedCategory = "All";
@@ -28,15 +34,28 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty] private int _focusedCaretPosition;
     [ObservableProperty] private int _focusedSelectionLength;
 
+    [ObservableProperty] private bool _isPromptBrowserVisible;
+    [ObservableProperty] private string _selectedPromptGenre = "All";
+    [ObservableProperty] private PromptDefinition? _selectedPrompt;
+    [ObservableProperty] private string? _promptCopyStatus;
+
     public event EventHandler? CopyRequested;
     public event EventHandler<int>? CaretRestoreRequested;
 
     public MainViewModel(IReadOnlyList<TagDefinition> tags)
+        : this(tags, GetLoadedPrompts())
+    {
+    }
+
+    public MainViewModel(IReadOnlyList<TagDefinition> tags, IReadOnlyList<PromptDefinition> prompts)
     {
         _allTags = tags;
+        _allPrompts = prompts;
         Categories = BuildCategories(tags);
         SelectedCategory = "All";
         FilteredTags = ComputeFiltered();
+        PromptGenres = BuildPromptGenres(prompts);
+        RefreshPrompts();
         Sections.CollectionChanged += OnSectionsChanged;
         AddSection();
     }
@@ -44,12 +63,22 @@ public partial class MainViewModel : ObservableObject
     public MainViewModel(string loadError)
     {
         _allTags = Array.Empty<TagDefinition>();
+        _allPrompts = GetLoadedPrompts();
         Categories = new[] { "All" };
         SelectedCategory = "All";
         FilteredTags = Array.Empty<TagViewModel>();
         LoadError = loadError;
+        PromptGenres = BuildPromptGenres(_allPrompts);
+        RefreshPrompts();
         Sections.CollectionChanged += OnSectionsChanged;
         AddSection();
+    }
+
+    private static IReadOnlyList<PromptDefinition> GetLoadedPrompts()
+    {
+        if (Application.Current is App app)
+            return App.LoadedPrompts;
+        return Array.Empty<PromptDefinition>();
     }
 
     [RelayCommand]
@@ -174,8 +203,45 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void CopyPreview() => CopyRequested?.Invoke(this, EventArgs.Empty);
 
+    [RelayCommand]
+    private void TogglePromptBrowser() => IsPromptBrowserVisible = !IsPromptBrowserVisible;
+
+    [RelayCommand]
+    private async Task CopyPromptBody(PromptDefinition? prompt)
+    {
+        if (prompt is null) return;
+
+        try
+        {
+            Clipboard.SetText(prompt.Body);
+            await SetCopyStatusAndClearAsync("Copied!");
+        }
+        catch
+        {
+            await SetCopyStatusAndClearAsync("Copy failed");
+        }
+    }
+
+    private async Task SetCopyStatusAndClearAsync(string status)
+    {
+        var token = ++_copyStatusToken;
+        PromptCopyStatus = status;
+        try
+        {
+            await Task.Delay(1500);
+        }
+        catch
+        {
+            return;
+        }
+        // only clear if no newer copy occurred in the meantime
+        if (_copyStatusToken == token)
+            PromptCopyStatus = null;
+    }
+
     partial void OnSearchTextChanged(string value) => FilteredTags = ComputeFiltered();
     partial void OnSelectedCategoryChanged(string value) => FilteredTags = ComputeFiltered();
+    partial void OnSelectedPromptGenreChanged(string value) => RefreshPrompts();
 
     private void OnSectionsChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
@@ -221,4 +287,23 @@ public partial class MainViewModel : ObservableObject
         TagService.Filter(_allTags, SearchText, SelectedCategory)
                   .Select(t => new TagViewModel(t))
                   .ToList();
+
+    private static IReadOnlyList<string> BuildPromptGenres(IEnumerable<PromptDefinition> prompts)
+    {
+        var distinct = PromptService.DistinctGenres(prompts);
+        var list = new List<string>(distinct.Count + 1) { "All" };
+        list.AddRange(distinct);
+        return list;
+    }
+
+    private void RefreshPrompts()
+    {
+        Prompts.Clear();
+        foreach (var p in PromptService.Filter(_allPrompts, SelectedPromptGenre))
+            Prompts.Add(p);
+
+        // if currently selected prompt is filtered out, clear selection
+        if (SelectedPrompt is { } sel && !Prompts.Contains(sel))
+            SelectedPrompt = null;
+    }
 }
