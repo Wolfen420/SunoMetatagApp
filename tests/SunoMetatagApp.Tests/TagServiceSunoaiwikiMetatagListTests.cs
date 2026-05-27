@@ -32,11 +32,13 @@ public class TagServiceSunoaiwikiMetatagListTests
     // H2 -- the 5 extended categories grew per plan. Per-category extension
     // verification (post-T1-Clapping-self-correction thresholds).
     [Theory]
-    [InlineData("Vocal", 45)]
-    [InlineData("Instrument", 36)]
-    [InlineData("Production", 6)]
+    [InlineData("Vocal", 48)]      // v1.15 baseline (45 v1.6 + 3 v1.15)
+    [InlineData("Instrument", 41)] // v1.15 baseline (36 v1.6 + 5 v1.15)
+    [InlineData("Production", 16)] // v1.15 baseline (6 v1.6 + 10 v1.15)
     [InlineData("SFX", 63)]
     [InlineData("Genre", 107)]
+    [InlineData("Mood", 34)]       // v1.15 extension (21 v1.14 + 13 v1.15) per r1 absorption #2
+    [InlineData("Effect", 27)]     // v1.15 extension (19 v1.14 + 8 v1.15) per r1 absorption #2
     public void H2_ExtendedCategoryCountsMet(string category, int expectedMin)
     {
         var tags = LoadProductionTagsJson();
@@ -86,8 +88,8 @@ public class TagServiceSunoaiwikiMetatagListTests
         }
     }
 
-    // H5 -- no bracket collisions across all 335 entries (extends v1.5 G5;
-    // post-v1.14 count = 331 v1.6 baseline + 4 v1.14 Verse 3-6 entries).
+    // H5 -- no bracket collisions across all 374 entries (extends v1.5 G5;
+    // post-v1.15 count = 331 v1.6 baseline + 4 v1.14 Verse 3-6 entries + 39 v1.15 Atlas Ideaverse).
     // This test catches the T1 Clapping collision that v1.4 C5 + v1.5 G5
     // also catch; redundant by design (defense in depth).
     [Fact]
@@ -134,5 +136,30 @@ public class TagServiceSunoaiwikiMetatagListTests
         var entry = tags.SingleOrDefault(t => t.Bracket == expectedBracket);
         Assert.NotNull(entry);
         Assert.Equal("Structure", entry!.Category);
+    }
+
+    // H8 -- v1.15 (B-SUNO-007b) Atlas Ideaverse metatag database curation:
+    // 39 ADD entries across 5 categories (Mood 13, Production 10, Effect 8,
+    // Instrument 5, Vocal 3). 5 InlineData cases sample each category; 5 more
+    // verify the borderline category decisions ratified at r1 (Ethereal/Intimate
+    // chosen Mood over Effect/Vocal; Emotional Climax chosen Effect over Structure;
+    // Gritty chosen Vocal over Production; Layered chosen Production over Vocal).
+    [Theory]
+    [InlineData("[Cynical]",          "Mood")]        // Mood representative
+    [InlineData("[Hi-Fi]",            "Production")]  // Production representative
+    [InlineData("[Heavy Reverb]",     "Effect")]      // Effect representative
+    [InlineData("[Saxophone]",        "Instrument")]  // Instrument representative
+    [InlineData("[Yodel]",            "Vocal")]       // Vocal representative
+    [InlineData("[Ethereal]",         "Mood")]        // Borderline (vs Effect)
+    [InlineData("[Intimate]",         "Mood")]        // Borderline (vs Vocal)
+    [InlineData("[Emotional Climax]", "Effect")]      // Borderline (vs Structure)
+    [InlineData("[Gritty]",           "Vocal")]       // Borderline (vs Production)
+    [InlineData("[Layered]",          "Production")]  // Borderline (vs Vocal)
+    public void H8_AtlasIdeaverseMetatagDatabase_PresentInExpectedCategory(string expectedBracket, string expectedCategory)
+    {
+        var tags = LoadProductionTagsJson();
+        var entry = tags.SingleOrDefault(t => t.Bracket == expectedBracket);
+        Assert.NotNull(entry);
+        Assert.Equal(expectedCategory, entry!.Category);
     }
 }
