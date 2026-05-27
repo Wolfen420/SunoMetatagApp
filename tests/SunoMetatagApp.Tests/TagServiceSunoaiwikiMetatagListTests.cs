@@ -86,7 +86,8 @@ public class TagServiceSunoaiwikiMetatagListTests
         }
     }
 
-    // H5 -- no bracket collisions across all 331 entries (extends v1.5 G5).
+    // H5 -- no bracket collisions across all 335 entries (extends v1.5 G5;
+    // post-v1.14 count = 331 v1.6 baseline + 4 v1.14 Verse 3-6 entries).
     // This test catches the T1 Clapping collision that v1.4 C5 + v1.5 G5
     // also catch; redundant by design (defense in depth).
     [Fact]
@@ -110,6 +111,24 @@ public class TagServiceSunoaiwikiMetatagListTests
     [InlineData("[Outro]")]
     [InlineData("[Verse]")]
     public void H6_StructuralSourceItems_PresentInStructure(string expectedBracket)
+    {
+        var tags = LoadProductionTagsJson();
+        var entry = tags.SingleOrDefault(t => t.Bracket == expectedBracket);
+        Assert.NotNull(entry);
+        Assert.Equal("Structure", entry!.Category);
+    }
+
+    // H7 -- v1.14 (B-SUNO-015) Verse-cluster extension: [Verse 3] through
+    // [Verse 6] added as Structure entries to match existing [Verse], [Verse 1],
+    // [Verse 2]. Mirrors H6 pattern for the new bracket set. Per v1.11 lexical
+    // sort, the cluster renders as [Verse 1] < [Verse 2] < [Verse 3] < ... <
+    // [Verse 6] < [Verse] in the picker (space < ']' in ordinal comparison).
+    [Theory]
+    [InlineData("[Verse 3]")]
+    [InlineData("[Verse 4]")]
+    [InlineData("[Verse 5]")]
+    [InlineData("[Verse 6]")]
+    public void H7_ExtendedVerseCluster_PresentInStructure(string expectedBracket)
     {
         var tags = LoadProductionTagsJson();
         var entry = tags.SingleOrDefault(t => t.Bracket == expectedBracket);
