@@ -24,6 +24,8 @@
     <Color x:Key="SunoTextPrimaryColor">#FFE5E5EB</Color>
     <Color x:Key="SunoTextSecondaryColor">#FF9A9AA8</Color>
     <Color x:Key="SunoTextDisabledColor">#FF5A5A66</Color>
+    <!-- Pill text — pure white for maximum contrast on the fuchsia pill background (user feedback v1.10 USER REVIEW). -->
+    <Color x:Key="SunoTextOnPillColor">#FFFFFFFF</Color>
     <Color x:Key="SunoErrorBgColor">#FF3A1A1A</Color>
     <Color x:Key="SunoErrorTextColor">#FFFCA5A5</Color>
 
@@ -43,6 +45,7 @@
     <SolidColorBrush x:Key="SunoTextPrimaryBrush" Color="{StaticResource SunoTextPrimaryColor}" />
     <SolidColorBrush x:Key="SunoTextSecondaryBrush" Color="{StaticResource SunoTextSecondaryColor}" />
     <SolidColorBrush x:Key="SunoTextDisabledBrush" Color="{StaticResource SunoTextDisabledColor}" />
+    <SolidColorBrush x:Key="SunoTextOnPillBrush" Color="{StaticResource SunoTextOnPillColor}" />
     <SolidColorBrush x:Key="SunoErrorBgBrush" Color="{StaticResource SunoErrorBgColor}" />
     <SolidColorBrush x:Key="SunoErrorTextBrush" Color="{StaticResource SunoErrorTextColor}" />
     <SolidColorBrush x:Key="SunoTransparentBrush" Color="Transparent" />
