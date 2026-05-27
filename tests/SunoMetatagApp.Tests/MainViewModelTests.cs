@@ -134,4 +134,32 @@ public class MainViewModelTests
         doomed.Lyrics = "should be ignored";
         Assert.Equal(before, vm.PreviewText);
     }
+
+    // V1 (v1.10 / B-SUNO-012): VM-level invariant relied on by the v1.10 picker-pane
+    // defer-clear guard in MainWindow.xaml.cs. InsertTag routes to MainViewModel.
+    // FocusedSection independently of any View-side keyboard-focus state — so when
+    // the v1.10 guard preserves FocusedSection across a focus transition into the
+    // tag-picker pane (SearchBox / Category ComboBox / pill grid), subsequent
+    // tag-pill clicks insert into the last-focused lyric textbox as the user expects.
+    // This test simulates the post-v1.10 path: FocusedSection set, then keyboard
+    // focus conceptually elsewhere (no View state to simulate; the VM contract is
+    // surface-agnostic), then InsertTag invoked.
+    [Fact]
+    public void V1_InsertTag_RoutesToFocusedSection_IndependentOfViewFocusState()
+    {
+        var vm = new MainViewModel(Sample);
+        var s = vm.Sections[0];
+        s.Lyrics = "before ";
+        vm.FocusedSection = s;
+        vm.FocusedCaretPosition = s.Lyrics.Length;
+        vm.FocusedSelectionLength = 0;
+
+        // Simulates the v1.10 path: user typed in section, then clicked SearchBox
+        // (in v1.9 this cleared FocusedSection; in v1.10 the picker-pane guard
+        // preserves it). VM doesn't know about View focus — InsertTag operates
+        // strictly on FocusedSection.
+        vm.InsertTagCommand.Execute(new TagViewModel(Sample[0])); // [Verse]
+        Assert.Equal("before [Verse]", s.Lyrics);
+        Assert.Equal("before ".Length + "[Verse]".Length, vm.FocusedCaretPosition);
+    }
 }
