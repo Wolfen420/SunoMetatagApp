@@ -42,12 +42,12 @@
   ```
 - Ensure tests reference production `tags.json` (copied to `AppContext.BaseDirectory` via project file's `<None Include>` copy directive — already set up in v1.4).
 - **T2 grep-recount discipline:** before committing, run `grep -c '"category": *"Genre"'` on `src/SunoMetatagApp/Resources/tags.json` and compare to decision-table grand-total. If off-by-N, file a hygiene commit (mirroring v1.4 `42c5a28`).
-- Run `dotnet test` — expect **59 tests green** (53 baseline + 6 new).
+- Run `dotnet test` — expect **70 tests green** (53 baseline + 5 [Fact] + 12 [Theory] inline rows for G3; the planner draft said 59 expecting G3 as a single [Fact], but G3 is data-driven so each search-term counts separately).
 - **Commit boundary:** secondary commit with new test file only.
   - Suggested message: `B-SUNO-006 / v1.5: 6 content-coverage tests for Genre taxonomy (G1-G6)`
 
 ### T3 — Test pass verification
-- `dotnet test --no-build` — confirm 59/59 green at the secondary-commit tip.
+- `dotnet test --no-build` — confirm 70/70 green at the secondary-commit tip.
 - If off-by-N caught at T2 grep-recount, this is where the hygiene commit lands (T2.5):
   - Update spec / plan / decision-table totals.
   - **Commit boundary:** tertiary hygiene commit.
@@ -95,7 +95,7 @@
 |---|---|---|
 | (working tree pre-T1) | spec + plan + decision-table + source untracked | `git status` shows 4 untracked .md files; build green |
 | **Primary (T1)** | `tags.json` + 4 doc artifacts | `dotnet build` green; `dotnet test` 53/53 green |
-| **Secondary (T2)** | New `TagServiceGenreTaxonomyTests.cs` | `dotnet test` 59/59 green |
+| **Secondary (T2)** | New `TagServiceGenreTaxonomyTests.cs` | `dotnet test` 70/70 green |
 | **Hygiene (T2.5, optional)** | spec + plan + decision-table totals if grep-recount finds off-by-N | `dotnet test` 59/59 still green; threshold `>= 70` Genre / `>= 270` total remains satisfied |
 
 ## Open r1 risks for Lead/Specialist review

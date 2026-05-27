@@ -112,7 +112,7 @@ Sub-totals per section; grand totals at file end. **T2 grep-recount discipline**
 1. **Source-of-truth file landed:** `docs/reference/suno-genre-source-2026-05-27.md` exists and is unmodified post-T0.
 2. **Decision table landed:** `docs/reference/B-SUNO-006-decision-table.md` exists with every source row adjudicated.
 3. **tags.json grown:** `Genre` category has at least the count claimed by decision-table grand-total; full file parses cleanly.
-4. **Content-coverage tests pass:** 6 new tests (G1-G6, see §7.1); existing 53 tests still pass; total `>= 59` green.
+4. **Content-coverage tests pass:** 6 new tests (G1-G6, see §7.1); existing 53 tests still pass; total `>= 70` green (G3 [Theory] expansion contributes 12 inline-data tests).
 5. **Build green:** `dotnet build` clean.
 6. **Publish smoke:** `publish/SunoMetatagApp.exe` rebuilt and launches without `JsonException` / `TagLoadException` / `XamlParseException`.
 7. **USER REVIEW PASS:** 8-case manual smoke matrix (see §7.2) returns 8/8 PASS.
@@ -145,7 +145,7 @@ New test file: `tests/SunoMetatagApp.Tests/TagServiceGenreTaxonomyTests.cs`.
 | **G5** | No `[...]` bracket collisions between Genre entries and existing 199 v1.4 entries. (Existing tags have NO genre overlap, so this is a regression guard against accidental rename in some other category landing in Genre's space.) | Mirrors v1.4 C5. |
 | **G6** | All 8 categories non-empty (`Structure`, `Vocal`, `Instrument`, `Mood`, `Effect`, `Production`, `SFX`, `Genre`). | Mirrors v1.4 C6 (extends to 8). |
 
-Existing 53 v1.4 tests **all still pass** (53/53 → 53/53 + 6 new = 59/59 expected).
+Existing 53 v1.4 tests **all still pass** (53/53 → 70/70 measured at T3; the planner draft projected 59 expecting G3 as a single [Fact], but G3 was implemented as a [Theory] with 12 inline data rows so each search-term assertion counts as its own test — better isolation, same coverage). Hygiene refresh applied at T2.5 (mirrors v1.4 `42c5a28` total-drift discipline).
 
 ### 7.2 USER REVIEW manual smoke matrix (S1-S8, single round target)
 
