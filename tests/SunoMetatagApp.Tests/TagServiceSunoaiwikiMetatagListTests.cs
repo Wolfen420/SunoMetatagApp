@@ -162,4 +162,36 @@ public class TagServiceSunoaiwikiMetatagListTests
         Assert.NotNull(entry);
         Assert.Equal(expectedCategory, entry!.Category);
     }
+
+    // v1.17 (B-026) — every entry in `category` has SortOrder == expectedSortOrder
+    // per the canonical mapping defined in docs/BACKLOG.md B-026 acceptance.
+    // Genre is intentionally omitted from the mapping and falls to 99 — see S2.
+    [Theory]
+    [InlineData("Structure",  1)]
+    [InlineData("Vocal",      2)]
+    [InlineData("Instrument", 3)]
+    [InlineData("Mood",       4)]
+    [InlineData("Effect",     5)]
+    [InlineData("SFX",        6)]
+    [InlineData("Production", 7)]
+    public void S1_SortOrder_PerCategory_MatchesCanonicalMapping(string category, int expectedSortOrder)
+    {
+        var tags = LoadProductionTagsJson();
+        var categoryTags = tags.Where(t => t.Category == category).ToList();
+        Assert.NotEmpty(categoryTags);
+        Assert.All(categoryTags, t => Assert.Equal(expectedSortOrder, t.SortOrder));
+    }
+
+    // v1.17 (B-026) — Genre category is intentionally omitted from the canonical
+    // mapping and falls to the default 99 (per BACKLOG: "default 99 when missing").
+    // Regression-gate against the carry-over correctly NOT assigning a sortOrder
+    // to Genre entries.
+    [Fact]
+    public void S2_SortOrder_GenreCategory_DefaultsTo99()
+    {
+        var tags = LoadProductionTagsJson();
+        var genreTags = tags.Where(t => t.Category == "Genre").ToList();
+        Assert.NotEmpty(genreTags);
+        Assert.All(genreTags, t => Assert.Equal(99, t.SortOrder));
+    }
 }

@@ -71,4 +71,24 @@ public class TagServiceTests
         var categories = TagService.DistinctCategories(tags);
         Assert.Equal(new[] { "Effect", "Structure", "Vocal" }, categories);
     }
+
+    // v1.17 (B-026) — when a JSON entry omits the sortOrder field entirely,
+    // LoadAll must default SortOrder to 99 (not 0 from System.Text.Json's int
+    // default). Verifies the int? + `?? 99` coalesce in TagDto + LoadAll.
+    [Fact]
+    public void S3_SortOrder_WhenJsonFieldAbsent_DefaultsTo99()
+    {
+        var path = WriteTempJson("""
+            [
+              { "category": "TestCat", "label": "L1", "bracket": "[L1]" }
+            ]
+            """);
+        try
+        {
+            var tags = TagService.LoadAll(path);
+            Assert.Single(tags);
+            Assert.Equal(99, tags[0].SortOrder);
+        }
+        finally { File.Delete(path); }
+    }
 }
