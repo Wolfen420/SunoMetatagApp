@@ -206,6 +206,14 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void CopyPreview() => CopyRequested?.Invoke(this, EventArgs.Empty);
 
+    // v1.16 (B-SUNO-013): clear the SearchText to dismiss the active search query
+    // without disturbing SelectedCategory or FocusedSection. The existing
+    // OnSearchTextChanged partial method (below) recomputes FilteredTags when
+    // SearchText changes — so this command needs no extra plumbing beyond
+    // assigning the property.
+    [RelayCommand]
+    private void ClearSearch() => SearchText = string.Empty;
+
     [RelayCommand]
     private void TogglePromptBrowser() => IsPromptBrowserVisible = !IsPromptBrowserVisible;
 

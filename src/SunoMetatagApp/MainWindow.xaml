@@ -172,6 +172,7 @@
                          Style="{StaticResource SunoTextBox}"
                          Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
                          Margin="0,0,0,4"
+                         Padding="10,4,32,4"
                          ToolTip="Search tags (case-insensitive)" />
                 <TextBlock IsHitTestVisible="False"
                            Text="Search tags…"
@@ -190,6 +191,31 @@
                         </Style>
                     </TextBlock.Style>
                 </TextBlock>
+                <!-- v1.16 (B-SUNO-013): inline clear (×) control. Visible only when SearchText
+                     is non-empty (inverse of placeholder visibility DataTrigger above).
+                     Focusable=False to preserve the v1.10 picker-pane focus-preservation
+                     guard. Style=SunoIconButton (MinWidth=28) reused for visual parity with
+                     the section toolbar; SearchBox Padding right=32 reserves the 28 DIP
+                     button width + 4 DIP right margin so input text does not underflow. -->
+                <Button Content="×"
+                        FontWeight="Bold"
+                        Focusable="False"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Margin="0,0,4,4"
+                        ToolTip="Clear search"
+                        Command="{Binding ClearSearchCommand}">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource SunoIconButton}">
+                            <Setter Property="Visibility" Value="Visible" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=SearchBox}" Value="">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
             </Grid>
 
             <!-- Category dropdown -->
