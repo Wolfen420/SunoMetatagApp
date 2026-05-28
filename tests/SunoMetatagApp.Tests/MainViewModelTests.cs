@@ -192,4 +192,58 @@ public class MainViewModelTests
         Assert.Single(vm.Categories);
         Assert.Equal("All", vm.Categories[0]);
     }
+
+    [Fact]
+    public void C1_ClearSearch_SetsSearchTextToEmpty()
+    {
+        // v1.16 (B-SUNO-013): ClearSearchCommand is a one-line property
+        // assignment; confirm it does set SearchText to "" regardless of
+        // starting value.
+        var vm = new MainViewModel(Sample);
+        vm.SearchText = "kpop";
+        Assert.Equal("kpop", vm.SearchText);
+
+        vm.ClearSearchCommand.Execute(null);
+
+        Assert.Equal(string.Empty, vm.SearchText);
+    }
+
+    [Fact]
+    public void C2_ClearSearch_PreservesSelectedCategory()
+    {
+        // v1.16 (B-SUNO-013): acceptance criterion — clearing search must NOT
+        // disturb the category filter. Set non-default category, then clear.
+        var vm = new MainViewModel(Sample);
+        vm.SelectedCategory = "Vocal";
+        vm.SearchText = "whisper";
+
+        vm.ClearSearchCommand.Execute(null);
+
+        Assert.Equal(string.Empty, vm.SearchText);
+        Assert.Equal("Vocal", vm.SelectedCategory);
+    }
+
+    [Fact]
+    public void C3_ClearSearch_AfterFilteredSearch_RestoresCategoryScopedTagList()
+    {
+        // v1.16 (B-SUNO-013): clearing the search after a search-narrowed
+        // FilteredTags should restore the category-only filtered list.
+        // Sample has 2 Structure ([Verse], [Chorus]) + 1 Vocal ([Whispered]).
+        // SelectedCategory defaults to "Structure" (v1.13). With SearchText="cho",
+        // only [Chorus] matches. After ClearSearch, both Structure tags return.
+        var vm = new MainViewModel(Sample);
+        Assert.Equal("Structure", vm.SelectedCategory);  // v1.13 default
+        Assert.Equal(2, vm.FilteredTags.Count);          // baseline
+
+        vm.SearchText = "cho";
+        Assert.Single(vm.FilteredTags);
+        Assert.Equal("[Chorus]", vm.FilteredTags[0].Bracket);
+
+        vm.ClearSearchCommand.Execute(null);
+
+        Assert.Equal(2, vm.FilteredTags.Count);
+        Assert.Contains(vm.FilteredTags, t => t.Bracket == "[Verse]");
+        Assert.Contains(vm.FilteredTags, t => t.Bracket == "[Chorus]");
+        Assert.DoesNotContain(vm.FilteredTags, t => t.Bracket == "[Whispered]");
+    }
 }
