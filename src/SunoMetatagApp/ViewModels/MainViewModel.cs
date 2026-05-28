@@ -23,6 +23,12 @@ public partial class MainViewModel : ObservableObject
     public IReadOnlyList<string> Categories { get; }
     public IReadOnlyList<string> PromptGenres { get; }
     public ObservableCollection<PromptDefinition> Prompts { get; } = new();
+    // v1.18 (B-025): hardcoded built-in song-structure templates exposed to
+    // the XAML Load Template ComboBox via ItemsSource binding. Source of truth
+    // is SongTemplates.BuiltIns; this property is just a stable surface for
+    // the View. User-defined templates persisted to
+    // %APPDATA%\SunoMetatagApp\templates.json explicitly deferred per BACKLOG Notes.
+    public IReadOnlyList<SongTemplate> BuiltInTemplates { get; } = SongTemplates.BuiltIns;
 
     [ObservableProperty] private string _searchText = string.Empty;
     [ObservableProperty] private string _selectedCategory = "Structure";
@@ -93,6 +99,24 @@ public partial class MainViewModel : ObservableObject
         if (section is null) return;
         if (Sections.Count <= 1) return;
         Sections.Remove(section);
+    }
+
+    // v1.18 (B-025): load a built-in song structure template into the section
+    // stack. The confirmation flow for the "non-empty lyrics will be lost" case
+    // is handled by the View-side TemplateComboBox_SelectionChanged code-behind
+    // handler (matches the existing DeleteSectionButton_Click + RemoveSectionCommand
+    // pattern); this VM command performs only the rebuild logic. Sections.Clear()
+    // bypasses RemoveSection's Count<=1 guard, which is anti-template-load.
+    [RelayCommand]
+    private void LoadTemplate(SongTemplate? template)
+    {
+        if (template is null || template.SectionTypes.Count == 0) return;
+        Sections.Clear();
+        foreach (var sectionType in template.SectionTypes)
+        {
+            AddSection();
+            Sections[^1].SectionType = sectionType;
+        }
     }
 
     [RelayCommand(CanExecute = nameof(CanMoveSectionUp))]

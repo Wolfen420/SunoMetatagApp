@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -222,5 +223,37 @@ public partial class MainWindow : Window
         {
             Clipboard.SetText(vm.LoadError);
         }
+    }
+
+    // v1.18 (B-025): Template ComboBox selection handler. Mirrors the
+    // DeleteSectionButton_Click pattern — confirm before destructive change
+    // when the user has existing lyrics, then invoke the VM command, then reset
+    // the ComboBox so the user can re-select the same template later. WPF
+    // SelectionChanged does not fire on same-item re-selection without a
+    // SelectedIndex=-1 reset between selections.
+    private void TemplateComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (sender is not ComboBox cb) return;
+        if (DataContext is not MainViewModel vm) return;
+        if (e.AddedItems.Count == 0) return;
+        if (e.AddedItems[0] is not SongTemplate template) return;
+
+        bool hasContent = vm.Sections.Any(s => !string.IsNullOrEmpty(s.Lyrics));
+        if (hasContent)
+        {
+            var result = MessageBox.Show(
+                $"Loading the \"{template.Name}\" template will clear your existing lyrics. Continue?",
+                "Confirm load template",
+                MessageBoxButton.OKCancel,
+                MessageBoxImage.Warning);
+            if (result != MessageBoxResult.OK)
+            {
+                cb.SelectedIndex = -1;
+                return;
+            }
+        }
+
+        vm.LoadTemplateCommand.Execute(template);
+        cb.SelectedIndex = -1;
     }
 }

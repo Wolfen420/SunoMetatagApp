@@ -77,6 +77,38 @@
 
         <!-- Middle: section stack -->
         <DockPanel Grid.Column="2" Margin="4">
+            <!-- v1.18 (B-025): Load Template ComboBox above the section stack with
+                 an overlay placeholder TextBlock "Load template…" mirroring the
+                 v1.16 search-box placeholder pattern (MainWindow.xaml line 176-192).
+                 SelectionChanged in code-behind applies confirmation when existing
+                 sections have non-empty Lyrics, then invokes LoadTemplateCommand
+                 and resets SelectedIndex to -1 so the user can re-select. -->
+            <Grid DockPanel.Dock="Top" Margin="0,0,0,8">
+                <ComboBox x:Name="TemplateComboBox"
+                          Style="{StaticResource SunoComboBox}"
+                          ItemsSource="{Binding BuiltInTemplates}"
+                          DisplayMemberPath="Name"
+                          SelectionChanged="TemplateComboBox_SelectionChanged"
+                          ToolTip="Load a built-in song structure template" />
+                <TextBlock IsHitTestVisible="False"
+                           Text="Load template…"
+                           Margin="10,0,0,0"
+                           VerticalAlignment="Center"
+                           Foreground="{StaticResource SunoTextSecondaryBrush}">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                            <Setter Property="Foreground" Value="{StaticResource SunoTextSecondaryBrush}" />
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedItem, ElementName=TemplateComboBox}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+
             <Button DockPanel.Dock="Bottom"
                     Style="{StaticResource SunoPrimaryButton}"
                     Content="+ Add section"
@@ -98,28 +130,48 @@
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
 
-                                    <!-- Toolbar row: ▲ ▼ × -->
-                                    <StackPanel Grid.Row="0" Orientation="Horizontal"
-                                                HorizontalAlignment="Right" Margin="0,0,0,4">
-                                        <Button Style="{StaticResource SunoIconButton}"
-                                                Content="▲"
-                                                Margin="0,0,3,0"
-                                                ToolTip="Move section up"
-                                                Command="{Binding DataContext.MoveSectionUpCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                                                CommandParameter="{Binding}" />
-                                        <Button Style="{StaticResource SunoIconButton}"
-                                                Content="▼"
-                                                Margin="0,0,3,0"
-                                                ToolTip="Move section down"
-                                                Command="{Binding DataContext.MoveSectionDownCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                                                CommandParameter="{Binding}" />
-                                        <Button Style="{StaticResource SunoIconButton}"
-                                                Content="×"
-                                                FontWeight="Bold"
-                                                ToolTip="Delete this section"
-                                                Click="DeleteSectionButton_Click"
-                                                CommandParameter="{Binding}" />
-                                    </StackPanel>
+                                    <!-- Toolbar row: SectionType label (left, v1.18) + ▲ ▼ × (right) -->
+                                    <DockPanel Grid.Row="0" Margin="0,0,0,4">
+                                        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                                            <Button Style="{StaticResource SunoIconButton}"
+                                                    Content="▲"
+                                                    Margin="0,0,3,0"
+                                                    ToolTip="Move section up"
+                                                    Command="{Binding DataContext.MoveSectionUpCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                    CommandParameter="{Binding}" />
+                                            <Button Style="{StaticResource SunoIconButton}"
+                                                    Content="▼"
+                                                    Margin="0,0,3,0"
+                                                    ToolTip="Move section down"
+                                                    Command="{Binding DataContext.MoveSectionDownCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                    CommandParameter="{Binding}" />
+                                            <Button Style="{StaticResource SunoIconButton}"
+                                                    Content="×"
+                                                    FontWeight="Bold"
+                                                    ToolTip="Delete this section"
+                                                    Click="DeleteSectionButton_Click"
+                                                    CommandParameter="{Binding}" />
+                                        </StackPanel>
+                                        <!-- v1.18 (B-025): SectionType label set by LoadTemplateCommand.
+                                             Visible only when SectionType is non-empty (DataTrigger
+                                             inverse of placeholder pattern). -->
+                                        <TextBlock Text="{Binding SectionType}"
+                                                   FontSize="{StaticResource SunoFontSizeSmall}"
+                                                   VerticalAlignment="Center"
+                                                   Margin="4,0,0,0">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                                    <Setter Property="Foreground" Value="{StaticResource SunoTextSecondaryBrush}" />
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding SectionType}" Value="">
+                                                            <Setter Property="Visibility" Value="Collapsed" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </DockPanel>
 
                                     <!-- Lyric textbox (focus events drive VM caret tracking) -->
                                     <TextBox Grid.Row="1"
