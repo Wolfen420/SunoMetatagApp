@@ -142,10 +142,11 @@
         <!-- Right: tag picker -->
         <Grid Grid.Column="4" Margin="4" x:Name="TagPickerPane">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />   <!-- 0: Error banner -->
+                <RowDefinition Height="Auto" />   <!-- 1: Search box -->
+                <RowDefinition Height="Auto" />   <!-- 2: Category dropdown -->
+                <RowDefinition Height="Auto" />   <!-- 3: v1.17 SortOrder guidance banner (visible when SelectedCategory="All") -->
+                <RowDefinition Height="*" />      <!-- 4: Pill grid (was Row 3 prior to v1.17) -->
             </Grid.RowDefinitions>
 
             <!-- Error banner -->
@@ -226,8 +227,33 @@
                       Margin="0,0,0,8"
                       ToolTip="Filter by category" />
 
+            <!-- v1.17 (B-026): canonical role sortOrder guidance banner. Visible only
+                 when SelectedCategory == "All" so the user sees the recommended
+                 left-to-right stacking sequence for [tag | tag | tag] composition.
+                 Read-only / hit-test-transparent; does not auto-reorder
+                 InsertTagStacked (explicitly deferred per backlog). -->
+            <TextBlock Grid.Row="3"
+                       Text="1 Structure  →  2 Vocal  →  3 Instrument  →  4 Mood  →  5 Effect  →  6 SFX  →  7 Production"
+                       FontSize="{StaticResource SunoFontSizeSmall}"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap"
+                       Margin="0,0,0,6"
+                       IsHitTestVisible="False">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                        <Setter Property="Foreground" Value="{StaticResource SunoTextSecondaryBrush}" />
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedCategory}" Value="All">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+
             <!-- Scrollable button grid + empty-state -->
-            <Grid Grid.Row="3">
+            <Grid Grid.Row="4">
                 <ScrollViewer x:Name="TagPickerScroll"
                               VerticalScrollBarVisibility="Auto"
                               HorizontalScrollBarVisibility="Disabled"

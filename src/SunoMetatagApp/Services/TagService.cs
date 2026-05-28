@@ -55,7 +55,7 @@ public static class TagService
             if (string.IsNullOrWhiteSpace(d.Bracket))
                 throw new TagLoadException($"tags.json entry {i}: missing required field 'bracket'.");
 
-            result.Add(new TagDefinition(d.Category!, d.Label!, d.Bracket!, d.Description));
+            result.Add(new TagDefinition(d.Category!, d.Label!, d.Bracket!, d.Description, d.SortOrder ?? 99));
         }
         return result;
     }
@@ -106,5 +106,10 @@ public static class TagService
         [JsonPropertyName("label")]       public string? Label { get; set; }
         [JsonPropertyName("bracket")]     public string? Bracket { get; set; }
         [JsonPropertyName("description")] public string? Description { get; set; }
+        // v1.17 (B-026): canonical role sortOrder (1 Structure, 2 Vocal, 3 Instrument,
+        // 4 Mood, 5 Effect, 6 SFX, 7 Production). Nullable so a missing JSON field
+        // coalesces to the 99 default at construction time (System.Text.Json would
+        // otherwise yield 0 for a non-nullable int).
+        [JsonPropertyName("sortOrder")]   public int? SortOrder { get; set; }
     }
 }
