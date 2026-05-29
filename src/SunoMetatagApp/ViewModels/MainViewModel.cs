@@ -221,6 +221,50 @@ public partial class MainViewModel : ObservableObject
         var insertText = " | " + innerName;
         section.Lyrics = lyrics.Insert(appendAt.Value, insertText);
 
+        // 3.7 (v1.19, B-027) auto-reorder bracket contents by canonical SortOrder.
+        // Activates the canonical left-to-right stacking sequence (Structure=1,
+        // Vocal=2, Instrument=3, Mood=4, Effect=5, SFX=6, Production=7) that
+        // v1.17 wired through TagDefinition.SortOrder but deferred per BACKLOG.
+        // Genre tokens (SortOrder=99 default) and unknown tokens (no matching
+        // TagDefinition by Label or Bracket-stripped) sort to the end. Stable
+        // OrderBy preserves user-typed order within same-SortOrder groups.
+        //
+        // Merge-target invariant: §3.5 inserted `insertText` at `appendAt.Value`
+        // which was the position of the existing ']' on the merge target. After
+        // the insert, the same ']' has shifted to index `appendAt.Value +
+        // insertText.Length` (= newCloseIdx). The matching '[' of THIS bracket
+        // is the closest '[' strictly to the left of newCloseIdx because §3.2
+        // and §3.3 guaranteed we found a complete `[...]` block containing
+        // appendAt — no intervening '[' or ']' on the same line between them.
+        // LastIndexOf('[', newCloseIdx - 1) therefore locates the correct '['.
+        {
+            var current = section.Lyrics;
+            int newCloseIdx = appendAt.Value + insertText.Length;
+            int newOpenIdx = current.LastIndexOf('[', newCloseIdx - 1);
+            if (newOpenIdx >= 0)
+            {
+                var content = current.Substring(newOpenIdx + 1, newCloseIdx - newOpenIdx - 1);
+                var tokens = content.Split('|')
+                                    .Select(t => t.Trim())
+                                    .Where(t => t.Length > 0)
+                                    .ToList();
+                int SortOrderOf(string token) =>
+                    _allTags.FirstOrDefault(t => string.Equals(t.Label, token, StringComparison.OrdinalIgnoreCase))?.SortOrder
+                    ?? _allTags.FirstOrDefault(t => string.Equals(t.Bracket.Trim('[', ']'), token, StringComparison.OrdinalIgnoreCase))?.SortOrder
+                    ?? 99;
+                var sorted = tokens.OrderBy(SortOrderOf).ToList();
+                if (!sorted.SequenceEqual(tokens, StringComparer.Ordinal))
+                {
+                    var rejoined = string.Join(" | ", sorted);
+                    section.Lyrics = current[..(newOpenIdx + 1)] + rejoined + current[newCloseIdx..];
+                    FocusedCaretPosition = newOpenIdx + 1 + rejoined.Length + 1;
+                    FocusedSelectionLength = 0;
+                    CaretRestoreRequested?.Invoke(this, FocusedCaretPosition);
+                    return;
+                }
+            }
+        }
+
         // 3.6 caret landing: position past the bracket's ']'
         FocusedCaretPosition = appendAt.Value + insertText.Length + 1;
         FocusedSelectionLength = 0;
