@@ -22,6 +22,17 @@
         <local:NullToCollapsedConverter x:Key="NullToCollapsedConverter" />
         <local:StringIsNotEmptyConverter x:Key="StringIsNotEmptyConverter" />
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <!-- v1.20 (B-028) — Lead absorption #2: VmProxy hops Bindings across
+             the ComboBox Popup boundary so per-item × buttons in the dropdown
+             can reach DeleteUserTemplateCommand on the Window's DataContext. -->
+        <views:BindingProxy x:Key="VmProxy" Data="{Binding}" />
+        <!-- v1.20 (B-028): grouped view of Templates by TemplateListItem.Group
+             ("Built-in Templates" / "My Templates") for the TemplateComboBox. -->
+        <CollectionViewSource x:Key="TemplatesView" Source="{Binding Templates}">
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="Group" />
+            </CollectionViewSource.GroupDescriptions>
+        </CollectionViewSource>
     </Window.Resources>
     <DockPanel Margin="8">
         <!-- Top toolbar: prompt browser toggle -->
@@ -77,37 +88,91 @@
 
         <!-- Middle: section stack -->
         <DockPanel Grid.Column="2" Margin="4">
-            <!-- v1.18 (B-025): Load Template ComboBox above the section stack with
-                 an overlay placeholder TextBlock "Load template…" mirroring the
-                 v1.16 search-box placeholder pattern (MainWindow.xaml line 176-192).
-                 SelectionChanged in code-behind applies confirmation when existing
-                 sections have non-empty Lyrics, then invokes LoadTemplateCommand
-                 and resets SelectedIndex to -1 so the user can re-select. -->
-            <Grid DockPanel.Dock="Top" Margin="0,0,0,8">
-                <ComboBox x:Name="TemplateComboBox"
-                          Style="{StaticResource SunoComboBox}"
-                          ItemsSource="{Binding BuiltInTemplates}"
-                          DisplayMemberPath="Name"
-                          SelectionChanged="TemplateComboBox_SelectionChanged"
-                          ToolTip="Load a built-in song structure template" />
-                <TextBlock IsHitTestVisible="False"
-                           Text="Load template…"
-                           Margin="10,0,0,0"
-                           VerticalAlignment="Center"
-                           Foreground="{StaticResource SunoTextSecondaryBrush}">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
-                            <Setter Property="Foreground" Value="{StaticResource SunoTextSecondaryBrush}" />
-                            <Setter Property="Visibility" Value="Collapsed" />
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding SelectedItem, ElementName=TemplateComboBox}" Value="{x:Null}">
-                                    <Setter Property="Visibility" Value="Visible" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
-            </Grid>
+            <!-- v1.18 (B-025) + v1.20 (B-028): Load Template + Save as Template…
+                 row above the section stack. v1.20 changes from v1.18:
+                 - ItemsSource retargeted from BuiltInTemplates to TemplatesView
+                   (grouped CollectionViewSource).
+                 - ComboBox.GroupStyle adds the two section headers.
+                 - ComboBox.ItemTemplate adds the per-item × delete affordance
+                   visible only on TemplateListItem.IsUserDefined=true via
+                   DataTrigger. × button binds DeleteUserTemplateCommand via
+                   VmProxy resource (Lead absorption #2).
+                 - DockPanel wraps the ComboBox + new SaveTemplateButton on the
+                   right. -->
+            <DockPanel DockPanel.Dock="Top" Margin="0,0,0,8" LastChildFill="True">
+                <Button DockPanel.Dock="Right"
+                        x:Name="SaveTemplateButton"
+                        Style="{StaticResource SunoButton}"
+                        Content="Save as Template…"
+                        Margin="8,0,0,0"
+                        Click="SaveTemplateButton_Click"
+                        ToolTip="Save the current section structure as a user-defined template" />
+                <Grid>
+                    <ComboBox x:Name="TemplateComboBox"
+                              Style="{StaticResource SunoComboBox}"
+                              ItemsSource="{Binding Source={StaticResource TemplatesView}}"
+                              SelectionChanged="TemplateComboBox_SelectionChanged"
+                              ToolTip="Load a built-in or user-defined song structure template">
+                        <ComboBox.GroupStyle>
+                            <GroupStyle>
+                                <GroupStyle.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}"
+                                                   FontSize="{StaticResource SunoFontSizeSmall}"
+                                                   FontWeight="SemiBold"
+                                                   Foreground="{StaticResource SunoTextSecondaryBrush}"
+                                                   Margin="6,6,6,2" />
+                                    </DataTemplate>
+                                </GroupStyle.HeaderTemplate>
+                            </GroupStyle>
+                        </ComboBox.GroupStyle>
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <DockPanel LastChildFill="True">
+                                    <Button DockPanel.Dock="Right"
+                                            Content="×"
+                                            FontWeight="Bold"
+                                            Padding="4,0"
+                                            Margin="8,0,0,0"
+                                            ToolTip="Delete this user template"
+                                            Command="{Binding Data.DeleteUserTemplateCommand, Source={StaticResource VmProxy}}"
+                                            CommandParameter="{Binding}"
+                                            PreviewMouseLeftButtonDown="DeleteUserTemplateButton_PreviewMouseLeftButtonDown">
+                                        <Button.Style>
+                                            <Style TargetType="Button" BasedOn="{StaticResource SunoIconButton}">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsUserDefined}" Value="True">
+                                                        <Setter Property="Visibility" Value="Visible" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                    <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
+                                </DockPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <TextBlock IsHitTestVisible="False"
+                               Text="Load template…"
+                               Margin="10,0,0,0"
+                               VerticalAlignment="Center"
+                               Foreground="{StaticResource SunoTextSecondaryBrush}">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                <Setter Property="Foreground" Value="{StaticResource SunoTextSecondaryBrush}" />
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SelectedItem, ElementName=TemplateComboBox}" Value="{x:Null}">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+            </DockPanel>
 
             <Button DockPanel.Dock="Bottom"
                     Style="{StaticResource SunoPrimaryButton}"

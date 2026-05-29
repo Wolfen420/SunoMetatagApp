@@ -17,18 +17,25 @@ public partial class MainViewModel : ObservableObject
 {
     private readonly IReadOnlyList<TagDefinition> _allTags;
     private readonly IReadOnlyList<PromptDefinition> _allPrompts;
+    private readonly UserTemplateService _userTemplateService;
     private int _copyStatusToken;
 
     public ObservableCollection<Section> Sections { get; } = new();
     public IReadOnlyList<string> Categories { get; }
     public IReadOnlyList<string> PromptGenres { get; }
     public ObservableCollection<PromptDefinition> Prompts { get; } = new();
-    // v1.18 (B-025): hardcoded built-in song-structure templates exposed to
-    // the XAML Load Template ComboBox via ItemsSource binding. Source of truth
-    // is SongTemplates.BuiltIns; this property is just a stable surface for
-    // the View. User-defined templates persisted to
-    // %APPDATA%\SunoMetatagApp\templates.json explicitly deferred per BACKLOG Notes.
+    // v1.18 (B-025): hardcoded built-in song-structure templates. Stable
+    // read-only surface; v1.20 (B-028) supplements this with the mutable
+    // UserTemplates collection persisted to %APPDATA%\SunoMetatagApp\templates.json.
     public IReadOnlyList<SongTemplate> BuiltInTemplates { get; } = SongTemplates.BuiltIns;
+    // v1.20 (B-028): user-defined song-structure templates loaded from and
+    // persisted to UserTemplateService. ObservableCollection so the combined
+    // Templates view rebuilds on add/remove.
+    public ObservableCollection<SongTemplate> UserTemplates { get; } = new();
+    // v1.20 (B-028): combined surface bound to the XAML TemplateComboBox.
+    // Built-ins first (IsUserDefined=false), then user templates (IsUserDefined=true);
+    // CollectionViewSource in XAML groups them by TemplateListItem.Group.
+    public ObservableCollection<TemplateListItem> Templates { get; } = new();
 
     [ObservableProperty] private string _searchText = string.Empty;
     [ObservableProperty] private string _selectedCategory = "Structure";
@@ -49,14 +56,26 @@ public partial class MainViewModel : ObservableObject
     public event EventHandler<int>? CaretRestoreRequested;
 
     public MainViewModel(IReadOnlyList<TagDefinition> tags)
-        : this(tags, GetLoadedPrompts())
+        : this(tags, GetLoadedPrompts(), null)
     {
     }
 
     public MainViewModel(IReadOnlyList<TagDefinition> tags, IReadOnlyList<PromptDefinition> prompts)
+        : this(tags, prompts, null)
+    {
+    }
+
+    // v1.20 (B-028): primary constructor accepts an optional UserTemplateService
+    // so tests can inject a temp-directory-backed instance. Production callers
+    // pass null and get UserTemplateService.CreateDefault() resolving to
+    // %APPDATA%\SunoMetatagApp\templates.json.
+    public MainViewModel(IReadOnlyList<TagDefinition> tags,
+                         IReadOnlyList<PromptDefinition> prompts,
+                         UserTemplateService? userTemplateService)
     {
         _allTags = tags;
         _allPrompts = prompts;
+        _userTemplateService = userTemplateService ?? UserTemplateService.CreateDefault();
         Categories = BuildCategories(tags);
         // v1.13 (B-SUNO-014): default to Structure category on app load so users see the most
         // common section tags first. Error-state constructor below intentionally keeps "All"
@@ -66,6 +85,9 @@ public partial class MainViewModel : ObservableObject
         PromptGenres = BuildPromptGenres(prompts);
         RefreshPrompts();
         Sections.CollectionChanged += OnSectionsChanged;
+        foreach (var t in _userTemplateService.LoadAll()) UserTemplates.Add(t);
+        UserTemplates.CollectionChanged += (_, _) => RebuildTemplatesCollection();
+        RebuildTemplatesCollection();
         AddSection();
     }
 
@@ -73,6 +95,7 @@ public partial class MainViewModel : ObservableObject
     {
         _allTags = Array.Empty<TagDefinition>();
         _allPrompts = GetLoadedPrompts();
+        _userTemplateService = UserTemplateService.CreateDefault();
         Categories = new[] { "All" };
         SelectedCategory = "All";
         FilteredTags = Array.Empty<TagViewModel>();
@@ -80,7 +103,19 @@ public partial class MainViewModel : ObservableObject
         PromptGenres = BuildPromptGenres(_allPrompts);
         RefreshPrompts();
         Sections.CollectionChanged += OnSectionsChanged;
+        // v1.20 (B-028): error-state constructor does not LoadAll() — keeps the
+        // error path fast and avoids file-I/O when the app already failed to
+        // load tags. UserTemplates remains empty; Templates shows only built-ins.
+        UserTemplates.CollectionChanged += (_, _) => RebuildTemplatesCollection();
+        RebuildTemplatesCollection();
         AddSection();
+    }
+
+    private void RebuildTemplatesCollection()
+    {
+        Templates.Clear();
+        foreach (var t in BuiltInTemplates) Templates.Add(new TemplateListItem(t, isUserDefined: false));
+        foreach (var t in UserTemplates) Templates.Add(new TemplateListItem(t, isUserDefined: true));
     }
 
     private static IReadOnlyList<PromptDefinition> GetLoadedPrompts()
@@ -107,6 +142,12 @@ public partial class MainViewModel : ObservableObject
     // handler (matches the existing DeleteSectionButton_Click + RemoveSectionCommand
     // pattern); this VM command performs only the rebuild logic. Sections.Clear()
     // bypasses RemoveSection's Count<=1 guard, which is anti-template-load.
+    //
+    // v1.20 (B-028, Lead absorption #3): signature kept as SongTemplate? to
+    // preserve v1.18 test fixtures unchanged. The XAML now binds to
+    // Templates : ObservableCollection<TemplateListItem>; the code-behind
+    // SelectionChanged handler extracts TemplateListItem.Template before
+    // invoking this command.
     [RelayCommand]
     private void LoadTemplate(SongTemplate? template)
     {
@@ -117,6 +158,43 @@ public partial class MainViewModel : ObservableObject
             AddSection();
             Sections[^1].SectionType = sectionType;
         }
+    }
+
+    // v1.20 (B-028): capture current Sections[*].SectionType non-empty values as
+    // a user-defined template, persist to UserTemplateService. Duplicate-name
+    // detection lives in the code-behind handler (MessageBox.Show confirmation
+    // pattern matching v1.18 DeleteSection). Empty-name and no-section-types
+    // cases are guarded here as defensive early returns.
+    [RelayCommand]
+    private void SaveCurrentAsTemplate(string? name)
+    {
+        if (string.IsNullOrWhiteSpace(name)) return;
+        var trimmed = name.Trim();
+        var sectionTypes = Sections
+            .Select(s => s.SectionType ?? string.Empty)
+            .Where(s => !string.IsNullOrWhiteSpace(s))
+            .ToList();
+        if (sectionTypes.Count == 0) return;
+
+        var existing = UserTemplates.FirstOrDefault(t =>
+            string.Equals(t.Name, trimmed, StringComparison.OrdinalIgnoreCase));
+        if (existing is not null) UserTemplates.Remove(existing);
+        UserTemplates.Add(new SongTemplate(trimmed, sectionTypes));
+        _userTemplateService.SaveAll(UserTemplates);
+    }
+
+    // v1.20 (B-028): delete a user-defined template. Built-in templates are NOT
+    // deletable — the IsUserDefined guard prevents accidental built-in removal
+    // even if a malformed call site supplied a built-in TemplateListItem.
+    // Persist after removal.
+    [RelayCommand]
+    private void DeleteUserTemplate(TemplateListItem? item)
+    {
+        if (item is null || !item.IsUserDefined) return;
+        var match = UserTemplates.FirstOrDefault(t => ReferenceEquals(t, item.Template));
+        if (match is null) return;
+        UserTemplates.Remove(match);
+        _userTemplateService.SaveAll(UserTemplates);
     }
 
     [RelayCommand(CanExecute = nameof(CanMoveSectionUp))]

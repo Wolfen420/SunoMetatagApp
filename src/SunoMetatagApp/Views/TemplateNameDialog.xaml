@@ -1,0 +1,52 @@
+<Window x:Class="SunoMetatagApp.Views.TemplateNameDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Save Template"
+        Width="380" Height="170"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False"
+        ResizeMode="NoResize"
+        Background="{StaticResource SunoSurfaceBackgroundBrush}"
+        Foreground="{StaticResource SunoTextPrimaryBrush}"
+        FontFamily="{StaticResource SunoFontPrimary}"
+        FontSize="{StaticResource SunoFontSizeBody}">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Text="Template name"
+                   Margin="0,0,0,4"
+                   Foreground="{StaticResource SunoTextSecondaryBrush}" />
+
+        <TextBox Grid.Row="1"
+                 x:Name="NameTextBox"
+                 Style="{StaticResource SunoTextBox}"
+                 Padding="10,4,10,4"
+                 KeyDown="NameTextBox_KeyDown"
+                 TextChanged="NameTextBox_TextChanged" />
+
+        <StackPanel Grid.Row="3"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="0,12,0,0">
+            <Button x:Name="CancelButton"
+                    Style="{StaticResource SunoButton}"
+                    Content="Cancel"
+                    Width="80"
+                    Margin="0,0,8,0"
+                    Click="CancelButton_Click" />
+            <Button x:Name="OkButton"
+                    Style="{StaticResource SunoPrimaryButton}"
+                    Content="OK"
+                    Width="80"
+                    IsEnabled="False"
+                    IsDefault="True"
+                    Click="OkButton_Click" />
+        </StackPanel>
+    </Grid>
+</Window>
