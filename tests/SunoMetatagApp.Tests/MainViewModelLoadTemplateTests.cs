@@ -1,14 +1,21 @@
+using System;
+using System.IO;
 using System.Linq;
 using SunoMetatagApp.Models;
+using SunoMetatagApp.Services;
 using SunoMetatagApp.ViewModels;
 using Xunit;
 
 namespace SunoMetatagApp.Tests;
 
-// v1.18 (B-025): LoadTemplate command coverage — built-in template surface,
-// per-template SectionTypes count, clear-and-rebuild flow, SectionType set in
-// template order, empty Lyrics after load, null no-op, second-load replacement,
-// and default-empty SectionType regression-gate for plain AddSection().
+// v1.18 (B-025) + v1.20 (B-028): LoadTemplate command coverage — built-in
+// template surface, per-template SectionTypes count, clear-and-rebuild flow,
+// SectionType set in template order, empty Lyrics after load, null no-op,
+// second-load replacement, and default-empty SectionType regression-gate for
+// plain AddSection(). v1.20 (B-028, Lead absorption #3) preserves the existing
+// LoadTemplate(SongTemplate?) signature; only the VM construction is updated
+// to inject a temp-path UserTemplateService so tests are isolated from
+// %APPDATA%\SunoMetatagApp\templates.json state on the test machine.
 public class MainViewModelLoadTemplateTests
 {
     private static readonly TagDefinition[] Sample =
@@ -16,11 +23,21 @@ public class MainViewModelLoadTemplateTests
         new("Structure", "Verse", "[Verse]"),
     };
 
+    // v1.20 (B-028): inject a UserTemplateService pointing into a unique temp
+    // path so MainViewModel construction does not LoadAll() from a real user
+    // templates.json on the test machine.
+    private static MainViewModel CreateVm()
+    {
+        var tempPath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString(), "templates.json");
+        var svc = new UserTemplateService(tempPath);
+        return new MainViewModel(Sample, Array.Empty<PromptDefinition>(), svc);
+    }
+
     // T1: BuiltInTemplates exposes the 4 hardcoded templates with expected names.
     [Fact]
     public void T1_BuiltInTemplates_ContainsFourExpectedNames()
     {
-        var vm = new MainViewModel(Sample);
+        var vm = CreateVm();
         var names = vm.BuiltInTemplates.Select(t => t.Name).ToList();
         Assert.Equal(4, names.Count);
         Assert.Contains("Standard Pop", names);
@@ -45,7 +62,7 @@ public class MainViewModelLoadTemplateTests
     [Fact]
     public void T3_LoadTemplate_ClearsAndRebuildsSectionStackToTemplateCount()
     {
-        var vm = new MainViewModel(Sample);
+        var vm = CreateVm();
         Assert.Single(vm.Sections);  // baseline from MainViewModel ctor
 
         var pop = SongTemplates.BuiltIns.Single(t => t.Name == "Standard Pop");
@@ -58,7 +75,7 @@ public class MainViewModelLoadTemplateTests
     [Fact]
     public void T4_LoadTemplate_SetsSectionTypeInTemplateOrder()
     {
-        var vm = new MainViewModel(Sample);
+        var vm = CreateVm();
         var ballad = SongTemplates.BuiltIns.Single(t => t.Name == "Simple Ballad");
         vm.LoadTemplateCommand.Execute(ballad);
 
@@ -72,7 +89,7 @@ public class MainViewModelLoadTemplateTests
     [Fact]
     public void T5_LoadTemplate_LeavesLyricsEmptyOnAllNewSections()
     {
-        var vm = new MainViewModel(Sample);
+        var vm = CreateVm();
         var pop = SongTemplates.BuiltIns.Single(t => t.Name == "Standard Pop");
         vm.LoadTemplateCommand.Execute(pop);
 
@@ -83,7 +100,7 @@ public class MainViewModelLoadTemplateTests
     [Fact]
     public void T6_LoadTemplate_WithNull_IsNoOp()
     {
-        var vm = new MainViewModel(Sample);
+        var vm = CreateVm();
         var before = vm.Sections.Count;
         vm.LoadTemplateCommand.Execute(null);
         Assert.Equal(before, vm.Sections.Count);
@@ -93,7 +110,7 @@ public class MainViewModelLoadTemplateTests
     [Fact]
     public void T7_LoadTemplate_SecondLoad_ReplacesFirstSections()
     {
-        var vm = new MainViewModel(Sample);
+        var vm = CreateVm();
         var pop = SongTemplates.BuiltIns.Single(t => t.Name == "Standard Pop");
         var hipHop = SongTemplates.BuiltIns.Single(t => t.Name == "Rap / Hip-Hop");
 
@@ -112,7 +129,7 @@ public class MainViewModelLoadTemplateTests
     [Fact]
     public void T8_AddSection_WithoutTemplate_SectionTypeIsEmpty()
     {
-        var vm = new MainViewModel(Sample);
+        var vm = CreateVm();
         Assert.Equal("", vm.Sections[0].SectionType);
         vm.AddSectionCommand.Execute(null);
         Assert.Equal("", vm.Sections[^1].SectionType);
