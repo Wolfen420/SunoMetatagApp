@@ -55,7 +55,9 @@ public static class TagService
             if (string.IsNullOrWhiteSpace(d.Bracket))
                 throw new TagLoadException($"tags.json entry {i}: missing required field 'bracket'.");
 
-            result.Add(new TagDefinition(d.Category!, d.Label!, d.Bracket!, d.Description, d.SortOrder ?? 99));
+            result.Add(new TagDefinition(
+                d.Category!, d.Label!, d.Bracket!,
+                d.Description, d.SortOrder ?? 99, d.Aliases));
         }
         return result;
     }
@@ -81,8 +83,22 @@ public static class TagService
             if (string.IsNullOrEmpty(search)) return true;
             var normalizedSearch = NormalizeForSearch(search);
             if (normalizedSearch.Length == 0) return true;
-            return NormalizeForSearch(t.Label).Contains(normalizedSearch, StringComparison.OrdinalIgnoreCase)
-                || NormalizeForSearch(t.Bracket).Contains(normalizedSearch, StringComparison.OrdinalIgnoreCase);
+            if (NormalizeForSearch(t.Label).Contains(normalizedSearch, StringComparison.OrdinalIgnoreCase)
+                || NormalizeForSearch(t.Bracket).Contains(normalizedSearch, StringComparison.OrdinalIgnoreCase))
+                return true;
+            // v1.21 (B-SUNO-007c): 3-tier match extension — lifts the v1.15 ALIAS
+            // deferral. Aliases default null → Array.Empty<string>() so non-aliased
+            // entries pay no allocation cost. NormalizeForSearch consistent with
+            // v1.7 (B-SUNO-009) hyphen/space-strip contract. Pill-LIST ordering
+            // (v1.11) is unaffected — alias is purely an inclusion path; sort key
+            // remains canonical Bracket.
+            var aliases = t.Aliases ?? Array.Empty<string>();
+            for (int i = 0; i < aliases.Count; i++)
+            {
+                if (NormalizeForSearch(aliases[i]).Contains(normalizedSearch, StringComparison.OrdinalIgnoreCase))
+                    return true;
+            }
+            return false;
         }
 
         // v1.11 (B-SUNO-011): alphabetical sort by raw Bracket text, case-insensitive ordinal.
@@ -111,5 +127,10 @@ public static class TagService
         // coalesces to the 99 default at construction time (System.Text.Json would
         // otherwise yield 0 for a non-nullable int).
         [JsonPropertyName("sortOrder")]   public int? SortOrder { get; set; }
+        // v1.21 (B-SUNO-007c): optional short-form aliases for v1.15-deferred ALIAS
+        // rows. Missing/null on most entries; populated on the 10 v1.15 canonical
+        // entries. Searched via 3-tier match in Filter.searchMatches; NOT used for
+        // insertion (pills always insert the canonical Bracket) or sort.
+        [JsonPropertyName("aliases")]     public List<string>? Aliases { get; set; }
     }
 }

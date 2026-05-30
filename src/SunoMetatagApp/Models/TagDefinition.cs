@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace SunoMetatagApp.Models;
 
 public sealed record TagDefinition(
@@ -5,4 +7,5 @@ public sealed record TagDefinition(
     string Label,
     string Bracket,
     string? Description = null,
-    int SortOrder = 99);
+    int SortOrder = 99,
+    IReadOnlyList<string>? Aliases = null);
